@@ -1,0 +1,19 @@
+.welcomePage {
+    text-align: center;
+    background-color: rgb(4, 194, 237);
+    font-size: 30px;
+    color: white;
+}
+
+.button {
+    background-color: yellow;
+    border: none;
+    color: black;
+    padding: 15px 89px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
