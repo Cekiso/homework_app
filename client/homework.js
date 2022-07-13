@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export default function moviesApp() {
+export default function homeworkApp() {
 
     return {
 
