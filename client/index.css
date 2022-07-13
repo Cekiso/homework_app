@@ -17,3 +17,8 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.options {
+    display: flex;
+    text-align: center;
+}
