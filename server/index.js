@@ -21,7 +21,6 @@ const config = {
     ssl: { rejectUnauthorized: false }
 };
 
-
 const pgp = PgPromise({});
 const db = pgp(config);
 // const db = pgp(DATABASE_URL);
