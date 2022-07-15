@@ -1,6 +1,5 @@
 # home-work
 
-## db username and password
 
 ## How to create your own branch
     cd homework_app
