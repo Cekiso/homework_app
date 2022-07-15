@@ -12,9 +12,10 @@ module.exports = function name(app, db) {
         try {
             const { subject } = req.body
 
-            const checkSubject = await db.oneOrNone('select add_subject from subject_table where subject = $1', [subject])
+            const checkSubject = await db.oneOrNone('select * from subject_table where add_subject= $1', [subject])
             if (checkSubject == null) {
-                await db.oneOrNone('insert into subject_table(add_subject) values $1')
+                // select add_subject from subject_table where  add_subject= $1
+                await db.oneOrNone('insert into subject_table(add_subject) values ($1)',[subject])
                 res.json({
                     status: 'added subject'
                 });
@@ -36,7 +37,7 @@ module.exports = function name(app, db) {
             const checkTopic = await db.oneOrNone('select topic from topic_table where topic = $1', [topic])
             
             if (checkTopic == null) {
-                await db.any('insert into topic_table(topic) values $1', [topic])
+                await db.any('insert into topic_table(topic) values ($1)', [topic])
                 res.json({
                     status: 'added topic'
                 });
@@ -56,7 +57,7 @@ module.exports = function name(app, db) {
         try {
             const { question } = req.body
 
-            await db.any('insert into questions_table(questions) values $1', [question])
+            await db.any('insert into questions_table(questions) values ($1)', [question])
             const getQuestionId = await db.manyOrOne('select id from questions_table where questions = $1', [question])
 
 
