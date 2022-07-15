@@ -488,7 +488,8 @@ body {
     padding: 10px 15px;
 }
 
-button {
+
+/* button {
     background-color: yellow;
     border: none;
     color: black;
@@ -499,7 +500,7 @@ button {
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
-}
+} */
 
 .Topics {
     text-align: center;
