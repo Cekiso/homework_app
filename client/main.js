@@ -1,6 +1,6 @@
 import './style.css'
 import './index.css'
-
+import './subject.css'
 import Alpine from 'alpinejs'
 
 import homeworkApp from './homework'
