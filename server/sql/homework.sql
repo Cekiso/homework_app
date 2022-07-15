@@ -14,7 +14,7 @@ create table subject_table(
 )
 
 create table topic_table(
-    id serial not null primary,
+    id serial not null primary key,
     topic text not null,
     subject_id int ,
     foreign key (subject_id) references subject_table(id)
