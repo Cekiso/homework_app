@@ -13,15 +13,7 @@
 <body>
     <div id="app"></div>
     <div x-data="homework">
-        <!-- <div class="row" x-show="showFavs">
-            <template x-for="favmovie in favs">
-              <div class="align-items-center col-4 mt-5 ">
-                <img :src="`https://image.tmdb.org/t/p/w500${favmovie.image}`" alt="Responsive image" />
-                <p x-text="favmovie.title"></p>
-                <button @click="moviename=favmovie.title,removeFav(),displayFavs()">Remove</button>
-              </div>
-            </template>
-          </div> -->
+
         <div x-show="addSubjectSection" class=" container ">
             <div class="row ">
                 <div class="col ">
@@ -31,12 +23,9 @@
                         <button @click="addSubject(),displaySubjects()">Add</button>
                         <div x-init="displaySubjects()"></div>
                         <hr><br>
-                            <template x-for="subject in subjectsList">
-                                <a x-text="subject.add_subject" @click="" href=" "></a>
-                            </template>
-                     
-                        <!-- <a x-model="addedSubject" href=" ">Maths</a> -->
-                      
+                        <template x-for="subject in subjectsList">
+                            <button class="subjects" x-text="subject.add_subject" @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()" href=" "></button>
+                        </template>
                     </div>
 
                 </div>
@@ -44,24 +33,28 @@
         </div>
 
         <hr>
-        <!-- <div x-show="topicSsection" class="conteiner ">
+        <div class="container" x-show="topicSection">
             <div class="row ">
                 <div class="col ">
                     <div id="homework ">
-                        <h2>HomeWork</h2>
-                        <h3>Mathematics</h3><br>
-
-                        <a x-model="" href="">Addition</a>
+                        <!-- <h2>HomeWork</h2> -->
+                        <h3 x-text="subjectname"></h3><br>
+                        <h2>Add Topic</h2>
+                        <input x-model="addedTopic" type="text " name=" " href=" " id=" " placeholder="add topic ">
+                        <button @click="addTopics(),displayTopics()">Add</button>
+                        <hr><br>
+                        <template x-for="topic in topicsList">
+                            <button class="subjects" x-text="topic.topic" @click="topicname=topic.topic,addQuestionSection=true,topicSection=false" href=" "></button>
+                        </template>
+                        <!-- <a href="">Addition</a>
                         <br><br>
-                        <a x-model="" href="">Subtraction</a>
+                        <a href="">Subtraction</a> -->
                     </div>
-
-
                 </div>
             </div>
-        </div> -->
+        </div>
         <hr>
-        <!-- <div x-show="addQuestionSection" class="container">
+        <div x-show="addQuestionSection" class="container">
             <div class="d-flex justify-content-center ">
                 topic name- needs to get topic from table
                 <h1>Addition</h1>
@@ -96,7 +89,7 @@
                             Default radio
                         </label>
                     </div>
-                    <div class="form-check ">
+                    <div class="form-check">
                         <input class="form-check-input " type="radio " name="flexRadioDefault " id="flexRadioDefault2 "
                             checked>
                         <label class="form-check-label " for="flexRadioDefault2 ">
@@ -109,7 +102,7 @@
                 <button type="button " class="btn m-1 text-primary ">Cancel</button>
                 <button type="button " class="btn m-1 btn-primary ">Create</button>
             </div>
-        </div> -->
+        </div>
     </div>
     <script type="module" src="/main.js "></script>
 </body>
