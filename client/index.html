@@ -18,9 +18,10 @@
             <div class="row ">
                 <div class="col ">
                     <div id="subject ">
-                        <h2>Add Subject</h2>
+                        <h2>Add A Subject</h2>
+                        <label for="addedSubject">Subject:</label>
                         <input x-model="addedSubject" type="text " name=" " href=" " id=" " placeholder="add subject ">
-                        <button @click="addSubject(),displaySubjects()">Add</button>
+                        <button class="subjects" @click="addSubject(),displaySubjects()">Add</button>
                         <div x-init="displaySubjects()"></div>
                         <hr><br>
                         <template x-for="subject in subjectsList">
@@ -37,10 +38,11 @@
                 <div class="col ">
                     <div id="homework ">
                         <!-- <h2>HomeWork</h2> -->
-                        <h3 x-text="subjectname"></h3><br>
-                        <h2>Add Topic</h2>
+                        <h3 x-text="subjectname">Subject:</h3>
+                        <h2>Add A Topic</h2>
+                        <label for="addedTopic">Topic:</label>
                         <input x-model="addedTopic" type="text " name=" " href=" " id=" " placeholder="add topic ">
-                        <button @click="addTopics(),displayTopics()">Add</button>
+                        <button class="subjects" @click="addTopics(),displayTopics()">Add</button>
                         <hr><br>
                         <template x-for="topic in topicsList">
                             <button class="subjects" x-text="topic.topic" @click="topicname=topic.topic,addQuestionSection=true,topicSection=false" href=" "></button>
