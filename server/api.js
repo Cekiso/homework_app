@@ -16,20 +16,22 @@ module.exports = function name(app, db) {
     app.post('/api/addSubjects', async function (req, res) {
         try {
             const { subject } = req.body
-            const checkSubject = await db.oneOrNone('select * from subject_table where add_subject= $1', [subject])
+            const checkSubject = await db.oneOrNone('select add_subject from subject_table where add_subject= $1', [subject])
          
             if (checkSubject == null) {
-                await db.oneOrNone('insert into subject_table(add_subject) values ($1)', [subject])
+                await db.none('insert into subject_table(add_subject) values ($1)', [subject])
                 // let getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1',[subject])
                 // console.log('ggggg '+ getSubjectId);
                 res.json({
-                    status: 'added subject',
+                    status: 'sucessful',
+                    data: "subject added successfully"
                     // id: getSubjectId.id
                 });
             }
             else {
                 res.json({
-                    status: 'subject already added'
+                    status: 'failure',
+                    data: "subject already added"
                 });
             }
         } catch (error) {
@@ -58,7 +60,7 @@ module.exports = function name(app, db) {
             // console.log('id '+ getSubjectId)
             const checkTopic = await db.oneOrNone('select topic from topic_table where topic = $1', [topic])
             if (checkTopic == null) {
-                await db.any('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
+                await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
                 res.json({
                     status: 'added topic'
                 });
@@ -76,7 +78,7 @@ module.exports = function name(app, db) {
         try {
             const { question } = req.body
             await db.any('insert into questions_table(questions) values ($1)', [question])
-            const getQuestionId = await db.manyOrOne('select id from questions_table where questions = $1', [question])
+            const getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question])
             res.json({
                 status: 'added question',
                 questionId: getQuestionId.id
