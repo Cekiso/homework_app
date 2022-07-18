@@ -1,1 +1,1 @@
-git subtree push --prefix server heroku main
+git subtree push --prefix server heroku master
