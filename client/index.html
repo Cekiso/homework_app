@@ -21,11 +21,11 @@
                         <h2>Add A Subject</h2>
                         <label for="addedSubject">Subject:</label>
                         <input x-model="addedSubject" type="text " name=" " href=" " id=" " placeholder="add subject ">
-                        <button class="subjects" @click="addSubject(),displaySubjects()">Add</button>
+                        <button class="btn mt-1 btn-outline-primary " @click="addSubject(),displaySubjects()">Add</button>
                         <div x-init="displaySubjects()"></div>
                         <hr><br>
                         <template x-for="subject in subjectsList">
-                            <button class="subjects" x-text="subject.add_subject" @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()" href=" "></button>
+                            <button class="btn mt-1 btn-outline-primary mr-2 " x-text="subject.add_subject" @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()" href=" "></button>
                         </template>
                     </div>
 
@@ -38,14 +38,16 @@
                 <div class="col ">
                     <div id="homework ">
                         <!-- <h2>HomeWork</h2> -->
-                        <h3 x-text="subjectname">Subject:</h3>
+                        <h3>Subject Title:
+                     <span x-text="subjectname"></span>
+                    </h3>
                         <h2>Add A Topic</h2>
                         <label for="addedTopic">Topic:</label>
-                        <input x-model="addedTopic" type="text " name=" " href=" " id=" " placeholder="add topic ">
-                        <button class="subjects" @click="addTopics(),displayTopics()">Add</button>
+                        <input class="input" x-model="addedTopic" type="text " name=" " href=" " id=" " placeholder="add topic ">
+                        <button class="btn mt-1 btn-outline-primary " @click="addTopics(),displayTopics()">Add</button>
                         <hr><br>
                         <template x-for="topic in topicsList">
-                            <button class="subjects" x-text="topic.topic" @click="topicname=topic.topic,addQuestionSection=true,topicSection=false" href=" "></button>
+                            <button class="btn mt-1 btn-outline-primary mr-2 " x-text="topic.topic" @click="topicname=topic.topic,addQuestionSection=true,topicSection=false" href=" "></button>
                         </template>
                         <!-- <a href="">Addition</a>
                         <br><br>
