@@ -1,10 +1,9 @@
 import './style.css'
 import './index.css'
-
 import Alpine from 'alpinejs'
 
 import homeworkApp from './homework'
-Alpine.data('enterOpen', homeworkApp)
+Alpine.data('homework', homeworkApp)
 
 window.Alpine = Alpine
 

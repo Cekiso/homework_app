@@ -461,6 +461,14 @@ body {
     color: white;
 }
 
+.subjects{
+    border: 2px solid red;
+    background-color: wheat;
+    /* border-radius: 10px; */
+    padding: 6px 15px;
+    margin: 14px;
+}
+
 .button {
     background-color: yellow;
     border: none;
