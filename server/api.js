@@ -20,12 +20,9 @@ module.exports = function name(app, db) {
 
             if (checkSubject == null) {
                 await db.none('insert into subject_table(add_subject) values ($1)', [subject])
-                // let getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1',[subject])
-                // console.log('ggggg '+ getSubjectId);
                 res.json({
                     status: 'successful',
                     data: "subject added successfully"
-                    // id: getSubjectId.id
                 });
             }
             else {
@@ -59,9 +56,8 @@ module.exports = function name(app, db) {
         try {
             const { subject, topic } = req.body
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject= $1', [subject])
-            console.log('id ' + JSON.stringify(getSubjectId))
-            // console.log('id '+ getSubjectId)
             const checkTopic = await db.oneOrNone('select topic from topic_table where topic = $1', [topic])
+            
             if (checkTopic == null) {
                 await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
                 res.json({
@@ -71,7 +67,8 @@ module.exports = function name(app, db) {
             }
             else {
                 res.json({
-                    status: 'failure'
+                    status: 'failure',
+                    data: 'already added topic'
                 });
             }
         } catch (error) {
