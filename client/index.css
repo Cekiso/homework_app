@@ -548,7 +548,7 @@ h3 {
     margin: 14px 15px;
 }
 
-a {
+.a {
     border: 2px solid red;
     background-color: wheat;
     /* border-radius: 10px; */
@@ -557,4 +557,8 @@ a {
 }
 .container{
     text-align: center;
+}
+.addinput{
+    width: 44%;
+    
 }
