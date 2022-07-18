@@ -8,7 +8,6 @@ const API = require('./api.js')
 app.use(express.json())
 app.use(cors())
 
-
 const DATABASE_URL = process.env.DATABASE_URL;
 const config = {
     connectionString: DATABASE_URL
@@ -21,22 +20,13 @@ if (process.env.NODE_ENV == 'production') {
 const pgp = PgPromise({});
 const db = pgp(DATABASE_URL);
 
-
-
-
-
-
-
-
-
-
 API(app, db);
 
 
 let PORT = process.env.PORT;
 // console.log(PORT);
 
-app.listen(PORT, function () {
+app.listen(PORT, function() {
     console.log('App starting on port', PORT);
 })
 
