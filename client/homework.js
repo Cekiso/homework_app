@@ -3,49 +3,86 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-        user: null,
-        username: null,
-        passwordReg: null,
-        name: null,
-        surname: null,
-        password: null,
-        hello: null,
-        open: false,
-        hide: true,
-        loginError: '',
-        movieName: null,
-        movies: [],
-        showError: false,
-        hide: false,
-        loginSection: false,
-        registerSection: true,
-        description: null,
-        image: null,
-        moviename: null,
-        userid: null,
-        favs: [],
-        showFavs: false,
-        showSearchResults: false,
-        registerMessage:false,
-        message: null,
-        success:false,
-
-        addSubjects() {
         
-            const subject = this.subjectname
-    
+        addedSubject: null,
+        addedTopic:null,
+        addSubjectSection: true,
+        topicSection:false,
+        subjectsList: [],
+        subjectname:null,
+        topicsList:[],
+        topicname:null,
+        addQuestionSection:false,
+
+
+        addSubject() {
+            console.log('checking subject' + this.addedSubject)
+
+            const subject = this.addedSubject
+
             axios
-                .post('http://localhost:3022/api/addSubjects', {subject})
+                .post('http://localhost:8585/api/addSubjects', { subject })
                 .then((result) => {
                     console.log(result.data)
-                    if (result.data.status == 'successfully inserted') {
-                        console.log('inserted to table')
-                    }
+
+                })
+
+        },
+
+        displaySubjects() {
+            axios
+                .get(`http://localhost:8585/api/subjects`)
+                .then((result) => {
+                    console.log(result.data.data)
+                    console.log('jjj' + JSON.stringify(result.data.data))
+                 
+                    this.subjectsList = result.data.data
                 })
         },
 
-     
-      
-     
+        addTopics(){
+            console.log('hey'+ this.subjectname + this.addedTopic)
+              const subject = this.subjectname
+              const topic = this.addedTopic
+
+            axios
+                .post('http://localhost:8585/api/addTopics', { subject,topic })
+                .then((result) => {
+                    console.log('checking added topics'+ JSON.stringify(result.data))
+                })
+        },
+
+        displayTopics() {
+            console.log('oooo'+ this.subjectname)
+            const subject = this.subjectname
+
+            axios
+                .get(`http://localhost:8585/api/topics/${subject}`)
+                .then((result) => {
+                    console.log('checking' + result.data)
+                    console.log('checking topics' + JSON.stringify(result.data))
+                 
+                    this.topicsList = result.data.data
+                })
+        },
     }
 }
+//Multiple alpinex-data
+// document.addEventListener('alpine:init', () => {
+//     Alpine.data('subject', () => ({
+//         init() {
+//             this.addSubject()
+//         },
+//         //it should return this
+//         addedSubject: '',
+
+//         addSubject() {
+//             axios
+//                 .post("http://localhost:8585/api/subject", this.addedSubject)
+//                 .then((App) => {
+//                     console.log(App.data);
+//                 })
+//         }
+//     }))
+
+// })
