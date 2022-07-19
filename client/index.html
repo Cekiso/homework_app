@@ -14,18 +14,21 @@
     <div id="app"></div>
     <div x-data="homework">
 
-        <div x-show="addSubjectSection" class=" container ">
+        <div x-show="addSubjectSection" class=" container">
             <div class="row ">
                 <div class="col ">
                     <div id="subject ">
                         <h2>Add A Subject</h2>
                         <label for="addedSubject">Subject:</label>
                         <input x-model="addedSubject" type="text " name=" " href=" " id=" " placeholder="add subject ">
-                        <button class="btn mt-1 btn-outline-primary " @click="addSubject(),displaySubjects()">Add</button>
+                        <button class="btn mt-1 btn-outline-primary "
+                            @click="addSubject(),displaySubjects()">Add</button>
                         <div x-init="displaySubjects()"></div>
                         <hr><br>
                         <template x-for="subject in subjectsList">
-                            <button class="btn mt-1 btn-outline-primary mr-2 " x-text="subject.add_subject" @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()" href=" "></button>
+                            <button class="btn mt-1 btn-outline-primary mr-2 " x-text="subject.add_subject"
+                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                href=" "></button>
                         </template>
                     </div>
 
@@ -39,15 +42,18 @@
                     <div id="homework ">
                         <!-- <h2>HomeWork</h2> -->
                         <h3>Subject Title:
-                     <span x-text="subjectname"></span>
-                    </h3>
+                            <span x-text="subjectname"></span>
+                        </h3>
                         <h2>Add A Topic</h2>
                         <label for="addedTopic">Topic:</label>
-                        <input class="input" x-model="addedTopic" type="text " name=" " href=" " id=" " placeholder="add topic ">
+                        <input class="input" x-model="addedTopic" type="text " name=" " href=" " id=" "
+                            placeholder="add topic ">
                         <button class="btn mt-1 btn-outline-primary " @click="addTopics(),displayTopics()">Add</button>
                         <hr><br>
                         <template x-for="topic in topicsList">
-                            <button class="btn mt-1 btn-outline-primary mr-2 " x-text="topic.topic" @click="topicname=topic.topic,addQuestionSection=true,topicSection=false" href=" "></button>
+                            <button class="btn mt-1 btn-outline-primary mr-2 " x-text="topic.topic"
+                                @click="topicname=topic.topic,addQuestionSection=true,topicSection=false"
+                                href=" "></button>
                         </template>
                         <!-- <a href="">Addition</a>
                         <br><br>
@@ -56,54 +62,74 @@
                 </div>
             </div>
         </div>
-        <div x-show="addQuestionSection" class="container">
+        <div x-show="addQuestionSection" class="container" x-init="">
             <div class="d-flex justify-content-center ">
-                topic name- needs to get topic from table
-                <h1>Addition</h1>
+                <h1 x-text="topicname"></h1>
             </div>
-            <div class="addingQuestions border m-3 p-4 ">
-                <div class="questionInput m-4 ">
+            <div class="addingQuestions border m-1 p-2 ">
+                <div class="questionInput m-1 ">
                     <div class=" ">
-                        <label for="exampleFormControlTextarea1 ">Question</label>
-                        <textarea class="form-control " id="exampleFormControlTextarea1 " rows="1 " placeholder="Enter your question "></textarea>
+                        <label for="exampleFormControlTextarea1">Question</label>
+                        <textarea class="form-control " x-model="question" id="exampleFormControlTextarea1 " rows="1 "
+                            placeholder="Enter your question"></textarea>
                         <div class="d-inline-flex p-2 ">
-                            <button class="btn mt-1 btn-outline-primary ">Add question</button>
+                            <button class="btn mt-1 btn-outline-primary" @click="addQuestions()">Add question</button>
                         </div>
                     </div>
                 </div>
-                <div class="answerInput m-4 ">
+                <div class="answerInput m-1">
                     <div class="form ">
                         <div class="form-group ">
                             <label for="exampleFormControlTextarea1 ">Answer</label>
-                            <textarea class="form-control " id="exampleFormControlTextarea1 " rows="1 "></textarea>
+                            <textarea class="form-control " x-model="answer" id="exampleFormControlTextarea1 "
+                                rows="1 "></textarea>
                             <div class="d-inline-flex p-2 ">
-                                <button class="btn mt-1 btn-outline-primary ">Add answer</button>
+                                <button class="btn mt-1 btn-outline-primary" @click="addAnswers()">Add answer</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 displaying the possible answers
                 <div class="answersOutput">
-                    <div class="form-check ">
-                        <input class="form-check-input " type="radio " name="flexRadioDefault " id="flexRadioDefault1 ">
-                        <label class="form-check-label " for="flexRadioDefault1 ">
-                            Default radio
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input " type="radio " name="flexRadioDefault " id="flexRadioDefault2 " checked>
-                        <label class="form-check-label " for="flexRadioDefault2 ">
-                            Default checked radio
-                        </label>
-                    </div>
+                    <template x-for="answer in answerList">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                                @change="console.log(answer),radioValue = true">
+                            <label class="form-check-label" for="flexRadioDefault1" x-text="answer"></label>
+                        </div>
+                    </template>
                 </div>
             </div>
             <div class=" d-flex justify-content-end p-2 ">
                 <button type="button " class="btn m-1 text-primary ">Cancel</button>
-                <button type="button " class="btn m-1 btn-primary ">Create</button>
+                <button type="button " class="btn m-1 btn-primary"
+                    @click="displayQuestionsSection=true,addQuestionSection=false">Create</button>
+            </div>
+        </div>
+
+        <div x-show="displayQuestionsSection">
+            <h1 class="d-flex justify-content-center" x-text="topicname"></h1>
+            <div class="border justify-content-center m-3 p-4 ">
+                <div class="d-flex justify-content-center align-items-center m-2" >Question added:<span class="list-group-item" x-text="question"></span></div>
+         
+                <div class="container m-2">
+                    Possible answers
+                    <div class="row justify-content-center m-1">
+                        <template x-for="answer in answerList">
+                            <div class="col-lg-2 list-group-item" x-text="answer">
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <div class=" d-flex justify-content-end p-2 ">
+                <button type="button " class="btn m-1 text-primary"
+                    @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
             </div>
         </div>
     </div>
+
     <script type="module" src="/main.js"></script>
 </body>
 
