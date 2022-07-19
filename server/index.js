@@ -18,7 +18,7 @@ if (process.env.NODE_ENV == 'production') {
     }
 }
 const pgp = PgPromise({});
-const db = pgp(DATABASE_URL);
+const db = pgp(config);
 
 API(app, db);
 
