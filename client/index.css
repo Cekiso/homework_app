@@ -549,7 +549,7 @@ h3 {
 }
 
 .a {
-    border: 2px solid red;
+    border: 2px solid rgb(0, 255, 242);
     background-color: wheat;
     /* border-radius: 10px; */
     padding: 6px 15px;
@@ -560,4 +560,7 @@ h3 {
 }
 .addinput{
     width: 44%;
+}
+#submit{
+    margin: 7px;
 }
