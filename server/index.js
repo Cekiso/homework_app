@@ -61,9 +61,9 @@ app.listen(PORT, function() {
 // API(app, db);
 // const PORT = process.env.PORT || 8585;
 // // API routes to be added here
-app.get('/', async function(req, res) {
-    console.log(req.query)
-});
+// app.get('/', async function(req, res) {
+//     console.log(req.query)
+// });
 // app.listen(PORT, function() {
 //     console.log(`App started on port ${PORT}`)
 // });
