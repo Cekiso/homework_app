@@ -64,12 +64,15 @@
         </div>
         <div x-show="addQuestionSection" class="container" x-init="">
             <div class="d-flex justify-content-center ">
-                <h1 x-text="topicname"></h1>
+                <h3> Topic:
+                <span x-text="topicname"></span>
+            </h3>
             </div>
             <div class="addingQuestions border m-1 p-2 ">
                 <div class="questionInput m-1 ">
                     <div class=" ">
-                        <label for="exampleFormControlTextarea1">Question</label>
+                        <label for="exampleFormControlTextarea1">Question</label><br>
+                        <br>
                         <textarea class="form-control " x-model="question" id="exampleFormControlTextarea1 " rows="1 "
                             placeholder="Enter your question"></textarea>
                         <div class="d-inline-flex p-2 ">
@@ -80,7 +83,8 @@
                 <div class="answerInput m-1">
                     <div class="form ">
                         <div class="form-group ">
-                            <label for="exampleFormControlTextarea1 ">Answer</label>
+                            <label for="exampleFormControlTextarea1 ">Answer</label><br>
+                            <br>
                             <textarea class="form-control " x-model="answer" id="exampleFormControlTextarea1 "
                                 rows="1 "></textarea>
                             <div class="d-inline-flex p-2 ">

@@ -1,11 +1,93 @@
 const jwt = require("jsonwebtoken")
-// const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt")
 module.exports = function name(app, db) {
-    app.get('/api/test', function (req, res) {
-        res.json({
-            name: 'Student'
-        });
-    });
+
+    // app.get('/api/test', function (req, res) {
+    //     res.json({
+    //         name: 'Student'
+    //     });
+    // });
+
+    app.post('/api/login', async (req, res) => {
+        const { username,
+            password } = req.body;
+        try {
+
+            if (!(username && password)) {
+                throw Error("All input is required");
+            }
+            const user = await db.one('select username from user_detail where username = $1', [username]);
+            console.log(user);
+            if (user) {
+
+                const getPassword = await db.one('select password from user_detail where username= $1', [username]);
+                console.log(getPassword.password);
+
+                const comparePasswords = await bcrypt.compare(password, getPassword.password);
+
+                console.log(comparePasswords);
+
+                const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+                console.log(token);
+                res.json({
+                    status: 'success',
+                    user,
+                    token
+                })
+            }
+
+
+        } catch (error) {
+            res.json({
+                status: error.stack,
+
+            })
+        }
+
+    })
+
+    app.post('/api/signUp', async (req, res) => {
+        const {
+            firstname,
+            lastname,
+            username,
+            password ,
+        role} = req.body;
+        try {
+            console.log(username);
+            if (!(username && password && firstname && lastname)) {
+                throw Error("All input is required");
+            }
+            const oldUser = await db.manyOrNone('select * from user_details where username = $1', [username])
+            console.log(oldUser.length === 0);
+
+            if (oldUser.length === 0) {
+                const cryptedPassword = await bcrypt.hash(password, 10)
+                let insert = await db.any('INSERT INTO user_details (firstname, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
+                console.log(insert);
+                const user = await db.manyOrNone('select * from user_details where username = $1', [username])
+
+                const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+                res.json({
+                    status: 'success',
+                    token
+                })
+            }
+            else {
+                throw Error("User Already Exist. Please Login");
+            }
+
+
+        } catch (error) {
+            console.log(error.message);
+            res.json({
+                status: error.message,
+            })
+
+        }
+    })
+
+
     app.get('/api/subjects', async function (req, res) {
         let result = []
         result = await db.manyOrNone("select add_subject from subject_table")
