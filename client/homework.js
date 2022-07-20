@@ -21,8 +21,8 @@ export default function homeworkApp() {
         radioValue: false,
         object: {},
         index: null,
-        res:'',
-        displayQuestionsSection:false,
+        res: '',
+        displayQuestionsSection: false,
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
@@ -94,7 +94,7 @@ export default function homeworkApp() {
 
             const answer = this.radioValue
             const questionId = this.questionId
-            
+
             axios
                 .post('http://localhost:8585/api/addAnswers', { answer, questionId })
                 .then((result) => {
@@ -107,15 +107,16 @@ export default function homeworkApp() {
 
         //     const answer = this.radioValue
         //     const questionId = this.questionId
-            
+
         //     axios
         //         .post('http://localhost:8585/api/addAnswers', { answer, questionId })
         //         .then((result) => {
         //             console.log(result.data)
         //         })
 
-                
+
         // }
+
 
     }
 }
