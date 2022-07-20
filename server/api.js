@@ -8,6 +8,10 @@ module.exports = function name(app, db) {
     //     });
     // });
 
+    app.get('/', async (req, res) => {
+
+        console.log(req.query)
+    });
     app.post('/api/login', async (req, res) => {
         const { username,
             password } = req.body;
