@@ -23,11 +23,13 @@ export default function homeworkApp() {
         index: null,
         res: '',
         displayQuestionsSection: false,
+        answerId: null,
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
 
-            const subject = this.addedSubject
+            let subjectTitle = this.addedSubject
+           const subject = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1).toLowerCase();
 
             axios
                 .post('http://localhost:8585/api/addSubjects', { subject })
@@ -91,27 +93,25 @@ export default function homeworkApp() {
             console.log('check answers  ' + this.answer + this.questionId)
 
             this.answerList.push(this.answer)
-            this.list.push({
-                answer: this.answer,
-                correct: false,
-            });
 
-            console.log('list of answers'+ JSON.stringify(this.list))
-            
             const answer = this.radioValue
             const questionId = this.questionId
 
             axios
                 .post('http://localhost:8585/api/addAnswers', { answer, questionId })
                 .then((result) => {
-                    console.log(result.data)
+                    console.log(result.data.answerId)
+                    this.list.push({
+                        answer: this.answer,
+                        id: result.data.answerId,
+                        correct: false,
+                    });
+                    console.log('list of answers' + JSON.stringify(this.list))
                 })
         },
 
-        getCorrectValue(){
-            console.log('popopopp  ' + this.answer)
-
-                this.list.forEach(element => {
+        getCorrectValue() {
+            this.list.forEach(element => {
                 if (element.answer == this.answer) {
                     element.correct = true
                 } else {
@@ -120,10 +120,20 @@ export default function homeworkApp() {
             });
 
             console.log('updated list' + JSON.stringify(this.list))
-        }
 
+            this.list.forEach(element => {
 
+                let answer = element.correct
+                let answerId = element.id
+                console.log('beyonce' + answer + answerId)
+                axios
+                    .put('http://localhost:8585/api/updateAnswer', { answer, answerId })
+                    .then((result) => {
+                        console.log(result.data)
+                    })
+            });
 
+        },
 
     }
 }
