@@ -17,7 +17,7 @@ export default function homeworkApp() {
         questionId: null,
         answer: null,
         answerList: [],
-        booleanList: [],
+        list: [],
         radioValue: false,
         object: {},
         index: null,
@@ -91,7 +91,13 @@ export default function homeworkApp() {
             console.log('check answers  ' + this.answer + this.questionId)
 
             this.answerList.push(this.answer)
+            this.list.push({
+                answer: this.answer,
+                correct: false,
+            });
 
+            console.log('list of answers'+ JSON.stringify(this.list))
+            
             const answer = this.radioValue
             const questionId = this.questionId
 
@@ -102,20 +108,21 @@ export default function homeworkApp() {
                 })
         },
 
-        // insertAnswers(){
-        //     console.log('jjjj'+this.answerList);
+        getCorrectValue(){
+            console.log('popopopp  ' + this.answer)
 
-        //     const answer = this.radioValue
-        //     const questionId = this.questionId
+                this.list.forEach(element => {
+                if (element.answer == this.answer) {
+                    element.correct = true
+                } else {
+                    element.correct = false
+                }
+            });
 
-        //     axios
-        //         .post('http://localhost:8585/api/addAnswers', { answer, questionId })
-        //         .then((result) => {
-        //             console.log(result.data)
-        //         })
+            console.log('updated list' + JSON.stringify(this.list))
+        }
 
 
-        // }
 
 
     }
