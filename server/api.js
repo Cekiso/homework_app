@@ -17,7 +17,12 @@ module.exports = function name(app, db) {
             if (!(username && password)) {
                 throw Error("All input is required");
             }
-            const user = await db.one('select username from user_detail where username = $1', [username]);
+           
+            let validUserFormat =  /^[0-9a-zA-Z_.-]+$/.test(username);
+            if (!validUserFormat) {
+                throw Error("Invalid username Format")
+            }           
+            const user = await db.oneOrNone('select username from user_detail where username = $1', [username]);
             console.log(user);
             if (user) {
 
@@ -35,6 +40,9 @@ module.exports = function name(app, db) {
                     user,
                     token
                 })
+            }
+            else {
+                throw new Error("user not found, please try again")
             }
 
 
