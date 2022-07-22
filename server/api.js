@@ -59,14 +59,14 @@ module.exports = function name(app, db) {
             if (!(username && password && firstname && lastname)) {
                 throw Error("All input is required");
             }
-            const oldUser = await db.manyOrNone('select * from user_details where username = $1', [username])
+            const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
             console.log(oldUser.length === 0);
 
             if (oldUser.length === 0) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
-                let insert = await db.any('INSERT INTO user_details (firstname, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
+                let insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
                 console.log(insert);
-                const user = await db.manyOrNone('select * from user_details where username = $1', [username])
+                const user = await db.manyOrNone('select * from user_detail where username = $1', [username])
 
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
                 res.json({
