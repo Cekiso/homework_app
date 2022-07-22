@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vite build --mode production",
     "preview": "vite preview",
-    "start": "node index.js"
+    "start": "node api.js"
   },
   "devDependencies": {
     "@types/node": "^18.0.4",
