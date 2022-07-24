@@ -8,7 +8,6 @@ module.exports = function name(app, db) {
     //     });
     // });
 
-
     app.post('/api/login', async (req, res) => {
         const { username,
             password } = req.body;
@@ -107,7 +106,7 @@ module.exports = function name(app, db) {
     app.post('/api/addSubjects', async function (req, res) {
         try {
             let { subject } = req.body
-            
+
             const checkSubject = await db.oneOrNone('select * from subject_table where add_subject= $1', [subject])
 
             if (checkSubject == null) {
