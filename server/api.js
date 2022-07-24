@@ -32,6 +32,9 @@ module.exports = function name(app, db) {
                 const comparePasswords = await bcrypt.compare(password, getPassword.password);
 
                 console.log(comparePasswords);
+                if(comparePasswords === false) {
+                    throw new Error("Invalid password, please try again")
+                }
 
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
                 console.log(token);
