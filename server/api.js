@@ -66,6 +66,11 @@ module.exports = function name(app, db) {
             if (!(username && password && firstname && lastname)) {
                 throw Error("All input is required");
             }
+
+            let validUser =  /^[0-9a-zA-Z_.-]+$/.test(username);
+            if (!validUser) {
+                throw Error("Invalid username Format")
+            }       
             const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
             console.log(oldUser.length === 0);
 
@@ -73,12 +78,12 @@ module.exports = function name(app, db) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
                 let insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
                 console.log(insert);
-                const user = await db.manyOrNone('select * from user_detail where username = $1', [username])
+                // const user = await db.manyOrNone('select * from user_detail where username = $1', [username])
 
-                const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+                // const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
                 res.json({
                     status: 'success',
-                    token
+                    // token
                 })
             }
             else {
