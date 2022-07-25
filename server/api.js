@@ -37,13 +37,19 @@ module.exports = function name(app, db) {
                 }
 
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+                if (token){
+
+                    const decode = jwt.verify(token, 'secretKey');
+                    console.log(decode);
                 console.log(token);
                 res.json({
                     status: 'success',
                     user,
-                    token
+                    token,
+                    data: decode
                 })
             }
+        }
             else {
                 throw new Error("user not found, please try again")
             }
@@ -52,6 +58,7 @@ module.exports = function name(app, db) {
         } catch (error) {
             res.json({
                 status: error.stack,
+                data: "error"
 
             })
         }
