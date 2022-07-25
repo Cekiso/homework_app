@@ -196,7 +196,7 @@ nav a{
     }
   }
   /* options */
-  /* #optionBtn{
+  #optionBtn{
     color:#fff;
     background-color: orange;
     height: 45px;
@@ -206,4 +206,4 @@ nav a{
   .homework-option{
    text-align: center;
   
-  } */
+  }

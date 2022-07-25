@@ -17,17 +17,22 @@ export default function homeworkApp() {
         questionId: null,
         answer: null,
         answerList: [],
-        booleanList: [],
+        list: [],
+        finalList: JSON.parse(localStorage.getItem('store')) || [],
         radioValue: false,
         object: {},
         index: null,
-        res:'',
-        displayQuestionsSection:false,
+        res: '',
+        displayQuestionsSection: false,
+        answerId: null,
+        topicId : null,
+        
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
 
-            const subject = this.addedSubject
+            let subjectTitle = this.addedSubject
+           const subject = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1).toLowerCase();
 
             axios
                 .post('http://localhost:8585/api/addSubjects', { subject })
@@ -84,6 +89,7 @@ export default function homeworkApp() {
                 .then((result) => {
                     console.log(result.data)
                     this.questionId = result.data.questionid
+                    this.topicId =result.data.topicid
 
                 })
         },
@@ -91,31 +97,59 @@ export default function homeworkApp() {
             console.log('check answers  ' + this.answer + this.questionId)
 
             this.answerList.push(this.answer)
-
             const answer = this.radioValue
             const questionId = this.questionId
-            
+
             axios
                 .post('http://localhost:8585/api/addAnswers', { answer, questionId })
                 .then((result) => {
-                    console.log(result.data)
+                    console.log(result.data.answerId)
+                    this.list.push({
+                        answer: this.answer,
+                        id: result.data.answerId,
+                        topicId: this.topicId,
+                        questionId : this.questionId,
+                        correct: false,
+                    });
+                    console.log('list of answers' + JSON.stringify(this.list))
                 })
         },
 
-        // insertAnswers(){
-        //     console.log('jjjj'+this.answerList);
+        getCorrectValue() {
+            this.list.forEach(element => {
+                if (element.answer == this.answer) {
+                    element.correct = true
+                } else {
+                    element.correct = false
+                }
+            });
 
-        //     const answer = this.radioValue
-        //     const questionId = this.questionId
-            
-        //     axios
-        //         .post('http://localhost:8585/api/addAnswers', { answer, questionId })
-        //         .then((result) => {
-        //             console.log(result.data)
-        //         })
+            console.log('updated list' + JSON.stringify(this.list))
 
-                
-        // }
+            this.list.forEach(element => {
 
+                let answer = element.correct
+                let answerId = element.id
+                console.log('beyonce' + answer + answerId)
+                axios
+                    .put('http://localhost:8585/api/updateAnswer', { answer, answerId })
+                    .then((result) => {
+                        console.log(result.data)
+                    })
+            });
+
+        },
+
+        storingQAndA(){
+            this.finalList.push({
+                question: this.question,
+                answers: this.list
+            })
+            localStorage['store'] = JSON.stringify(this.finalList);
+            console.log('aye' + JSON.stringify(this.finalList))
+
+        },
+
+        
     }
 }

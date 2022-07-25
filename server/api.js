@@ -8,7 +8,6 @@ module.exports = function name(app, db) {
     //     });
     // });
 
-    
     app.post('/api/login', async (req, res) => {
         const { username,
             password } = req.body;
@@ -68,8 +67,8 @@ module.exports = function name(app, db) {
             firstname,
             lastname,
             username,
-            password ,
-        role} = req.body;
+            password,
+            role } = req.body;
         try {
             console.log(username);
             if (!(username && password && firstname && lastname)) {
@@ -119,7 +118,8 @@ module.exports = function name(app, db) {
     });
     app.post('/api/addSubjects', async function (req, res) {
         try {
-            const { subject } = req.body
+            let { subject } = req.body
+
             const checkSubject = await db.oneOrNone('select * from subject_table where add_subject= $1', [subject])
 
             if (checkSubject == null) {
@@ -161,7 +161,7 @@ module.exports = function name(app, db) {
             const { subject, topic } = req.body
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject= $1', [subject])
             const checkTopic = await db.oneOrNone('select topic from topic_table where topic = $1', [topic])
-            
+
             if (checkTopic == null) {
                 await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
                 res.json({
@@ -184,7 +184,7 @@ module.exports = function name(app, db) {
         try {
             const { question, topic } = req.body
             let getTopicId = await db.oneOrNone('select id from topic_table where topic=$1', [topic])
-            // console.log('hey'+ getTopicId.id)
+    
             const checkQuestion = await db.oneOrNone('select questions from questions_table where questions = $1', [question])
             if (checkQuestion == null) {
                 await db.any('insert into questions_table(questions,topic_id) values ($1,$2)', [question, getTopicId.id])
@@ -192,6 +192,7 @@ module.exports = function name(app, db) {
                 return res.json({
                     status: 'successful',
                     questionid: getQuestionId.id,
+                    topicid:getTopicId.id
                 });
             }
             else {
@@ -206,13 +207,36 @@ module.exports = function name(app, db) {
     app.post('/api/addAnswers', async function (req, res) {
         try {
             const { answer, questionId } = req.body
-            await db.any('insert into answers_table(answers,questions_id) values ($1,$2)', [answer, questionId])
+
+            const getAnswerId = await db.oneOrNone('insert into answers_table(answers,questions_id) values ($1,$2) returning id', [answer, questionId])
+            // console.log('answer id' + JSON.stringify(getAnswerId.id))
             return res.json({
                 status: 'successful',
+                answerId: getAnswerId.id
             });
         } catch (error) {
             console.log(error)
         }
     });
-    
+
+    app.put('/api/updateAnswer', async function (req, res) {
+        try {
+            const { answerId, answer } = req.body
+
+            await db.none("update answers_table set answers = $1 where id = $2", [answer, answerId])
+
+            res.json({
+                status: 'success',
+                data: 'updated answer'
+            })
+
+        } catch (err) {
+            console.log(err);
+            res.json({
+                status: 'error',
+                error: err.message
+            })
+        }
+    });
+
 }
