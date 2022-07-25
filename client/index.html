@@ -40,15 +40,13 @@
                         <div id="subject">
                             <h2>Add a Subject</h2>
                             <label for="addedSubject">Subject:</label>
-                            <div class="content">
-
 
                                 <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
-                                    placeholder="add subject">
+                                    placeholder=" add subject ">
                                 <button id="submit" 
                                     @click="addSubject(),displaySubjects()">Add</button>
                                 <div x-init="displaySubjects()"></div>
-                            </div>
+                            
                             <hr><br>
                             <div class="wrapper">
                                 <template x-for="subject in subjectsList">
