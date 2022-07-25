@@ -37,9 +37,7 @@ module.exports = function name(app, db) {
                 }
 
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
-                if (token){
-
-                    const decode = jwt.verify(token, 'secretKey');
+                
                     console.log(decode);
                 console.log(token);
                 res.json({
@@ -49,7 +47,7 @@ module.exports = function name(app, db) {
                     data: decode
                 })
             }
-        }
+        
             else {
                 throw new Error("user not found, please try again")
             }
