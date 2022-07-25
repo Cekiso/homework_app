@@ -51,12 +51,12 @@ export default function signLog() {
             })
                 .then((users) => {
                     console.log(users)
-                    if (users.data.status = 'success' && this.signUp.role == 'teacher') { 
+                    if (this.signUp.role == 'teacher' && users.data.status == 'success') { 
                         this.user = users.data.user;
                         window.location.assign("./index.html");
                     }
                    
-                    else if( users.data.status = 'success' && this.signUp.role == 'learner'){
+                    else if(this.signUp.role == 'learner' && users.data.status == 'success'){
                         this.user = users.data.user;
                         window.location.assign("./landing-page.html");
                     }  
