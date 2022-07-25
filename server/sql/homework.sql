@@ -28,7 +28,15 @@ create table questions_table(
 
 create table answers_table(
     id serial not null primary key,
-    answers boolean,
+    answer text,
+    correct boolean,
     questions_id int,
     foreign key (questions_id) references questions_table(id)
 );
+
+{
+    id: 1,
+    answer: '4',
+    correct: true,
+    questions_id: 1
+}

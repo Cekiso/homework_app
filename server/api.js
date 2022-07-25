@@ -31,15 +31,22 @@ module.exports = function name(app, db) {
                 const comparePasswords = await bcrypt.compare(password, getPassword.password);
 
                 console.log(comparePasswords);
+                if(comparePasswords === false) {
+                    throw new Error("Invalid password, please try again")
+                }
 
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+                
+                    console.log(decode);
                 console.log(token);
                 res.json({
                     status: 'success',
                     user,
-                    token
+                    token,
+                    data: decode
                 })
             }
+        
             else {
                 throw new Error("user not found, please try again")
             }
@@ -48,6 +55,7 @@ module.exports = function name(app, db) {
         } catch (error) {
             res.json({
                 status: error.stack,
+                data: "error"
 
             })
         }
