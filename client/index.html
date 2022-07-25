@@ -40,24 +40,25 @@
                 <div class="row">
                     <div class="col">
                         <div id="homeScreen">
-                      
+
                             <div class="d-flex justify-content-center" style="font-size: 35px;">
                                 <h1>Welcome
                                     <span x-text="topicname"></span>
                                 </h1>
                             </div>
-                                <template x-for="subject in subjectsList">
-                                    <button class="a" x-text="subject.add_subject"
-                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                        href=""></button>
-                                </template>
-                            
+                            <template x-for="subject in subjectsList">
+                                <button class="a" x-text="subject.add_subject"
+                                    @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                    href=""></button>
+                            </template>
+
 
                         </div>
 
                     </div>
                 </div>
             </div>
+            
             <div x-show="addSubjectSection" class="container">
                 <div class="row">
                     <div class="col">
@@ -69,11 +70,10 @@
                                 placeholder=" add subject ">
                             <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
 
-                                    placeholder="add subject">
-                                <button id="submit" 
-                                    @click="addSubject(),displaySubjects()">Add</button>
-                                    placeholder="add subject">
-                                <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
+                            placeholder="add subject">
+                            <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
+                            placeholder="add subject">
+                            <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
 
                             <hr><br>
                             <div class="wrapper">
