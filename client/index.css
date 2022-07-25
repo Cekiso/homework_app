@@ -574,9 +574,18 @@ h3 {
 
 }
 .addinput{
-    padding: 10px 50px;
-    margin: 50px;
-    background-color: transparent;
+        width:100%;
+        display: block;
+        font-family: 'Josefin Slab', serif;
+        font-size: 1em;
+        padding:.625em .85em;
+        padding-right: 7em;
+        line-height: 1.5;
+        margin: 0;
+        border: 1px solid #4A4A4A;
+        box-shadow: 0 1px 3px rgba(0,0,0, .1) inset,
+                    0 2px 4px rgba(0,0,0, .1);
+        border-radius: 3px;
     
 }
 #submit{
@@ -598,9 +607,9 @@ h3 {
 	padding: 0 1em;
 	font-family: 'Josefin Slab', serif;
 }
-/* .content{
+.content{
    display: flex;
-} */
+}
 
 #submit:hover{
 	cursor:pointer;
