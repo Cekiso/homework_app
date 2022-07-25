@@ -34,47 +34,69 @@
 
             </ul>
             <!-- background -->
-            <div x-show="addSubjectSection" class="container">
+            <div x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
                     @click="addSubjectSection=false,displayQuestionsSection=true">homework</button>
+            </div>
+            <!-- teachers landing page -->
+            <div x-show="teachersLandingPage">
                 <div class="row">
                     <div class="col">
                         <div id="homeScreen">
-                      
+
                             <div class="d-flex justify-content-center" style="font-size: 35px;">
+
                                 <h1>Welcome
                                     <span x-text="topicname"></span>
                                 </h1>
+
+                                <!-- <button>hello</button> -->
                             </div>
+                            <br />
+                            <div>
+
+                                <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false" href=""
+                                    style="font-size: 30px;">Add Subject</button>
+                                <h2>Added Home work</h2>
                                 <template x-for="subject in subjectsList">
-                                    <button class="a" x-text="subject.add_subject"
-                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                        href=""></button>
+
+
+                                    <ul>
+                                        <li class="btn-group-vertical btn-lg">
+                                            <button class="a" x-text="subject.add_subject"
+                                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                                href=""></button>
+                                        </li>
+                                    </ul>
+
                                 </template>
-                            
+                            </div>
+
+
 
                         </div>
 
                     </div>
                 </div>
             </div>
+
+            <!-- teachers landing page -->
+
             <div x-show="addSubjectSection" class="container">
                 <div class="row">
                     <div class="col">
                         <div id="subject">
                             <h2>Add a Subject</h2>
-                            <label for="addedSubject">Subject:</label>
+                            <div class="content">
+                                <label for="addedSubject" style="font-size: 35px;">Subject:</label>
 
                                 <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
-
-                                    placeholder="add subject">
-                                <button id="submit" 
-                                    @click="addSubject(),displaySubjects()">Add</button>
-                                    placeholder="add subject">
+                                    placeholder=" add subject ">
                                 <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
-
                                 <div x-init="displaySubjects()"></div>
-                            
+                            </div>
+
+
                             <hr><br>
                             <div class="wrapper">
                                 <template x-for="subject in subjectsList">
@@ -183,29 +205,31 @@
                     <div class="wrapper-options">
                         <!-- <h2>Q1:<span class="" x-text="question"></span></h2> -->
                         <!-- Possible answers -->
-            
 
-                     <div class="row p-2">
-                 
-                    <template x-for="item in finalList" >
-                        <div class="col-lg-6 align-items-center border p-2">
-                            
-                            <!-- <div class="item p-2"> -->
-                               <div class="d-flex justify-content-center"> <h2><span x-text="item.question"></span></h2></div>
-                                <!-- <div class="" x-for="item in finalList"> -->
 
-                                 <div class="d-flex justify-content-around">
-                                    <template x-for="answer in item.answers">
-                                        <span class="m-3 border p-4" x-text="answer.answer"></span>
-                                    </template>
+                        <div class="row p-2">
 
-                                 </div>
-                                <!-- </div> -->
-                            <!-- </div> -->
+                            <template x-for="item in finalList">
+                                <div class="col-lg-6 align-items-center border p-2">
+
+                                    <!-- <div class="item p-2"> -->
+                                    <div class="d-flex justify-content-center">
+                                        <h2><span x-text="item.question"></span></h2>
+                                    </div>
+                                    <!-- <div class="" x-for="item in finalList"> -->
+
+                                    <div class="d-flex justify-content-around">
+                                        <template x-for="answer in item.answers">
+                                            <span class="m-3 border p-4" x-text="answer.answer"></span>
+                                        </template>
+
+                                    </div>
+                                    <!-- </div> -->
+                                    <!-- </div> -->
+                                </div>
+                            </template>
+
                         </div>
-                    </template>
-                 
-                     </div>
                     </div>
 
                 </div>
