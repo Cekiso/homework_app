@@ -37,13 +37,13 @@ module.exports = function name(app, db) {
 
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
                 
-                    console.log(decode);
-                console.log(token);
+                //     console.log(decode);
+                // console.log(token);
                 res.json({
                     status: 'success',
                     user,
                     token,
-                    data: decode
+                    // data: decode
                 })
             }
         
@@ -96,6 +96,7 @@ module.exports = function name(app, db) {
             }
             else {
                 throw Error("User Already Exist. Please Login");
+                
             }
 
 

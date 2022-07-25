@@ -97,21 +97,22 @@ export default function homeworkApp() {
             console.log('check answers  ' + this.answer + this.questionId)
 
             this.answerList.push(this.answer)
-            const answer = this.radioValue
+            const answer = this.answer
             const questionId = this.questionId
+            const booleanVal = this.radioValue
 
             axios
-                .post('http://localhost:8585/api/addAnswers', { answer, questionId })
+                .post('http://localhost:8585/api/addAnswers', { answer, questionId,booleanVal })
                 .then((result) => {
-                    console.log(result.data.answerId)
-                    this.list.push({
-                        answer: this.answer,
-                        id: result.data.answerId,
-                        topicId: this.topicId,
-                        questionId : this.questionId,
-                        correct: false,
-                    });
-                    console.log('list of answers' + JSON.stringify(this.list))
+                    console.log(result.data)
+                    // this.list.push({
+                    //     answer: this.answer,
+                    //     id: result.data.answerId,
+                    //     topicId: this.topicId,
+                    //     questionId : this.questionId,
+                    //     correct: false,
+                    // });
+                    // console.log('list of answers' + JSON.stringify(this.list))
                 })
         },
 
@@ -128,11 +129,11 @@ export default function homeworkApp() {
 
             this.list.forEach(element => {
 
-                let answer = element.correct
+                let booleanVal = element.correct
                 let answerId = element.id
-                console.log('beyonce' + answer + answerId)
+                console.log('beyonce' + booleanVal + answerId)
                 axios
-                    .put('http://localhost:8585/api/updateAnswer', { answer, answerId })
+                    .put('http://localhost:8585/api/updateAnswer', { booleanVal, answerId })
                     .then((result) => {
                         console.log(result.data)
                     })
@@ -140,15 +141,15 @@ export default function homeworkApp() {
 
         },
 
-        storingQAndA(){
-            this.finalList.push({
-                question: this.question,
-                answers: this.list
-            })
-            localStorage['store'] = JSON.stringify(this.finalList);
-            console.log('aye' + JSON.stringify(this.finalList))
+        // storingQAndA(){
+        //     this.finalList.push({
+        //         question: this.question,
+        //         answers: this.list
+        //     })
+        //     localStorage['store'] = JSON.stringify(this.finalList);
+        //     console.log('aye' + JSON.stringify(this.finalList))
 
-        },
+        // },
 
         
     }

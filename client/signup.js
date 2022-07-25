@@ -25,23 +25,7 @@ export default function signLog() {
             password: null,
             role: null,
         },
-        
-        login() {
 
-            const { username, password } = this.signIn
-
-            axios.post('http://localhost:8585/api/login', {
-                username, password
-            })
-                .then((users) => {
-                    console.log(users)
-                    if (users.data.status = 'success') {
-
-                        this.user = users.data.user;
-                       
-                    }
-                }).catch(e => console.log(e))
-        },
         register() {
             const { firstname, lastname, username, password, role } = this.signUp
             axios.post('http://localhost:8585/api/signUp', {
@@ -49,10 +33,35 @@ export default function signLog() {
             })
                 .then((users) => {
                     console.log(users.data)
+                    this.createAcc = false
+                    this.logUser = true
                     if (users.data.status = 'success') {
                         this.user = users.data.user;
                     }
                 })
-        }
+        },
+        
+        login() {
+
+            const { username, password } = this.signIn
+            console.log('kkkkkk' + this.signUp.role)
+
+            axios.post('http://localhost:8585/api/login', {
+                username, password
+            })
+                .then((users) => {
+                    console.log(users)
+                    if (users.data.status = 'success' && this.signUp.role == 'teacher') { 
+                        this.user = users.data.user;
+                        window.location.assign("./index.html");
+                    }
+                   
+                    else if( users.data.status = 'success' && this.signUp.role == 'learner'){
+                        this.user = users.data.user;
+                        window.location.assign("./landing-page.html");
+                    }  
+                }).catch(e => console.log(e))
+        },
+  
     }
 }
