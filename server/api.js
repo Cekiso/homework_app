@@ -206,9 +206,9 @@ module.exports = function name(app, db) {
     });
     app.post('/api/addAnswers', async function (req, res) {
         try {
-            const { answer, questionId } = req.body
+            const { answer, questionId,booleanVal } = req.body
 
-            const getAnswerId = await db.oneOrNone('insert into answers_table(answers,questions_id) values ($1,$2) returning id', [answer, questionId])
+            const getAnswerId = await db.oneOrNone('insert into answers_table(answer,correct,questions_id) values ($1,$2,$3) returning id', [answer,booleanVal,questionId])
             // console.log('answer id' + JSON.stringify(getAnswerId.id))
             return res.json({
                 status: 'successful',
@@ -221,9 +221,9 @@ module.exports = function name(app, db) {
 
     app.put('/api/updateAnswer', async function (req, res) {
         try {
-            const { answerId, answer } = req.body
+            const { answerId, booleanVal } = req.body
 
-            await db.none("update answers_table set answers = $1 where id = $2", [answer, answerId])
+            await db.none("update answers_table set correct = $1 where id = $2", [booleanVal, answerId])
 
             res.json({
                 status: 'success',
