@@ -184,6 +184,7 @@ module.exports = function name(app, db) {
                 return res.json({
                     status: 'successful',
                     questionid: getQuestionId.id,
+                    topicid:getTopicId.id
                 });
             }
             else {

@@ -18,12 +18,15 @@ export default function homeworkApp() {
         answer: null,
         answerList: [],
         list: [],
+        finalList: JSON.parse(localStorage.getItem('store')) || [],
         radioValue: false,
         object: {},
         index: null,
         res: '',
         displayQuestionsSection: false,
         answerId: null,
+        topicId : null,
+        
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
@@ -86,6 +89,7 @@ export default function homeworkApp() {
                 .then((result) => {
                     console.log(result.data)
                     this.questionId = result.data.questionid
+                    this.topicId =result.data.topicid
 
                 })
         },
@@ -93,7 +97,6 @@ export default function homeworkApp() {
             console.log('check answers  ' + this.answer + this.questionId)
 
             this.answerList.push(this.answer)
-
             const answer = this.radioValue
             const questionId = this.questionId
 
@@ -104,6 +107,8 @@ export default function homeworkApp() {
                     this.list.push({
                         answer: this.answer,
                         id: result.data.answerId,
+                        topicId: this.topicId,
+                        questionId : this.questionId,
                         correct: false,
                     });
                     console.log('list of answers' + JSON.stringify(this.list))
@@ -135,5 +140,16 @@ export default function homeworkApp() {
 
         },
 
+        storingQAndA(){
+            this.finalList.push({
+                question: this.question,
+                answers: this.list
+            })
+            localStorage['store'] = JSON.stringify(this.finalList);
+            console.log('aye' + JSON.stringify(this.finalList))
+
+        },
+
+        
     }
 }
