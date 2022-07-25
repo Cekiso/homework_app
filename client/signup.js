@@ -40,7 +40,7 @@ export default function signLog() {
                     }
                 })
         },
-        
+
         login() {
 
             const { username, password } = this.signIn
@@ -51,17 +51,19 @@ export default function signLog() {
             })
                 .then((users) => {
                     console.log(users)
-                    if (this.signUp.role == 'teacher' && users.data.status == 'success') { 
-                        this.user = users.data.user;
+
+                    if (this.signUp.role == 'teacher') {
+                        // this.user = users.data.user;
                         window.location.assign("./index.html");
                     }
-                   
-                    else if(this.signUp.role == 'learner' && users.data.status == 'success'){
-                        this.user = users.data.user;
+
+                    else if (this.signUp.role == 'learner') {
+                        // this.user = users.data.user;
                         window.location.assign("./landing-page.html");
-                    }  
+                    }
+
                 }).catch(e => console.log(e))
         },
-  
+
     }
 }
