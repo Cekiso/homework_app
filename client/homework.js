@@ -6,7 +6,7 @@ export default function homeworkApp() {
 
         addedSubject: null,
         addedTopic: null,
-        addSubjectSection: true,
+        addSubjectSection: false,
         topicSection: false,
         subjectsList: [],
         subjectname: null,

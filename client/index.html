@@ -34,46 +34,60 @@
 
             </ul>
             <!-- background -->
-            <div x-show="addSubjectSection" class="container">
+            <div  x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
                     @click="addSubjectSection=false,displayQuestionsSection=true">homework</button>
+                    </div>
+                    <!-- teachers landing page -->
                 <div class="row">
                     <div class="col">
                         <div id="homeScreen">
                       
                             <div class="d-flex justify-content-center" style="font-size: 35px;">
+                                
                                 <h1>Welcome
                                     <span x-text="topicname"></span>
                                 </h1>
+                               
+                                <!-- <button>hello</button> -->
                             </div>
+                            <div>
+                                <h2>Added Home work</h2>
                                 <template x-for="subject in subjectsList">
-                                    <button class="a" x-text="subject.add_subject"
-                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                        href=""></button>
+                               
+
+                                    <ul>
+                                        <li  class="btn-group-vertical btn-lg">
+                                            <button class="a" x-text="subject.add_subject"
+                                            @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                            href=""></button>
+                                    </li>
+                                </ul>
+                                   
                                 </template>
+                            </div>
+                               
                             
 
                         </div>
 
                     </div>
                 </div>
-            </div>
+               <!-- teachers landing page -->
+
             <div x-show="addSubjectSection" class="container">
                 <div class="row">
                     <div class="col">
                         <div id="subject">
                             <h2>Add a Subject</h2>
-                            <label for="addedSubject">Subject:</label>
+<div class="content">
+    <label for="addedSubject" style="font-size: 35px;">Subject:</label>
 
-                                <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
-
-                                    placeholder="add subject">
-                                <button id="submit" 
-                                    @click="addSubject(),displaySubjects()">Add</button>
-                                    placeholder="add subject">
-                                <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
-
-                                <div x-init="displaySubjects()"></div>
+    <input class="addinput" x-model="addedSubject" type="text" name="" href="" id="" placeholder=" add subject ">
+    <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
+    <div x-init="displaySubjects()"></div>
+</div>
+                              
                             
                             <hr><br>
                             <div class="wrapper">
