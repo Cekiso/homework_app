@@ -806,3 +806,10 @@ h3 {
     transform:translateY(-1000px) rotate(720deg) ;
    }
  }
+ #table{
+  box-sizing: border-box;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 2em;
+  max-width: 800px;
+ }
