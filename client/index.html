@@ -35,6 +35,8 @@
             </ul>
             <!-- background -->
             <div x-show="addSubjectSection" class="container">
+                <button class="btn-primary btn-lg"
+                    @click="addSubjectSection=false,displayQuestionsSection=true">homework</button>
                 <div class="row">
                     <div class="col">
                         <div id="homeScreen">
@@ -62,15 +64,17 @@
                         <div id="subject">
                             <h2>Add a Subject</h2>
                             <label for="addedSubject">Subject:</label>
-                            <div class="content">
-
 
                                 <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
+
                                     placeholder="add subject">
                                 <button id="submit" 
                                     @click="addSubject(),displaySubjects()">Add</button>
+                                    placeholder="add subject">
+                                <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
+
                                 <div x-init="displaySubjects()"></div>
-                            </div>
+                            
                             <hr><br>
                             <div class="wrapper">
                                 <template x-for="subject in subjectsList">
@@ -153,7 +157,7 @@
                         <template x-for="answer in answerList">
                             <div class="form-check m-1">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                    id="flexRadioDefault1" @change="console.log(answer),radioValue = true">
+                                    id="flexRadioDefault1" @change="console.log(answer),getCorrectValue()">
                                 <label class="form-check-label" for="flexRadioDefault1" x-text="answer"></label>
                             </div>
                         </template>
@@ -162,49 +166,54 @@
                 <div class=" d-flex justify-content-end p-2 ">
                     <button type="button" class="btn m-1 text-primary">Cancel</button>
                     <button type="button" class="btn m-1 btn-primary"
-                        @click="displayQuestionsSection=true,addQuestionSection=false">Create</button>
+                        @click="displayQuestionsSection=true,addQuestionSection=false,storingQAndA(),list=[]">Create</button>
                 </div>
             </div>
             <!-- last page -->
             <div x-show="displayQuestionsSection" class="topic-heading">
-                <h1 class="d-flex justify-content-center">Topic: 
+                <h1 class="d-flex justify-content-center">Topic:
                     <span x-text="topicname">
-                </span>
-            </h1>
+                    </span>
+                </h1>
                 <div class="border justify-content-center m-3 p-4 ">
                     <div class="d-flex justify-content-center align-items-center">
-                         <h2>Questions</h2>
+                        <h2>Questions</h2>
                     </div>
-  
-                        <div class="wrapper-options">
-                          <h2>Q1:<span class="group-item" x-text="question"></span></h2>
+
+                    <div class="wrapper-options">
+                        <!-- <h2>Q1:<span class="" x-text="question"></span></h2> -->
                         <!-- Possible answers -->
+            
 
-                            <!-- <template x-for="answer in answerList">
-                                <div class="input-group-append">
-                                    <input class="btn btn-outline-primary" type="radio">
-                                    <label class="input-group-text" for=""  x-text="answer"></label>
-                                </div>
-                                       
-                                 
-                            </template> -->
-                            <template>
-                                <div id="table" class="Rtable Rtable--2cols">
-                                    <div class="Rtable-cell">
-                                    <input class="btn btn-outline-primary" type="radio">
-                                        <label class="input-group-text" for=""  x-text="answer"></label>
+                     <div class="row p-2">
+                 
+                    <template x-for="item in finalList" >
+                        <div class="col-lg-6 align-items-center border p-2">
+                            
+                            <!-- <div class="item p-2"> -->
+                               <div class="d-flex justify-content-center"> <h2><span x-text="item.question"></span></h2></div>
+                                <!-- <div class="" x-for="item in finalList"> -->
 
-                                    </div>
-                                  </div>
-                                </template>>
+                                 <div class="d-flex justify-content-around">
+                                    <template x-for="answer in item.answers">
+                                        <span class="m-3 border p-4" x-text="answer.answer"></span>
+                                    </template>
+
+                                 </div>
+                                <!-- </div> -->
+                            <!-- </div> -->
                         </div>
+                    </template>
+                 
+                     </div>
+                    </div>
 
                 </div>
 
                 <div class="d-flex justify-content-end p-2">
                     <button type="button " class="btn m-1 text-primary"
                         @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
-                        <button class="btn m-1 text-primary" href="landing-page.html"></button>
+                    <a href="./landing-page.html">landing</a>
                 </div>
             </div>
         </div>

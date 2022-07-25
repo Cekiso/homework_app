@@ -28,8 +28,17 @@ create table questions_table(
 
 create table answers_table(
     id serial not null primary key,
-    answers boolean,
+    answer text,
+    correct boolean,
     questions_id int,
     foreign key (questions_id) references questions_table(id)
 );
-psql –host=ec2-3-219-52-220.compute-1.amazonaws.com --port=5432--username=azbvjwwvexuilp --password --dbname=d87ri5409hun9g
+
+{
+    id: 1,
+    answer: '4',
+    correct: true,
+    questions_id: 1
+}
+psql –host=ec2-3-219-52-220.compute-1.amazonaws.com --port=5432 --username=azbvjwwvexuilp --password --dbname=d87ri5409hun9g
+
