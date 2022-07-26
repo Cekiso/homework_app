@@ -577,10 +577,10 @@ h3 {
         display: block;
         font-family: 'Josefin Slab', serif;
         font-size: 1em;
-        padding:.625em .85em;
+        /* padding:.625em .85em; */
         padding-right: 7em;
         line-height: 1.5;
-        margin: 0;
+        margin: 2px;
         border: 1px solid #4A4A4A;
         box-shadow: 0 1px 3px rgba(0,0,0, .1) inset,
                     0 2px 4px rgba(0,0,0, .1);
@@ -602,7 +602,7 @@ h3 {
 	outline: 0;
 	text-align: center;
 	-webkit-appearance:none;
-	margin: 0;
+	margin: 2px;
 	padding: 0 1em;
 	font-family: 'Josefin Slab', serif;
 }
@@ -811,4 +811,9 @@ h3 {
   margin: 0 auto;
   padding: 2em;
   max-width: 800px;
+ }
+ #homeScreen{
+    text-align: center;
+ font-size: 50%;
+justify-content: space-around;
  }
