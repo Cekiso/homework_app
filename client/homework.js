@@ -3,10 +3,10 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-        teachersLandingPage:true,
+        teachersLandingPage:false,
         addedSubject: null,
         addedTopic: null,
-        addSubjectSection: false,
+        addSubjectSection: true,
         topicSection: false,
         subjectsList: [],
         subjectname: null,

@@ -35,8 +35,8 @@
             </ul>
             <!-- background -->
             <div x-show="addSubjectSection">
-                <button class="btn-primary btn-lg"
-                    @click="addSubjectSection=false,displayQuestionsSection=true">homework</button>
+                <!-- <button class="btn-primary btn-lg"
+                    @click="addSubjectSection=false,displayQuestionsSection=true">homework</button> -->
             </div>
             <!-- teachers landing page -->
             <div x-show="teachersLandingPage">
@@ -55,8 +55,8 @@
                             <br />
                             <div>
 
-                                <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false" href=""
-                                    style="font-size: 30px;">Add Subject</button>
+                                <!-- <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false" href=""
+                                    style="font-size: 30px;">Add Subject</button> -->
                                 <h2>Added Home work</h2>
                                 <template x-for="subject in subjectsList">
 
@@ -64,7 +64,7 @@
                                     <ul>
                                         <li class="btn-group-vertical btn-lg">
                                             <button class="a" x-text="subject.add_subject"
-                                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
                                                 href=""></button>
                                         </li>
                                     </ul>
@@ -99,7 +99,7 @@
                             <div class="wrapper">
                                 <template x-for="subject in subjectsList">
                                     <button class="a" x-text="subject.add_subject"
-                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
                                         href=""></button>
                                 </template>
                             </div>
@@ -130,7 +130,7 @@
                             <div class="wrapper">
                                 <template x-for="topic in topicsList">
                                     <button class="a" x-text="topic.topic"
-                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false"
+                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
                                         href=" "></button>
                                 </template>
                             </div>

@@ -451,7 +451,7 @@ textarea {
 body {
     /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
     /* font-family: 'Source Serif Pro', serif; */
-    font-family: 'Gayathri', sans-serif;
+    /* font-family: 'Gayathri', sans-serif; */
     background-color: lightgoldenrodyellow;
     font-size: 19px;
 }
@@ -575,7 +575,7 @@ h3 {
 .addinput{
         width:100%;
         display: block;
-        font-family: 'Josefin Slab', serif;
+        /* font-family: 'Josefin Slab', serif; */
         font-size: 1em;
         /* padding:.625em .85em; */
         padding-right: 7em;
