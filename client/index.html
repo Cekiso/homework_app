@@ -34,7 +34,7 @@
 
             </ul>
             <!-- background -->
-            <div x-show="addSubjectSection" class="container">
+            <!-- <div x-show="welcomeSection" class="container">
                 <button class="btn-primary btn-lg"
                     @click="addSubjectSection=false,displayQuestionsSection=true">homework</button>
                 <div class="row">
@@ -46,19 +46,20 @@
                                     <span x-text="topicname"></span>
                                 </h1>
                             </div>
-                            <template x-for="subject in subjectsList">
-                                <button class="a" x-text="subject.add_subject"
-                                    @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                    href=""></button>
-                            </template>
+                            <div class="wrapper">
+                                <template x-for="subject in subjectsList">
+                                    <button class="a" x-text="subject.add_subject"
+                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                        href=""></button>
+                                </template>
+                            </div>
 
 
                         </div>
 
                     </div>
                 </div>
-            </div>
-            
+            </div> -->
             <div x-show="addSubjectSection" class="container">
                 <div class="row">
                     <div class="col">
@@ -67,13 +68,10 @@
                             <label for="addedSubject">Subject:</label>
 
                             <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
-                                placeholder=" add subject ">
+                                placeholder="add subject">
                             <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
 
-                            placeholder="add subject">
-                            <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
-                            placeholder="add subject">
-                            <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
+                            <div x-init="displaySubjects()"></div>
 
                             <hr><br>
                             <div class="wrapper">
@@ -110,7 +108,7 @@
                             <div class="wrapper">
                                 <template x-for="topic in topicsList">
                                     <button class="a" x-text="topic.topic"
-                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false"
+                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false"
                                         href=" "></button>
                                 </template>
                             </div>
@@ -166,7 +164,7 @@
                 <div class=" d-flex justify-content-end p-2 ">
                     <button type="button" class="btn m-1 text-primary">Cancel</button>
                     <button type="button" class="btn m-1 btn-primary"
-                        @click="displayQuestionsSection=true,addQuestionSection=false">Create</button>
+                        @click="displayQuestionsSection=true,addQuestionSection=false,storingQAndA(),list=[]">Create</button>
                 </div>
             </div>
             <!-- last page -->
@@ -188,7 +186,7 @@
                         <div class="row p-2">
 
                             <template x-for="item in finalList">
-                                <div class="col-lg-6 align-items-center border p-2">
+                                <div class="align-items-center border p-2">
 
                                     <!-- <div class="item p-2"> -->
                                     <div class="d-flex justify-content-center">
@@ -215,7 +213,7 @@
                 <div class="d-flex justify-content-end p-2">
                     <button type="button " class="btn m-1 text-primary"
                         @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
-                    <a href="./landing-page.html">landing</a>
+                    <!-- <a href="./landing-page.html">landing</a> -->
                 </div>
             </div>
         </div>
