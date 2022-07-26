@@ -12,14 +12,14 @@
 
 <body style="background-color: beige;">
 
-    <div x-data="signup">
-
+    <div x-data="authenticate">
+        
         <div x-show="signLog" class="container">
             <button class="btn btn-primary" @click="createAcc = true, signLog = false">Create Account</button>
         </div>
         <div class="row">
 
-            <form class="col-12">
+            <!-- <form class="col-12"> -->
 
                 <div x-show="createAcc" class="container">
                     <div class="col-12">
@@ -62,12 +62,15 @@
                     <div class="row">
                         <div class="col-6">
                             <label class="form-label" for="role"><b>Role</b></label>
-                            <select class="form-select" x-model="signUp.role" name="" id="">
-                                <option value="" disabled selected>Select your role</option>
+                            <select class="form-select" x-model="signUp.role"
+                                @change="console.log('ghetto '+ signUp.role)" name="" id="">
+                                <option value="">Select your role</option>
                                 <option value="teacher">Teacher</option>
                                 <option value="learner">Learner</option>
                                 <option value="parent">Parent</option>
                             </select>
+
+                            <!-- Role: <span x-text="signUp.role"></span> -->
 
                         </div>
                     </div>
@@ -88,42 +91,41 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" @click="logUser = true, createAcc= false, register()" >Sign Up</button>
+                        <button class="btn btn-primary" @click="register(),logUser = true">Sign Up</button>
                     </div>
 
-
                 </div>
-            </form>
+            <!-- </form> -->
         </div>
         <div class="row">
-        <form class="col-12">
+            <form class="col-12">
 
-            <div x-show="logUser" class="container">
-                <div class="col-12">
-                    <h1>Login</h1>
-                    <p>Please login in your username and password</p>
-                </div>
-                <div class="row">
-                    <div class="col-6">
-                        <label class="form-label">Username:</label>
-                        <input type="text" class="form-control" x-model="signIn.username">
+                <div class="container" x-show="logUser">
+                    <div class="col-12">
+                        <h1>Login</h1>
+                        <p>Please login in your username and password</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label">Username:</label>
+                            <input type="text" class="form-control" x-model="signIn.username">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="form-label">Password:</label>
+                            <input type="password" class="form-control" x-model="signIn.password">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button class="btn btn-primary" @click="login()">Login</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-6">
-                        <label class="form-label">Password:</label>
-                        <input type="password" class="form-control" x-model="signIn.password">
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <button class="btn btn-primary" @click="login()">Login</button>
-                </div>
-            </div>
 
 
-        </form>
-</div>
+            </form>
+        </div>
 
     </div>
     <script type="module" src="/main.js"></script>
