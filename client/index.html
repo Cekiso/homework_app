@@ -89,13 +89,12 @@
                             <h2>Add a Subject</h2>
                             <div class="content">
                                 <label for="addedSubject" style="font-size: 35px;">Subject:</label>
-
+                                
                                 <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
                                     placeholder=" add subject ">
                                 <button id="submit" @click="addSubject(),displaySubjects()">Add</button>
                                 <div x-init="displaySubjects()"></div>
                             </div>
-
 
                             <hr><br>
                             <div class="wrapper">
@@ -188,7 +187,7 @@
                 <div class=" d-flex justify-content-end p-2 ">
                     <button type="button" class="btn m-1 text-primary">Cancel</button>
                     <button type="button" class="btn m-1 btn-primary"
-                        @click="displayQuestionsSection=true,addQuestionSection=false,storingQAndA(),list=[]">Create</button>
+                        @click="displayQuestionsSection=true,addQuestionSection=false">Create</button>
                 </div>
             </div>
             <!-- last page -->
