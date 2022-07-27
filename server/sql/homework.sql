@@ -34,10 +34,10 @@ create table answers_table(
     foreign key (questions_id) references questions_table(id)
 );
 
-{
-    id: 1,
-    answer: '4',
-    correct: true,
-    questions_id: 1
-}
+-- {
+--     id: 1,
+--     answer: '4',
+--     correct: true,
+--     questions_id: 1
+-- }
 
