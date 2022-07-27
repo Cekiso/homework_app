@@ -62,7 +62,8 @@ export default function signLog() {
                         window.location.assign("./landing-page.html");
                     }
 
-                }).catch(e => console.log(e))
+                })
+                .catch(e => console.log(e))
         },
 
     }
