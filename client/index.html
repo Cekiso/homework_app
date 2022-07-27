@@ -158,11 +158,8 @@
                 <button class="btn-primary btn-lg"
                     @click="addSubjectSection=false,displayQuestionsSection=true">homework</button>
             </div>
-<<<<<<< HEAD
         <!-- teachers landing page -->
-=======
             <!-- teachers landing page -->
->>>>>>> f04b57604ee6069b86981e349d4fce7114ddaf87
             <div x-show="teachersLandingPage">
                 <div class="row">
                     <div class="col">
@@ -171,14 +168,14 @@
                             <div class="d-flex justify-content-center" style="font-size: 35px;">
 
                                 <h1>Welcome
-                                    <span x-text="topicname"></span>
+                                    <span x-text="signIn.username"></span>
                                 </h1>
 
                             </div>
                             <br />
                             <div>
 
-                                <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false"
+                                <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=true,teachersLandingPage=false"
                                     href="" style="font-size: 30px;">Add Subject</button>
                                 <h2>Added Home work</h2>
                                 <template x-for="subject in subjectsList">
