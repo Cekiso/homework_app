@@ -562,13 +562,7 @@ h3 {
     padding: 6px 15px;
     margin: 14px;
 }
-#subject{
-	/* max-width: 512px; */
-	margin: 0 auto;
-	position: relative;
-	word-wrap: break-word;/* for long urls*/
 
-}
 .addinput{
 
     font-family: 'Josefin Slab', serif;
@@ -584,22 +578,7 @@ h3 {
 
 
  
-@-moz-keyframes pop {
-    0%   {-webkit-transform: scale(1);}
-    50%  {-webkit-transform: scale(1.075);}
-    100% {-webkit-transform: scale(1);}
-}
- 
-@-o-keyframes pop {
-    0%   {-webkit-transform: scale(1);}
-    50%  {-webkit-transform: scale(1.075);}
-    100% {-webkit-transform: scale(1);}
-}
-@keyframes pop {
-    0%   {-webkit-transform: scale(1);}
-    50%  {-webkit-transform: scale(1.075);}
-    100% {-webkit-transform: scale(1);}
-}
+
 .wrapper{
 	background: #fff;
 	border: 1px solid #4A4A4A;
