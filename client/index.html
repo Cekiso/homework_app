@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="imgs/svg+xml" href="imgs/Hakuna-Matata.jpg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-   
+
     <link
         href="https://fonts.googleapis.com/css2?family=Gayathri&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap"
         rel="stylesheet">
@@ -40,9 +40,9 @@
                     <button class="btn btn-primary" @click="createAcc = true, signLog = false">Create Account</button>
                 </div>
                 <div class="row">
-        
+
                     <form class="col-12">
-        
+
                         <div x-show="createAcc" class="container">
                             <div class="col-12">
                                 <h1>Sign up</h1>
@@ -54,33 +54,33 @@
                                     <input class="form-control" type="text" id="first_name" x-model="signUp.firstname"
                                         name="firstname" required>
                                 </div>
-        
+
                                 <div class="col-6">
                                     <label class="form-label" for="lastname"><b>Lastname</b></label>
                                     <input class="form-control" type="text" x-model="signUp.lastname" name="lastname"
                                         id="lastname" required>
-        
+
                                 </div>
                             </div>
-        
+
                             <div class="row">
                                 <div class="col-6">
                                     <label class="form-label" for="username"><b>Username</b></label>
-                                    <input type="text" x-model="signUp.username" name=username class="velidate; form-control"
-                                        id="username" required>
-        
+                                    <input type="text" x-model="signUp.username" name=username
+                                        class="velidate; form-control" id="username" required>
+
                                 </div>
-        
-        
+
+
                                 <div class="col-6">
-        
+
                                     <label class="form-label" for="password"><b>Password</b></label>
                                     <input type="password" class="form-control" id="password" x-model="signUp.password"
                                         name="password" required>
-        
+
                                 </div>
                             </div>
-        
+
                             <div class="row">
                                 <div class="col-6">
                                     <label class="form-label" for="role"><b>Role</b></label>
@@ -90,7 +90,7 @@
                                         <option value="learner">Learner</option>
                                         <option value="parent">Parent</option>
                                     </select>
-        
+
                                 </div>
                             </div>
                             <div class="row">
@@ -103,60 +103,66 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                                    <p>By creating an account you agree to our <a href="#"
+                                            style="color:dodgerblue">Terms &
                                             Privacy</a>.
                                     </p>
-        
+
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary" @click="logUser = true, createAcc= false">Sign Up</button>
+                                <button class="btn btn-primary" @click="logUser = true, createAcc= false">Sign
+                                    Up</button>
                             </div>
-        
-        
+
+
                         </div>
                     </form>
                 </div>
                 <div class="row">
-                <form class="col-12">
-        
-                    <div x-show="logUser" class="container">
-                        <div class="col-12">
-                            <h1>Login</h1>
-                            <p>Please login in your username and password</p>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label">Username:</label>
-                                <input type="text" class="form-control" x-model="signIn.username">
+                    <form class="col-12">
+
+                        <div x-show="logUser" class="container">
+                            <div class="col-12">
+                                <h1>Login</h1>
+                                <p>Please login in your username and password</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label">Username:</label>
+                                    <input type="text" class="form-control" x-model="signIn.username">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label">Password:</label>
+                                    <input type="password" class="form-control" x-model="signIn.password">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" @click="login()">Login</button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label">Password:</label>
-                                <input type="password" class="form-control" x-model="signIn.password">
-                            </div>
-                        </div>
-        
-                        <div class="col-12">
-                            <button class="btn btn-primary" @click="login()">Login</button>
-                        </div>
-                    </div>
-        
-        
-                </form>
-        </div>
-        
+
+
+                    </form>
+                </div>
+
             </div>
 
-            <!-- login -->
+
 
             <!-- teachers screen -->
             <div x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
                     @click="addSubjectSection=false,displayQuestionsSection=true">homework</button>
             </div>
+<<<<<<< HEAD
         <!-- teachers landing page -->
+=======
+            <!-- teachers landing page -->
+>>>>>>> f04b57604ee6069b86981e349d4fce7114ddaf87
             <div x-show="teachersLandingPage">
                 <div class="row">
                     <div class="col">
@@ -172,8 +178,8 @@
                             <br />
                             <div>
 
-                                <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false" href=""
-                                    style="font-size: 30px;">Add Subject</button>
+                                <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false"
+                                    href="" style="font-size: 30px;">Add Subject</button>
                                 <h2>Added Home work</h2>
                                 <template x-for="subject in subjectsList">
 
@@ -181,14 +187,13 @@
                                     <ul>
                                         <li class="btn-group-vertical btn-lg">
                                             <button class="a" x-text="subject.add_subject"
-                                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
                                                 href=""></button>
                                         </li>
                                     </ul>
 
                                 </template>
                             </div>
-
 
 
                         </div>
@@ -206,10 +211,11 @@
                             <h2>Add a Subject</h2>
                             <div class="content">
                                 <label for="addedSubject" style="font-size: 35px;">Subject:</label>
-                                
+
                                 <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
                                     placeholder=" add subject ">
-                                <button class="btn m-1 " id="submit" @click="addSubject(),displaySubjects()" style="background-color: blue;color:white">Add</button>
+                                <button class="btn m-1 " id="submit" @click="addSubject(),displaySubjects()"
+                                    style="background-color: blue;color:white">Add</button>
                                 <div x-init="displaySubjects()"></div>
                             </div>
 
@@ -217,7 +223,7 @@
                             <div class="wrapper">
                                 <template x-for="subject in subjectsList">
                                     <button class="a" x-text="subject.add_subject"
-                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
                                         href=""></button>
                                 </template>
                             </div>
@@ -241,14 +247,15 @@
                             <div class="content">
                                 <input class="addinput" x-model="addedTopic" type="text" name="" href="" id=""
                                     placeholder="add topic">
-                                <button class="btn m-1"  id="submit" @click="addTopics(),displayTopics()" style="background-color: blue;color:white">Add</button>
+                                <button class="btn m-1" id="submit" @click="addTopics(),displayTopics()"
+                                    style="background-color: blue;color:white">Add</button>
                             </div>
 
                             <hr><br>
                             <div class="wrapper">
                                 <template x-for="topic in topicsList">
                                     <button class="a" x-text="topic.topic"
-                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false"
+                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
                                         href=" "></button>
                                 </template>
                             </div>
@@ -304,7 +311,7 @@
                 <div class=" d-flex justify-content-end p-2 ">
                     <button type="button" class="btn m-1 text-primary">Cancel</button>
                     <button type="button" class="btn m-1 btn-primary"
-                        @click="displayQuestionsSection=true,addQuestionSection=false">Create</button>
+                        @click="displayQuestionsSection=true,addQuestionSection=false,storingQAndA(),list=[]">Create</button>
                 </div>
             </div>
             <!-- last page -->
@@ -326,7 +333,7 @@
                         <div class="row p-2">
 
                             <template x-for="item in finalList">
-                                <div class="col-lg-6 align-items-center border p-2">
+                                <div class="align-items-center border p-2">
 
                                     <!-- <div class="item p-2"> -->
                                     <div class="d-flex justify-content-center">
@@ -353,71 +360,75 @@
                 <div class="d-flex justify-content-end p-2">
                     <button type="button " class="btn m-1 text-primary"
                         @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
-                    <a href="./landing-page.html">landing</a>
+                    <!-- <a href="./landing-page.html">landing</a> -->
+                </div>
+            </div>
+        </div>
+
+        <div x-show="gameSection">
+            <div class="homework-option">
+                <h1 x-model="" x-text="">Welcome <span x-text=""></span></h1>
+                <h2>Select a subjsct</h2>
+                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center">Maths</button>
+                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center">English</button>
+            </div>
+        
+        
+            <!-- option page -->
+            <br>
+            <audio id="myAudio">
+                <source src="audio/wrong.mp3" type="audio/mpeg">
+            </audio>
+        
+            <header>
+                <div class="container">
+                    <div class="nav">
+                        <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATHS HOMEWORK</h2>
+                        <nav>
+                            <ul>
+                                <li class="current"><a href="index.html">Addition</a></li>
+                                <li><a href="subtract.html">Subtract</a></li>
+                                <li><a href="multiply.html">Multiply</a></li>
+                                <li><a href="divide.html">Divide</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        
+            <div id="wrapper">
+                <div class="equation">
+                    <h1 id="num1" style="color:#FE4A49">1</h1>
+                    <h1 style="color: #2AB7CA;">+</h1>
+                    <h1 id="num2" style="color: #FED766">1</h1>
+                    <h1 style="color: #F86624">=</h1>
+                    <h1 style="color: gray">?</h1>
+                </div>
+        
+                <div class="answer-options">
+                    <div class="options" style="background-color: #fe4949;">
+                        <h1 id="option1">1</h1>
+                    </div>
+                    <div class="options" style="background-color: #2a3aca;">
+                        <h1 id="option2">2</h1>
+                    </div>
+                    <div class="options" style="background-color: #fef166;">
+                        <h1 id="option3">3</h1>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-<!-- teachers screen -->
-<!-- kids side -->
-<!-- background clouds -->
-<!-- <div class="cloud one"></div>
+    <!-- teachers screen -->
+    <!-- kids side -->
+    <!-- background clouds -->
+    <!-- <div class="cloud one"></div>
 <div class="cloud two"></div>
 <div class="cloud three"></div>
 <br><br>  <br><br><br><br>  <br><br> -->
-<!-- option page -->
-<div class="homework-option">
-<h1 x-model="" x-text="">Welcome <span  x-text=""></span></h1>
-<h2>Select a subjsct</h2>
-    <button id="optionBtn" type="button" class="btn-toolbar justify-content-center">Maths</button>
-    <button id="optionBtn" type="button" class="btn-toolbar justify-content-center">English</button>
-</div>
-
-
-<!-- option page -->
-<br>
-<audio id="myAudio">
-    <source src="audio/wrong.mp3" type="audio/mpeg">
-  </audio>
-
-  <header>
-    <div class="container">
-      <div class="nav">
-        <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATHS HOMEWORK</h2>
-        <nav>
-          <ul>
-            <li class="current"><a href="index.html">Addition</a></li>
-            <li><a href="subtract.html">Subtract</a></li>
-            <li><a href="multiply.html">Multiply</a></li>
-            <li><a href="divide.html">Divide</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
-  
-  <div id="wrapper">
-      <div class="equation">
-        <h1  id="num1" style="color:#FE4A49">1</h1>
-        <h1 style="color: #2AB7CA;">+</h1>
-        <h1  id="num2" style="color: #FED766">1</h1>
-        <h1  style="color: #F86624">=</h1>
-        <h1  style="color: gray">?</h1>
-      </div>
-      
-      <div class="answer-options">
-        <div class="options" style="background-color: #fe4949;">
-          <h1 id="option1">1</h1>
-        </div>
-        <div class="options" style="background-color: #2a3aca;">
-          <h1 id="option2">2</h1>
-        </div>
-        <div class="options" style="background-color: #fef166;">
-          <h1 id="option3">3</h1>
-        </div>
-      </div>
-  </div>
-  <!-- kids side -->
+    <!-- option page -->
+   
+    <!-- kids side -->
     <script type="module" src="/main.js"></script>
 </body>
 
