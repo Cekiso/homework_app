@@ -40,5 +40,4 @@ create table answers_table(
     correct: true,
     questions_id: 1
 }
-psql –host=ec2-3-219-52-220.compute-1.amazonaws.com --port=5432 --username=azbvjwwvexuilp --password --dbname=d87ri5409hun9g
 
