@@ -3,7 +3,7 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-        // teachersLandingPage:true,
+        teachersLandingPage:true,
         addedSubject: null,
         addedTopic: null,
         addSubjectSection: false,
@@ -19,7 +19,6 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: JSON.parse(localStorage.getItem('store')) || [],
-        welcomeSection:false,
         gameSection:false,
         radioValue: false,
         object: {},
@@ -142,6 +141,16 @@ export default function homeworkApp() {
                     })
             });
 
+        },
+
+        displayHomework(){
+            const topic = this.topicname
+            console.log('ASDFGNJM, ' + topic)
+            axios
+                .get(`http://localhost:8585/api/qAndA/${topic}`)
+                .then((result) => {
+                    console.log(result.data)
+                })
         },
 
         storingQAndA(){
