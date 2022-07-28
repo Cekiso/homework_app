@@ -28,6 +28,7 @@ export default function homeworkApp() {
         answerId: null,
         topicId : null,
         
+        
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
