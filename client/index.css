@@ -451,7 +451,7 @@ input::-moz-focus-inner {
 body {
     /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
     /* font-family: 'Source Serif Pro', serif; */
-    font-family: 'Gayathri', sans-serif;
+    /* font-family: 'Gayathri', sans-serif; */
     background-color: lightgoldenrodyellow;
     font-size: 19px;
 }
@@ -733,6 +733,7 @@ button{
  font-size: 50%;
 justify-content: space-around;
  }
+
  /**
 *** SIMPLE GRID
 *** (C) ZACH COLE 2016
@@ -983,3 +984,4 @@ p {
     max-width: 60rem;
   }
 }
+

@@ -3,11 +3,13 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-        // teachersLandingPage:true,
+        teachersLandingPage:true,
         addedSubject: null,
         addedTopic: null,
-        addSubjectSection: true,
+        addSubjectSection: false,
         topicSection: false,
+        homeworkSection:false,
+        homeworkForTopic: false,
         subjectsList: [],
         subjectname: null,
         topicsList: [],
@@ -19,13 +21,15 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: JSON.parse(localStorage.getItem('store')) || [],
+        gameSection:false,
+        kidsQuestion:false,
         radioValue: false,
         object: {},
         index: null,
-        res: '',
         displayQuestionsSection: false,
         answerId: null,
         topicId : null,
+        
         
 
         addSubject() {
@@ -56,6 +60,8 @@ export default function homeworkApp() {
 
         addTopics() {
             console.log('hey' + this.subjectname + this.addedTopic)
+
+            
             const subject = this.subjectname
             const topic = this.addedTopic
 
@@ -105,14 +111,14 @@ export default function homeworkApp() {
                 .post('http://localhost:8585/api/addAnswers', { answer, questionId,booleanVal })
                 .then((result) => {
                     console.log(result.data)
-                    // this.list.push({
-                    //     answer: this.answer,
-                    //     id: result.data.answerId,
-                    //     topicId: this.topicId,
-                    //     questionId : this.questionId,
-                    //     correct: false,
-                    // });
-                    // console.log('list of answers' + JSON.stringify(this.list))
+                    this.list.push({
+                        answer: this.answer,
+                        id: result.data.answerId,
+                        topicId: this.topicId,
+                        questionId : this.questionId,
+                        correct: false,
+                    });
+                    console.log('list of answers' + JSON.stringify(this.list))
                 })
         },
 
@@ -141,15 +147,25 @@ export default function homeworkApp() {
 
         },
 
-        // storingQAndA(){
-        //     this.finalList.push({
-        //         question: this.question,
-        //         answers: this.list
-        //     })
-        //     localStorage['store'] = JSON.stringify(this.finalList);
-        //     console.log('aye' + JSON.stringify(this.finalList))
+        displayHomework(){
+            const topic = this.topicname
+            console.log('ASDFGNJM, ' + topic)
+            axios
+                .get(`http://localhost:8585/api/qAndA/${topic}`)
+                .then((result) => {
+                    console.log(result.data)
+                })
+        },
 
-        // },
+        storingQAndA(){
+            this.finalList.push({
+                question: this.question,
+                answers: this.list
+            })
+            localStorage['store'] = JSON.stringify(this.finalList);
+            console.log('aye' + JSON.stringify(this.finalList))
+
+        },
 
         
     }
