@@ -21,6 +21,7 @@ export default function homeworkApp() {
         finalList: JSON.parse(localStorage.getItem('store')) || [],
         welcomeSection:false,
         gameSection:false,
+        kidsQuestion:false,
         radioValue: false,
         object: {},
         index: null,

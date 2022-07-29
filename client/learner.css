@@ -134,7 +134,7 @@ nav a{
 }
 
 /* background clouds */
-.cloud.one {
+/* .cloud.one {
     top: 50%;
     width: 300px;
     height: 100px;
@@ -159,7 +159,7 @@ nav a{
     left: 0;
     background: white;
     border-radius: 1000px;
-    /* animation: zoomies 5s infinite linear; */
+    animation: zoomies 5s infinite linear;
   }
   
   .cloud::before {
@@ -194,7 +194,7 @@ nav a{
       left: 100%;
       transform: translateY(0%);
     }
-  }
+  } */
   /* options */
   #optionBtn{
     color:#fff;

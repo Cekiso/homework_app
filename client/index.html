@@ -270,10 +270,25 @@
 
 
             <!-- teachers screen -->
-            <div x-show="addSubjectSection">
+
+            <header>
+                <div class="container">
+                    <div class="navigation">
+                        <nav class="navbar navbar-expand-lg navbar">
+                            <ul>
+                                <li class="current"><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
+                                <li><button class="btn" href="index.html" style="color:black;"  @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button></li>
+                                <li><button class="btn" href="index.html" style="color:black;" @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
+                                <li><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <!-- <div x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
                 @click="addSubjectSection=true,teachersLandingPage=false">addHomework</button>
-            </div>
+            </div> -->
         <!-- teachers landing page -->
             <!-- teachers landing page -->
             <div x-show="teachersLandingPage">
@@ -290,9 +305,6 @@
                             </div>
                             <br />
                             <div>
-
-                                <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=true,teachersLandingPage=false"
-                                    href="" style="font-size: 30px;">Add homework</button>
                                 <h2>Added Home work</h2>
                                 <template x-for="subject in subjectsList">
 
@@ -332,8 +344,9 @@
                                 <div x-init="displaySubjects()"></div>
                             </div>
 
-                            <hr><br>
+                            <hr>
                             <div class="wrapper">
+                                <p>A list of all the home-work subjects</p>
                                 <template x-for="subject in subjectsList">
                                     <button class="a" x-text="subject.add_subject"
                                         @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
@@ -367,6 +380,7 @@
                             <hr><br>
                             <div class="wrapper">
                                 <template x-for="topic in topicsList">
+                                    <p></p>
                                     <button class="a" x-text="topic.topic"
                                         @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
                                         href=" "></button>
@@ -473,7 +487,7 @@
                 <div class="d-flex justify-content-end p-2">
                     <button type="button " class="btn m-1 text-primary"
                         @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
-                    <!-- <a href="./landing-page.html">landing</a> -->
+                    <a href="./landing-page.html">landing</a>
                 </div>
             </div>
         </div>
@@ -482,13 +496,15 @@
             <div class="homework-option">
                 <h1 x-model="" x-text="">Welcome <span x-text=""></span></h1>
                 <h2>Select a subjsct</h2>
-                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center">Maths</button>
-                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center">English</button>
+                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center" @click="gameSection=false,kidsQuestion=true">Maths</button>
+                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center" @click="">English</button>
             </div>
-        
+        </div>
         
             <!-- option page -->
-            <br>
+      <div x-show="kidsQuestion">
+                <br>
+                <div class="homework-option"></div>
             <audio id="myAudio">
                 <source src="audio/wrong.mp3" type="audio/mpeg">
             </audio>
@@ -508,6 +524,8 @@
                     </div>
                 </div>
             </header>
+         
+          
         
             <div id="wrapper">
                 <div class="equation">
