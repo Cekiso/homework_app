@@ -8,6 +8,8 @@ export default function homeworkApp() {
         addedTopic: null,
         addSubjectSection: false,
         topicSection: false,
+        homeworkSection:false,
+        homeworkForTopic: false,
         subjectsList: [],
         subjectname: null,
         topicsList: [],
@@ -19,7 +21,6 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: JSON.parse(localStorage.getItem('store')) || [],
-        welcomeSection:false,
         gameSection:false,
         kidsQuestion:false,
         radioValue: false,
@@ -144,6 +145,16 @@ export default function homeworkApp() {
                     })
             });
 
+        },
+
+        displayHomework(){
+            const topic = this.topicname
+            console.log('ASDFGNJM, ' + topic)
+            axios
+                .get(`http://localhost:8585/api/qAndA/${topic}`)
+                .then((result) => {
+                    console.log(result.data)
+                })
         },
 
         storingQAndA(){
