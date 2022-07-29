@@ -381,6 +381,16 @@
                                     </template>
                                 </div>
 
+
+                            <hr>
+                            <div class="wrapper">
+                                <h3>A list of all the home-work subjects</h3>
+                                <template x-for="subject in subjectsList">
+                                    <button class="a" x-text="subject.add_subject"
+                                        @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
+                                        href=""></button>
+                                </template>
+
                             </div>
 
                         </div>
@@ -425,8 +435,9 @@
 
                             <hr><br>
                             <div class="wrapper">
+                                <h3>Add a topic for the selected subject</h3>
+
                                 <template x-for="topic in topicsList">
-                                    <p></p>
                                     <button class="a" x-text="topic.topic"
                                         @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
                                         href=" "></button>
