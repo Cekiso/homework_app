@@ -155,15 +155,15 @@ export default function homeworkApp() {
                 })
         },
 
-        // storingQAndA(){
-        //     this.finalList.push({
-        //         question: this.question,
-        //         answers: this.list
-        //     })
-        //     localStorage['store'] = JSON.stringify(this.finalList);
-        //     console.log('aye' + JSON.stringify(this.finalList))
+        storingQAndA(){
+            this.finalList.push({
+                question: this.question,
+                answers: this.list
+            })
+            localStorage['store'] = JSON.stringify(this.finalList);
+            console.log('aye' + JSON.stringify(this.finalList))
 
-        // },
+        },
 
         
     }
