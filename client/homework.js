@@ -22,12 +22,14 @@ export default function homeworkApp() {
         list: [],
         finalList: JSON.parse(localStorage.getItem('store')) || [],
         gameSection:false,
+        kidsQuestion:false,
         radioValue: false,
         object: {},
         index: null,
         displayQuestionsSection: false,
         answerId: null,
         topicId : null,
+        
         
 
         addSubject() {
