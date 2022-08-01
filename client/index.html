@@ -153,6 +153,20 @@
 
             </ul>
             <!-- background -->
+            <header>
+                <div class="container">
+                    <div class="navigation">
+                        <nav class="navbar navbar-expand-lg navbar">
+                            <ul>
+                                <li class="current"><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
+                                <li><button class="btn" href="index.html" style="color:black;"  @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button></li>
+                                <li><button class="btn" href="index.html" style="color:black;" @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
+                                <li><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
             <div x-show="signLog" class="container">
                 <button class="btn btn-primary" @click="createAcc = true, signLog = false">Create Account</button>
             </div>
@@ -271,26 +285,14 @@
 
             <!-- teachers screen -->
 
-            <header>
-                <div class="container">
-                    <div class="navigation">
-                        <nav class="navbar navbar-expand-lg navbar">
-                            <ul>
-                                <li class="current"><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
-                                <li><button class="btn" href="index.html" style="color:black;"  @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button></li>
-                                <li><button class="btn" href="index.html" style="color:black;" @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
-                                <li><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </header>
+  
             <!-- <div x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
                 @click="addSubjectSection=true,teachersLandingPage=false">addHomework</button>
             </div> -->
         <!-- teachers landing page -->
             <!-- teachers landing page -->
+            <br><br><br> <br><br><br> 
             <div x-show="teachersLandingPage">
                 <div class="row">
                     <div class="col">
@@ -312,7 +314,7 @@
                                     <ul>
                                         <li class="btn-group-vertical btn-lg">
                                             <button class="a" x-text="subject.add_subject"
-                                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
+                                                @click="subjectname=subject.add_subject,addSubjectSection=false,displayQuestionsSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
                                                 href=""></button>
                                         </li>
                                     </ul>
@@ -387,7 +389,7 @@
                                         href=" "></button>
                                 </template>
                             </div>
-
+                            displayQuestionsSection
 
                         </div>
                     </div>
@@ -497,8 +499,9 @@
             <div class="homework-option">
                 <h1 x-model="" x-text="">Welcome <span x-text=""></span></h1>
                 <h2>Select a subjsct</h2>
-                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center" @click="gameSection=false,kidsQuestion=true">Maths</button>
-                <button id="optionBtn" type="button" class="btn-toolbar justify-content-center" @click="">English</button>
+                <button id="optionBtn" type="button" class=" justify-content-center" @click="gameSection=false,kidsQuestion=true">Maths</button>
+                <br><br>
+                <button id="optionBtn" type="button" class="justify-content-center" @click="">English</button>
             </div>
         </div>
         
