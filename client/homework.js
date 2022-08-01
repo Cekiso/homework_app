@@ -52,7 +52,7 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
-        
+
    register() {
             const { firstname, lastname, username, password, role } = this.signUp
             axios.post('http://localhost:8585/api/signUp', {
@@ -79,15 +79,11 @@ export default function homeworkApp() {
                 .then((users) => {
                     console.log(users)
 
-                    if (this.signUp.role == 'teacher') {
-                        // this.user = users.data.user;
-                        window.location.assign("./index.html");
+                    if(users.data.status = 'success'){
+                        this.user = users.data.user;
+                        
                     }
-
-                    else if (this.signUp.role == 'learner') {
-                        // this.user = users.data.user;
-                        window.location.assign("./landing-page.html");
-                    }
+                    
 
                 })
                 .catch(e => console.log(e))
