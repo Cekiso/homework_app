@@ -7,11 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="imgs/svg+xml" href="imgs/Hakuna-Matata.jpg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Gayathri&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap"
@@ -23,9 +18,8 @@
     <div id="app"></div>
 
     <section>
-
+        
         <div x-data="homework">
-
             <!-- background -->
             <div class="section">
                 <ul class="circle">
@@ -40,10 +34,30 @@
 
                 </ul>
                 <!-- background -->
+                <header>
+                    <div class="container">
+                        <div class="navigation">
+                            <nav class="navbar navbar-expand-lg navbar">
+                                <ul>
+                                    <li class="current"><button class="btn" href="index.html" style="color:black;"
+                                            @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
+                                    </li>
+                                    <li><button class="btn" href="index.html" style="color:black;"
+                                            @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button>
+                                    </li>
+                                    <li><button class="btn" href="index.html" style="color:black;"
+                                            @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
+                                    <li><button class="btn" href="index.html" style="color:black;"
+                                            @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </header>
                 <div x-show="signLog" class="container">
                     <button class="btn btn-primary" @click="createAcc = true, signLog = false">Create Account</button>
                 </div>
-                
                 <div class="row">
 
                     <div class="col-12">
@@ -98,7 +112,14 @@
 
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-6">
+                                    <input class="form-check-input" type="checkbox" id="gridCheck">
+                                    <label class="form-check-label" for="gridCheck">
+                                        Remember Me
+                                    </label>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-12">
                                     <p>By creating an account you agree to our <a href="#"
@@ -109,6 +130,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
+
                                 <button class="btn btn-primary"
                                     @click="logUser = true, createAcc= false, register()">Sign
                                     Up</button>
@@ -153,34 +175,14 @@
 
                 <!-- teachers screen -->
 
-                <header>
-                    <div x-show="nav" class="container">
-                        <div class="navigation">
-                            <nav class="navbar navbar-expand-lg navbar">
-                                <ul>
-                                    <li class="current"><button class="btn" href="index.html" style="color:black;"
-                                            @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
-                                    </li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button>
-                                    </li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </header>
+
                 <!-- <div x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
                 @click="addSubjectSection=true,teachersLandingPage=false">addHomework</button>
             </div> -->
                 <!-- teachers landing page -->
-
                 <!-- teachers landing page -->
+                <br><br><br> <br><br><br>
                 <div x-show="teachersLandingPage">
                     <div class="row">
                         <div class="col">
@@ -192,15 +194,9 @@
                                         <span x-text="signIn.username"></span>
                                     </h1>
 
-                                    <!-- <button>hello</button> -->
                                 </div>
                                 <br />
                                 <div>
-
-
-                                    <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false"
-                                        href="" style="font-size: 30px;">Add Subject</button>
-
                                     <h2>Added Home work</h2>
                                     <template x-for="subject in subjectsList">
 
@@ -208,7 +204,7 @@
                                         <ul>
                                             <li class="btn-group-vertical btn-lg">
                                                 <button class="a" x-text="subject.add_subject"
-                                                    @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
+                                                    @click="subjectname=subject.add_subject,addSubjectSection=false,displayQuestionsSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
                                                     href=""></button>
                                             </li>
                                         </ul>
@@ -226,64 +222,8 @@
                 <!-- teachers landing page -->
 
                 <div x-show="addSubjectSection" class="container">
-                    <!-- <div class="row">
-                    <div class="col">
-
-                        <div id="subject"> -->
-                    <div class="d-flex justify-content-center">
-                        <h1 style="font-family: 'Brush Script MT', cursive;">Please Add a Subject</h1>
-
-                    </div>
-
                     <div class="row">
-                        <div class="col-8">
-                            <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
-                            <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
-                                placeholder=" add subject ">
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" id="submit"
-                                @click="addSubject(),displaySubjects()">Add</button>
-                        </div>
-                        <div x-init="displaySubjects()"></div>
-                    </div>
-                    <hr><br>
-                    <div>
-                        <div class="wrapper">
-                            <template x-for="subject in subjectsList">
-                                <button class="a" x-text="subject.add_subject"
-                                    @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                    href=""></button>
-                            </template>
-                        </div>
 
-                    </div>
-
-                </div>
-                <!-- 
-                    </div>
-                </div>
-            </div> -->
-
-                <div class="container" x-show="topicSection">
-                    <!-- <div class="row">
-                    <div class="col">
-                        <div id="homework"> -->
-                    <!-- <h2>HomeWork</h2> -->
-
-                    <div class="col-12">
-                        <h3>Subject Title:
-                            <span x-text="subjectname"></span>
-                        </h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                            <h2 style="font-family: 'Brush Script MT', cursive;">Please Add a Topic</h2>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
                         <div class="col-8">
                             <label class="form-label" for="addedTopic"><b>Topic</b></label>
 
@@ -293,8 +233,34 @@
                         <div class="col-4">
                             <button class="btn btn-primary" id="submit"
                                 @click="addTopics(),displayTopics()">Add</button>
-                        </div>
 
+                        <div class="col">
+                            <div id="subject">
+                                <h2>Add a Subject</h2>
+                                <div class="content">
+                                    <label for="addedSubject" style="font-size: 35px;">Subject:</label>
+
+                                    <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
+                                        placeholder=" add subject ">
+                                    <button class="btn m-1 " id="submit" @click="addSubject(),displaySubjects()"
+                                        style="background-color: blue;color:white">Add</button>
+                                    <div x-init="displaySubjects()"></div>
+                                </div>
+
+                                <hr>
+                                <div class="wrapper">
+                                    <h3>A list of all the home-work subjects</h3>
+                                    <template x-for="subject in subjectsList">
+                                        <button class="a" x-text="subject.add_subject"
+                                            @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
+                                            href=""></button>
+                                    </template>
+                                </div>
+
+                            </div>
+
+
+                        </div>
                     </div>
                     <hr><br>
                     <div class="wrapper">
@@ -306,13 +272,42 @@
                         </template>
                     </div>
 
-                            </div>
-                            
+                </div>
 
+                <div class="container" x-show="topicSection">
+                    <div class="row">
+                        <div class="col">
+                            <div id="homework">
+                                <!-- <h2>HomeWork</h2> -->
+                                <h2>Subject Title:
+                                    <span x-text="subjectname"></span>
+                                </h2>
+                                <h1>Add a Topic</h1>
+                                <!-- <label for="addedTopic">Topic:</label> -->
+                                <div class="content">
+                                    <input class="addinput" x-model="addedTopic" type="text" name="" href="" id=""
+                                        placeholder="add topic">
+                                    <button class="btn m-1" id="submit" @click="addTopics(),displayTopics()"
+                                        style="background-color: blue;color:white">Add</button>
+                                </div>
+
+                                <hr><br>
+                                <div class="wrapper">
+                                    <h3>Add a topic for the selected subject</h3>
+
+                                    <template x-for="topic in topicsList">
+                                        <button class="a" x-text="topic.topic"
+                                            @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
+                                            href=" "></button>
+                                    </template>
+                                </div>
+                                displayQuestionsSection
+
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- </div>
-                </div>
-            </div> -->
 
                 <div x-show="addQuestionSection" class="container" x-init="">
                     <div class="d-flex justify-content-center" style="font-size: 35px;">
@@ -417,10 +412,10 @@
                 <div class="homework-option">
                     <h1 x-model="" x-text="">Welcome <span x-text=""></span></h1>
                     <h2>Select a subjsct</h2>
-                    <button id="optionBtn" type="button" class="btn-toolbar justify-content-center"
+                    <button id="optionBtn" type="button" class=" justify-content-center"
                         @click="gameSection=false,kidsQuestion=true">Maths</button>
-                    <button id="optionBtn" type="button" class="btn-toolbar justify-content-center"
-                        @click="">English</button>
+                    <br><br>
+                    <button id="optionBtn" type="button" class="justify-content-center" @click="">English</button>
                 </div>
             </div>
 
@@ -475,18 +470,19 @@
         </div>
 
 
+
         <!-- teachers screen -->
         <!-- kids side -->
         <!-- background clouds -->
         <!-- <div class="cloud one"></div>
-<div class="cloud two"></div>
-<div class="cloud three"></div>
-<br><br>  <br><br><br><br>  <br><br> -->
+
+          <div class="cloud two"></div>
+          <div class="cloud three"></div>
+          <br><br>  <br><br><br><br>  <br><br> -->
         <!-- option page -->
 
         <!-- kids side -->
     </section>
-
 
 
     <script type="module" src="/main.js"></script>

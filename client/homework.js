@@ -76,6 +76,7 @@ export default function homeworkApp() {
             })
                 .then((users) => {
                     console.log(users)
+
                         this.user = users.data.user;
                         this.addSubjectSection = true;
                         
