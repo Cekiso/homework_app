@@ -3,11 +3,11 @@ import './index.css'
 import './learner.css'
 import './sign.css'
 import Alpine from 'alpinejs'
-
+import homeworkApp from './homework'
 // import signLog from './signup'
 // Alpine.data ('signup',signLog)
+window.Alpine = Alpine
 
-import homeworkApp from './homework'
 Alpine.data('homework', homeworkApp)
 
 Alpine.start()
@@ -20,4 +20,4 @@ Alpine.start()
 //         time: Alpine.$persist(0),
 //        }
 // }
-window.Alpine = Alpine
+

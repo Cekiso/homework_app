@@ -12,18 +12,19 @@ export default function homeworkApp() {
         signLog: true,
         createAcc: false,
         logUser: false,
-        teachersLandingPage:false,
+        teachersLandingPage:true,
         addedSubject: null,
         addedTopic: null,
         addSubjectSection: false,
         topicSection: false,
         homeworkSection:false,
         homeworkForTopic: false,
+        showTopicHW:false,
         subjectsList: [],
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav:false,
+        nav:true,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -52,7 +53,7 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
-
+        
    register() {
             const { firstname, lastname, username, password, role } = this.signUp
             axios.post('http://localhost:8585/api/signUp', {
@@ -79,11 +80,15 @@ export default function homeworkApp() {
                 .then((users) => {
                     console.log(users)
 
-                    if(users.data.status = 'success'){
-                        this.user = users.data.user;
-                        
+                    if (this.signUp.role == 'teacher') {
+                        // this.user = users.data.user;
+                        window.location.assign("./index.html");
                     }
-                    
+
+                    else if (this.signUp.role == 'learner') {
+                        // this.user = users.data.user;
+                        window.location.assign("./landing-page.html");
+                    }
 
                 })
                 .catch(e => console.log(e))
@@ -210,7 +215,8 @@ export default function homeworkApp() {
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log(result.data)
+                    console.log(result.data.data)
+                    this.finalList = result.data.data
                 })
         },
 
