@@ -16,15 +16,15 @@ module.exports = function name(app, db) {
                 throw Error("Invalid username Format")
             }
             const user = await db.oneOrNone('select username from user_detail where username = $1', [username]);
-            console.log(user);
+            // console.log(user);
             if (user) {
 
                 const getPassword = await db.one('select password from user_detail where username= $1', [username]);
-                console.log(getPassword.password);
+                // console.log(getPassword.password);
 
                 const comparePasswords = await bcrypt.compare(password, getPassword.password);
 
-                console.log(comparePasswords);
+                // console.log(comparePasswords);
                 if (comparePasswords === false) {
                     throw new Error("Invalid password, please try again")
                 }
@@ -64,7 +64,7 @@ module.exports = function name(app, db) {
             password,
             role } = req.body;
         try {
-            console.log(username);
+            // console.log(username);
             if (!(username && password && firstname && lastname)) {
                 throw Error("All input is required");
             }
@@ -74,12 +74,12 @@ module.exports = function name(app, db) {
                 throw Error("Invalid username Format")
             }
             const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
-            console.log(oldUser.length === 0);
+            // console.log(oldUser.length === 0);
 
             if (oldUser.length === 0) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
                 let insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
-                console.log(insert);
+                // console.log(insert);
                 // const user = await db.manyOrNone('select * from user_detail where username = $1', [username])
 
                 // const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
@@ -105,8 +105,8 @@ module.exports = function name(app, db) {
 
 
     app.get('/api/subjects', async function (req, res) {
-        let result = []
-        result = await db.manyOrNone("select add_subject from subject_table")
+
+       let result = await db.manyOrNone("select add_subject from subject_table")
         res.json({
             data: result
         })
@@ -140,7 +140,7 @@ module.exports = function name(app, db) {
             let result = []
             const subject = req.params.subject
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1', [subject])
-            console.log('id ' + JSON.stringify(getSubjectId.id))
+            // console.log('id ' + JSON.stringify(getSubjectId.id))
             result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
             res.json({
                 status: 'successful',
@@ -239,10 +239,10 @@ module.exports = function name(app, db) {
             const topic = req.params.topic
 
             const getTopicId = await db.oneOrNone('select id from topic_table where topic = $1', [topic])
-            console.log('topic id ' + JSON.stringify(getTopicId.id))
+            // console.log('topic id ' + JSON.stringify(getTopicId.id))
 
             let questions = await db.manyOrNone('select questions from questions_table where topic_id = $1', [getTopicId.id])
-            console.log('questions' + JSON.stringify(questions));
+            // console.log('questions' + JSON.stringify(questions));
 
             let list = [];
 
@@ -257,10 +257,10 @@ module.exports = function name(app, db) {
                         answers: answers
                     })
                 }
-                console.log('yeah ' + JSON.stringify(answers))
+                // console.log('yeah ' + JSON.stringify(answers))
               }
     
-            console.log('checking question and answers ' + JSON.stringify(list))
+            // console.log('checking question and answers ' + JSON.stringify(list))
 
             res.json({
                 status: 'successful',
