@@ -14,6 +14,7 @@ export default function homeworkApp() {
         teachersLandingPage:false,
         addedSubject: null,
         addedTopic: null,
+        showTopicHW:false,
         addSubjectSection: false,
         topicSection: false,
         homeworkSection:false,
@@ -29,7 +30,7 @@ export default function homeworkApp() {
         answer: null,
         answerList: [],
         list: [],
-        finalList: JSON.parse(localStorage.getItem('store')) || [],
+        finalList: [],
         gameSection:false,
         kidsQuestion:false,
         radioValue: false,
@@ -38,6 +39,7 @@ export default function homeworkApp() {
         displayQuestionsSection: false,
         answerId: null,
         topicId : null,
+        listNumber:0,
         
         signIn: {
             username: null,
@@ -78,7 +80,9 @@ export default function homeworkApp() {
                     console.log(users)
 
                         this.user = users.data.user;
-                        this.addSubjectSection = true;
+                        this.nav = true
+                        this.teachersLandingPage = true;
+                    
                         
                 })
                 .catch(e => console.log(e))
@@ -206,17 +210,8 @@ export default function homeworkApp() {
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
                     console.log(result.data)
+                    this.finalList = result.data.data
                 })
-        },
-
-        storingQAndA(){
-            this.finalList.push({
-                question: this.question,
-                answers: this.list
-            })
-            localStorage['store'] = JSON.stringify(this.finalList);
-            console.log('aye' + JSON.stringify(this.finalList))
-
         },
 
         
