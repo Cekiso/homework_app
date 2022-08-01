@@ -9,4 +9,3 @@ before_script:
   - psql -U postgres -d homework_app -a -f /server/sql/homework_app.sql
 services:
   - postgresql
- script: run homework.js

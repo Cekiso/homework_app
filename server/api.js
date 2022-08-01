@@ -2,12 +2,6 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 module.exports = function name(app, db) {
 
-    // app.get('/api/test', function (req, res) {
-    //     res.json({
-    //         name: 'Student'
-    //     });
-    // });
-
     app.post('/api/login', async (req, res) => {
         const { username,
             password } = req.body;
@@ -16,27 +10,27 @@ module.exports = function name(app, db) {
             if (!(username && password)) {
                 throw Error("All input is required");
             }
-           
-            let validUserFormat =  /^[0-9a-zA-Z_.-]+$/.test(username);
+
+            let validUserFormat = /^[0-9a-zA-Z_.-]+$/.test(username);
             if (!validUserFormat) {
                 throw Error("Invalid username Format")
-            }           
+            }
             const user = await db.oneOrNone('select username from user_detail where username = $1', [username]);
-            console.log(user);
+            // console.log(user);
             if (user) {
 
                 const getPassword = await db.one('select password from user_detail where username= $1', [username]);
-                console.log(getPassword.password);
+                // console.log(getPassword.password);
 
                 const comparePasswords = await bcrypt.compare(password, getPassword.password);
 
-                console.log(comparePasswords);
-                if(comparePasswords === false) {
+                // console.log(comparePasswords);
+                if (comparePasswords === false) {
                     throw new Error("Invalid password, please try again")
                 }
 
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
-                
+
                 //     console.log(decode);
                 // console.log(token);
                 res.json({
@@ -46,7 +40,7 @@ module.exports = function name(app, db) {
                     // data: decode
                 })
             }
-        
+
             else {
                 throw new Error("user not found, please try again")
             }
@@ -70,22 +64,22 @@ module.exports = function name(app, db) {
             password,
             role } = req.body;
         try {
-            console.log(username);
+            // console.log(username);
             if (!(username && password && firstname && lastname)) {
                 throw Error("All input is required");
             }
 
-            let validUser =  /^[0-9a-zA-Z_.-]+$/.test(username);
+            let validUser = /^[0-9a-zA-Z_.-]+$/.test(username);
             if (!validUser) {
                 throw Error("Invalid username Format")
-            }       
+            }
             const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
-            console.log(oldUser.length === 0);
+            // console.log(oldUser.length === 0);
 
             if (oldUser.length === 0) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
                 let insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
-                console.log(insert);
+                // console.log(insert);
                 // const user = await db.manyOrNone('select * from user_detail where username = $1', [username])
 
                 // const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
@@ -96,7 +90,7 @@ module.exports = function name(app, db) {
             }
             else {
                 throw Error("User Already Exist. Please Login");
-                
+
             }
 
 
@@ -111,8 +105,8 @@ module.exports = function name(app, db) {
 
 
     app.get('/api/subjects', async function (req, res) {
-        let result = []
-        result = await db.manyOrNone("select add_subject from subject_table")
+
+       let result = await db.manyOrNone("select add_subject from subject_table")
         res.json({
             data: result
         })
@@ -146,7 +140,7 @@ module.exports = function name(app, db) {
             let result = []
             const subject = req.params.subject
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1', [subject])
-            console.log('id ' + JSON.stringify(getSubjectId.id))
+            // console.log('id ' + JSON.stringify(getSubjectId.id))
             result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
             res.json({
                 status: 'successful',
@@ -185,7 +179,7 @@ module.exports = function name(app, db) {
         try {
             const { question, topic } = req.body
             let getTopicId = await db.oneOrNone('select id from topic_table where topic=$1', [topic])
-    
+
             const checkQuestion = await db.oneOrNone('select questions from questions_table where questions = $1', [question])
             if (checkQuestion == null) {
                 await db.any('insert into questions_table(questions,topic_id) values ($1,$2)', [question, getTopicId.id])
@@ -193,7 +187,7 @@ module.exports = function name(app, db) {
                 return res.json({
                     status: 'successful',
                     questionid: getQuestionId.id,
-                    topicid:getTopicId.id
+                    topicid: getTopicId.id
                 });
             }
             else {
@@ -207,9 +201,9 @@ module.exports = function name(app, db) {
     });
     app.post('/api/addAnswers', async function (req, res) {
         try {
-            const { answer, questionId,booleanVal } = req.body
+            const { answer, questionId, booleanVal } = req.body
 
-            const getAnswerId = await db.oneOrNone('insert into answers_table(answer,correct,questions_id) values ($1,$2,$3) returning id', [answer,booleanVal,questionId])
+            const getAnswerId = await db.oneOrNone('insert into answers_table(answer,correct,questions_id) values ($1,$2,$3) returning id', [answer, booleanVal, questionId])
             // console.log('answer id' + JSON.stringify(getAnswerId.id))
             return res.json({
                 status: 'successful',
@@ -239,5 +233,44 @@ module.exports = function name(app, db) {
             })
         }
     });
+
+    app.get('/api/qAndA/:topic', async function (req, res) {
+        try {
+            const topic = req.params.topic
+
+            const getTopicId = await db.oneOrNone('select id from topic_table where topic = $1', [topic])
+            // console.log('topic id ' + JSON.stringify(getTopicId.id))
+
+            let questions = await db.manyOrNone('select questions from questions_table where topic_id = $1', [getTopicId.id])
+            // console.log('questions' + JSON.stringify(questions));
+
+            let list = [];
+
+            for (const question of questions) {
+        
+                let getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question.questions])
+                let answers = await db.manyOrNone('select answer,correct from answers_table where questions_id = $1', [getQuestionId.id])
+               
+                if (!list.includes(question.questions)) {
+                    list.push({
+                        question: question.questions,
+                        answers: answers
+                    })
+                }
+                // console.log('yeah ' + JSON.stringify(answers))
+              }
+    
+            // console.log('checking question and answers ' + JSON.stringify(list))
+
+            res.json({
+                status: 'successful',
+                data: list
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+    });
+
 
 }

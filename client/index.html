@@ -153,20 +153,7 @@
 
             </ul>
             <!-- background -->
-            <header>
-                <div class="container">
-                    <div class="navigation">
-                        <nav class="navbar navbar-expand-lg navbar">
-                            <ul>
-                                <li class="current"><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
-                                <li><button class="btn" href="index.html" style="color:black;"  @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button></li>
-                                <li><button class="btn" href="index.html" style="color:black;" @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
-                                <li><button class="btn" href="index.html" style="color:black;" @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </header>
+            
             <div x-show="signLog" class="container">
                 <button class="btn btn-primary" @click="createAcc = true, signLog = false">Create Account</button>
             </div>
