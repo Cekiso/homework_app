@@ -3,7 +3,6 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-        show: false,
         firstname: null,
         lastname: null,
         username: null,
@@ -62,9 +61,8 @@ export default function homeworkApp() {
                     console.log(users.data)
                     this.createAcc = false
                     this.logUser = true
-                    if (users.data.status = 'success') {
-                        this.user = users.data.user;
-                    }
+                    this.user = users.data.user;
+                    
                 })
         },
 
@@ -78,13 +76,9 @@ export default function homeworkApp() {
             })
                 .then((users) => {
                     console.log(users)
-
-                    if(users.data.status = 'success'){
                         this.user = users.data.user;
+                        this.addSubjectSection = true;
                         
-                    }
-                    
-
                 })
                 .catch(e => console.log(e))
         },

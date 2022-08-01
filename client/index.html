@@ -46,7 +46,7 @@
                 
                 <div class="row">
 
-                    <form class="col-12">
+                    <div class="col-12">
 
                         <div x-show="createAcc" class="container">
                             <div class="col-12">
@@ -110,16 +110,16 @@
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-primary"
-                                    @click="logUser = true, createAcc= false, register(), gotToLogin()">Sign
+                                    @click="logUser = true, createAcc= false, register()">Sign
                                     Up</button>
                             </div>
 
 
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="row">
-                    <form class="col-12">
+                    <div class="col-12">
 
                         <div x-show="logUser" class="container">
                             <div class="col-12">
@@ -140,12 +140,12 @@
                             </div>
 
                             <div class="col-12">
-                                <button class="btn btn-primary" @click="login()">Login</button>
+                                <button class="btn btn-primary" @click="logUser = false, addSubjectSection = true, login()">Login</button>
                             </div>
                         </div>
 
 
-                    </form>
+                    </div>
                 </div>
 
 
@@ -290,49 +290,12 @@
                             <input class="form-control" x-model="addedTopic" type="text " name="" href="" id=""
                                 placeholder="add topic">
 
-                        <div id="subject"> -->
-                            <div class="d-flex justify-content-center">
-                                <h1 style="font-family: 'Brush Script MT', cursive;">Please Add a Subject</h1>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-8">
-                                    <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
-                                    <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
-                                        placeholder=" add subject ">
-                                    </div>
-                                    <div class="col-4">
-                                        <button class="btn btn-primary" id="submit"
-                                        @click="addSubject(),displaySubjects()">Add</button>
-                                    </div>
-                                <div x-init="displaySubjects()"></div>
-                            </div>
-                            <hr><br>
-                            <div >
-                                <div class="wrapper">
-                                    <template x-for="subject in subjectsList">
-                                        <button class="a" x-text="subject.add_subject"
-                                            @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                            href=""></button>
-                                    </template>
-                                </div>
-
-
-                            <hr>
-                        
-
-                        </div>
-
                         <div class="col-4">
                             <button class="btn btn-primary" id="submit"
                                 @click="addTopics(),displayTopics()">Add</button>
                         </div>
 
                     </div>
-
-
-
                     <hr><br>
                     <div class="wrapper">
                         <template x-for="topic in topicsList">
@@ -511,7 +474,7 @@
             </div>
         </div>
 
-</div>
+
         <!-- teachers screen -->
         <!-- kids side -->
         <!-- background clouds -->
