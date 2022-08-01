@@ -11,26 +11,26 @@ export default function homeworkApp() {
         signLog: true,
         createAcc: false,
         logUser: false,
-        teachersLandingPage:true,
+        teachersLandingPage:false,
         addedSubject: null,
         addedTopic: null,
+        showTopicHW:false,
         addSubjectSection: false,
         topicSection: false,
         homeworkSection:false,
         homeworkForTopic: false,
-        showTopicHW:false,
         subjectsList: [],
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav:true,
+        nav:false,
         addQuestionSection: false,
         question: null,
         questionId: null,
         answer: null,
         answerList: [],
         list: [],
-        finalList: JSON.parse(localStorage.getItem('store')) || [],
+        finalList: [],
         gameSection:false,
         kidsQuestion:false,
         radioValue: false,
@@ -39,6 +39,7 @@ export default function homeworkApp() {
         displayQuestionsSection: false,
         answerId: null,
         topicId : null,
+        listNumber:0,
         
         signIn: {
             username: null,
@@ -52,7 +53,7 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
-        
+
    register() {
             const { firstname, lastname, username, password, role } = this.signUp
             axios.post('http://localhost:8585/api/signUp', {
@@ -79,7 +80,9 @@ export default function homeworkApp() {
                     console.log(users)
 
                         this.user = users.data.user;
-                        this.addSubjectSection = true;
+                        this.nav = true
+                        this.teachersLandingPage = true;
+                    
                         
                 })
                 .catch(e => console.log(e))
@@ -206,19 +209,9 @@ export default function homeworkApp() {
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log(result.data.data)
+                    console.log(result.data)
                     this.finalList = result.data.data
                 })
-        },
-
-        storingQAndA(){
-            this.finalList.push({
-                question: this.question,
-                answers: this.list
-            })
-            localStorage['store'] = JSON.stringify(this.finalList);
-            console.log('aye' + JSON.stringify(this.finalList))
-
         },
 
         
