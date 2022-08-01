@@ -60,7 +60,7 @@
                 </div>
                 <div class="row">
 
-                    <form class="col-12">
+                    <div class="col-12">
 
                         <div x-show="createAcc" class="container">
                             <div class="col-12">
@@ -130,16 +130,18 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary" @click="logUser = true, createAcc= false">Sign
+
+                                <button class="btn btn-primary"
+                                    @click="logUser = true, createAcc= false, register()">Sign
                                     Up</button>
                             </div>
 
 
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <div class="row">
-                    <form class="col-12">
+                    <div class="col-12">
 
                         <div x-show="logUser" class="container">
                             <div class="col-12">
@@ -160,12 +162,12 @@
                             </div>
 
                             <div class="col-12">
-                                <button class="btn btn-primary" @click="login()">Login</button>
+                                <button class="btn btn-primary" @click="logUser = false, addSubjectSection = true, login()">Login</button>
                             </div>
                         </div>
 
 
-                    </form>
+                    </div>
                 </div>
 
 
@@ -221,6 +223,17 @@
 
                 <div x-show="addSubjectSection" class="container">
                     <div class="row">
+
+                        <div class="col-8">
+                            <label class="form-label" for="addedTopic"><b>Topic</b></label>
+
+                            <input class="form-control" x-model="addedTopic" type="text " name="" href="" id=""
+                                placeholder="add topic">
+
+                        <div class="col-4">
+                            <button class="btn btn-primary" id="submit"
+                                @click="addTopics(),displayTopics()">Add</button>
+
                         <div class="col">
                             <div id="subject">
                                 <h2>Add a Subject</h2>
@@ -246,8 +259,19 @@
 
                             </div>
 
+
                         </div>
                     </div>
+                    <hr><br>
+                    <div class="wrapper">
+                        <template x-for="topic in topicsList">
+                            <p></p>
+                            <button class="a" x-text="topic.topic"
+                                @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
+                                href=" "></button>
+                        </template>
+                    </div>
+
                 </div>
 
                 <div class="container" x-show="topicSection">
@@ -278,6 +302,7 @@
                                     </template>
                                 </div>
                                 displayQuestionsSection
+
 
                             </div>
                         </div>
