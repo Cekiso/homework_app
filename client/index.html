@@ -140,8 +140,7 @@
                             </div>
 
                             <div class="col-12">
-                                <button class="btn btn-primary"
-                                    @click="logUser = false,login()">Login</button>
+                                <button class="btn btn-primary" @click="logUser = false,login()">Login</button>
                             </div>
                         </div>
 
@@ -159,12 +158,12 @@
                             <nav class="navbar navbar-expand-lg navbar">
                                 <ul>
                                     <li class="current"><button class="btn" href="index.html" style="color:black;"
-                                            @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true">Home</button>
+                                            @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false">Home</button>
                                     </li>
                                     <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,displayQuestionsSection=false">Add-Homework</button>
+                                            @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false">Add-Homework</button>
                                     </li>
-                                
+
                                     <!-- <li><button class="btn" href="index.html" style="color:black;"
                                             @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
                                     </li> -->
@@ -251,6 +250,10 @@
 
                 </div>
 
+                <div x-text="successMessage" class="text-success">
+
+                </div>
+
                 <div class="row">
                     <div class="col-8">
                         <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
@@ -288,7 +291,9 @@
                             <h2>Subject Title:
                                 <span x-text="subjectname"></span>
                             </h2>
+
                             <h1>Add a Topic</h1>
+                            <div x-text="successMessage" class="text-success"></div>
                             <!-- <label for="addedTopic">Topic:</label> -->
                             <div class="content">
                                 <input class="addinput" x-model="addedTopic" type="text" name="" href="" id=""
@@ -324,6 +329,9 @@
                             <label for="exampleFormControlTextarea1">Question</label>
                             <textarea class="form-control" x-model="question" id="exampleFormControlTextarea1 " rows="5"
                                 placeholder="Enter your question"></textarea>
+                            <div x-text="successMessageQuestion" class="text-success">
+
+                            </div>
                             <div class="d-inline-flex p-2">
                                 <button id="addQuestions" class="btn mt-1 btn-outline-primary"
                                     @click="addQuestions()">Add question</button>
@@ -345,6 +353,9 @@
                     </div>
                     <!-- displaying the possible answers -->
                     <div class="answersOutput">
+                        <div x-text="successMessageAnswer" class="text-success">
+
+                        </div>
                         <template x-for="answer in answerList">
                             <div class="form-check m-1">
                                 <input class="form-check-input" type="radio" name="flexRadioDefault"
@@ -357,7 +368,7 @@
                 <div class=" d-flex justify-content-end p-2 ">
                     <button type="button" class="btn m-1 text-primary">Cancel</button>
                     <button type="button" class="btn m-1 btn-primary"
-                        @click="displayQuestionsSection=true,addQuestionSection=false,displayHomework()">Create</button>
+                        @click="displayQuestionsSection=true,addQuestionSection=false,displayHomework(),answerList=[]">Create</button>
                 </div>
             </div>
             <!-- last page -->
@@ -377,19 +388,22 @@
 
 
                         <div class="row p-2">
-                          
-                            <template x-for="(item, index ) in finalList" :key="index">
-                                <div class="align-items-center border p-2">
 
-                                    <!-- <div class="item p-2"> --> Q<span x-text="index + ': '"></span>
-                                    <div class="d-flex justify-content-center">
-                                        <h2><span x-text="item.question"></span></h2>
-                                    </div>
+                            <template x-for="(item, index) in finalList" :key="index">
+                                <div class="align-items-center border p-2 wrapper">
+
+                                 
+                                       <!-- <div class="item p-2"> --><span> Question </span><span x-text=""></span>
+                                        <div class="d-flex justify-content-center">
+                                            <h2><span x-text="item.question"></span></h2>
+                                        </div>
+                                
                                     <!-- <div class="" x-for="item in finalList"> -->
-
+                                        Possible answers
                                     <div class="d-flex justify-content-around">
+                                        
                                         <template x-for="answer in item.answers">
-                                            <span class="m-3 border p-4" x-text="answer.answer"></span>
+                                            <span class="m-3 p-4 border" x-text="answer.answer" :class="`answer.correct`"></span>
                                         </template>
 
                                     </div>
@@ -420,40 +434,40 @@
                         @click="">English</button>
                 </div>
             </div>
-   <!-- option page -->
-        <div x-show="kidsQuestion">
-            <br>
-            <div class="homework-option"></div>
-            <audio id="myAudio">
-                <source src="audio/wrong.mp3" type="audio/mpeg">
-            </audio>
+            <!-- option page -->
+            <div x-show="kidsQuestion">
+                <br>
+                <div class="homework-option"></div>
+                <audio id="myAudio">
+                    <source src="audio/wrong.mp3" type="audio/mpeg">
+                </audio>
 
-            <header>
-                <div class="container">
-                    <div class="nav">
-                        <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATHS HOMEWORK</h2>
-                        <nav>
-                            <ul>
-                                <li class="current"><a href="index.html">Addition</a></li>
-                                <li><a href="subtract.html">Subtract</a></li>
-                                <li><a href="multiply.html">Multiply</a></li>
-                                <li><a href="divide.html">Divide</a></li>
-                            </ul>
-                        </nav>
+                <header>
+                    <div class="container">
+                        <div class="nav">
+                            <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATHS HOMEWORK</h2>
+                            <nav>
+                                <ul>
+                                    <li class="current"><a href="index.html">Addition</a></li>
+                                    <li><a href="subtract.html">Subtract</a></li>
+                                    <li><a href="multiply.html">Multiply</a></li>
+                                    <li><a href="divide.html">Divide</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
-                </div>
-            </header>
+                </header>
 
 
 
+
+            </div>
 
         </div>
 
-        </div>
 
 
 
-     
 
 
         <!-- teachers screen -->
