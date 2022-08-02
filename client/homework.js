@@ -3,6 +3,7 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
+       
         firstname: null,
         lastname: null,
         username: null,
@@ -38,6 +39,8 @@ export default function homeworkApp() {
         displayQuestionsSection: false,
         answerId: null,
         topicId : null,
+        loginSuccessMsg: null,
+        registerSuccessMsg: null,
         
         signIn: {
             username: null,
@@ -61,8 +64,14 @@ export default function homeworkApp() {
                     console.log(users.data)
                     this.createAcc = false
                     this.logUser = true
-                    this.user = users.data.user;
-                    
+                    if (users.data.status == 'success') {
+                        this.user = users.data.user;
+                        this.registerSuccessMsg = 'Successfully registered'
+                    }
+
+                    setTimeout(() => {
+                        this.registerSuccessMsg = '';
+                    }, 3000);
                 })
         },
 
@@ -77,9 +86,15 @@ export default function homeworkApp() {
                 .then((users) => {
                     console.log(users)
 
+                    if(users.data.status == 'success'){
                         this.user = users.data.user;
-                        this.addSubjectSection = true;
-                        
+                        this.loginSuccessMsg = 'Successfully login'
+                    }
+                    
+                    setTimeout(() => {
+                        this.loginSuccessMsg = ''
+                    }, 3000);
+
                 })
                 .catch(e => console.log(e))
         },
