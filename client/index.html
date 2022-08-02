@@ -63,7 +63,7 @@
                                 <div class="col-6">
                                     <label class="form-label" for="lastname"><b>Lastname</b></label>
                                     <input class="form-control" type="text" x-model="signUp.lastname" name="lastname"
-                                        id="lastname" required>
+                                        id="lastname" x-bind:disabled="!signUp.firstname">
 
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                                 <div class="col-6">
                                     <label class="form-label" for="username"><b>Username</b></label>
                                     <input type="text" x-model="signUp.username" name=username
-                                        class="velidate; form-control" id="username" required>
+                                        class="velidate; form-control" id="username" x-bind:disabled="!signUp.lastname"   required>
 
                                 </div>
 
@@ -81,7 +81,7 @@
 
                                     <label class="form-label" for="password"><b>Password</b></label>
                                     <input type="password" class="form-control" id="password" x-model="signUp.password"
-                                        name="password" required>
+                                        name="password" x-bind:disabled="!signUp.username" required>
 
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label class="form-label" for="role"><b>Role</b></label>
-                                    <select class="form-select" x-model="signUp.role" name="" id="">
+                                    <select class="form-select" x-model="signUp.role" x-bind:disabled="!signUp.role" name="" id="">
                                         <option value="" disabled selected>Select your role</option>
                                         <option value="teacher">Teacher</option>
                                         <option value="learner">Learner</option>
@@ -109,9 +109,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary"
-                                    @click="logUser = true, createAcc= false, register()">Sign
-                                    Up</button>
+                                <button class="btn btn-primary" @click="logUser = true, createAcc= false, register()" x-bind:disabled="!signUp.role">Signup</button>
                             </div>
 
 
@@ -135,12 +133,12 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label class="form-label">Password:</label>
-                                    <input type="password" class="form-control" x-model="signIn.password">
+                                    <input type="password" class="form-control" x-model="signIn.password" x-bind:disabled="!signIn.username">
                                 </div>
                             </div>
 
                             <div class="col-12">
-                                <button class="btn btn-primary" @click="logUser = false, addSubjectSection = true, login()">Login</button>
+                                <button class="btn btn-primary" @click="logUser = false, addSubjectSection = true, login()" x-bind:disabled="!signIn.password">Login</button>
                             </div>
                         </div>
 
