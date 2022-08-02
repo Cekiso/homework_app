@@ -14,6 +14,7 @@ export default function homeworkApp() {
         teachersLandingPage:false,
         addedSubject: null,
         addedTopic: null,
+        showTopicHW:false,
         addSubjectSection: false,
         topicSection: false,
         homeworkSection:false,
@@ -29,7 +30,7 @@ export default function homeworkApp() {
         answer: null,
         answerList: [],
         list: [],
-        finalList: JSON.parse(localStorage.getItem('store')) || [],
+        finalList: [],
         gameSection:false,
         kidsQuestion:false,
         radioValue: false,
@@ -38,6 +39,9 @@ export default function homeworkApp() {
         displayQuestionsSection: false,
         answerId: null,
         topicId : null,
+        successMessage: null,
+        successMessageQuestion: null ,
+        successMessageAnswer: null,
         
         signIn: {
             username: null,
@@ -78,7 +82,9 @@ export default function homeworkApp() {
                     console.log(users)
 
                         this.user = users.data.user;
-                        this.addSubjectSection = true;
+                        this.nav = true
+                        this.teachersLandingPage = true;
+                    
                         
                 })
                 .catch(e => console.log(e))
@@ -94,6 +100,15 @@ export default function homeworkApp() {
                 .post('http://localhost:8585/api/addSubjects', { subject })
                 .then((result) => {
                     console.log(result.data)
+                    // this.successMessage = 'successfully added'
+                    if(result.data.status == 'successful'){
+                        this.successMessage = 'successfully added!'
+                    }
+
+                    
+                    setTimeout(() => {
+                        this.successMessage = '';
+                    }, 3000);
 
                 })
 
@@ -121,6 +136,14 @@ export default function homeworkApp() {
                 .post('http://localhost:8585/api/addTopics', { subject, topic })
                 .then((result) => {
                     console.log('checking added topics' + JSON.stringify(result.data))
+                    if(result.data.status == 'successful'){
+                        this.successMessage = 'successfully added!'
+                    }
+
+                    
+                    setTimeout(() => {
+                        this.successMessage = '';
+                    }, 3000);
                 })
         },
 
@@ -148,6 +171,15 @@ export default function homeworkApp() {
                     console.log(result.data)
                     this.questionId = result.data.questionid
                     this.topicId =result.data.topicid
+                    if(result.data.status == 'successful'){
+                        this.successMessageQuestion = 'successfully added!'
+                    }
+
+                    
+                    setTimeout(() => {
+                        this.successMessageQuestion = '';
+                    }, 3000);
+                   
 
                 })
         },
@@ -171,6 +203,14 @@ export default function homeworkApp() {
                         correct: false,
                     });
                     console.log('list of answers' + JSON.stringify(this.list))
+                    // if(result.data.status == 'successful'){
+                    //     this.successMessageAnswer = 'successfully added!'
+                    // }
+
+                    
+                    // setTimeout(() => {
+                    //     this.successMessage = '';
+                    // }, 3000);
                 })
         },
 
@@ -194,6 +234,14 @@ export default function homeworkApp() {
                     .put('http://localhost:8585/api/updateAnswer', { booleanVal, answerId })
                     .then((result) => {
                         console.log(result.data)
+                        if(result.data.status == 'success'){
+                            this.successMessageAnswer = 'successfully updated!'
+                        }
+    
+                        
+                        setTimeout(() => {
+                            this.successMessageAnswer = '';
+                        }, 3000);
                     })
             });
 
@@ -206,19 +254,10 @@ export default function homeworkApp() {
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
                     console.log(result.data)
+                    this.finalList = result.data.data
+                    
                 })
         },
 
-        storingQAndA(){
-            this.finalList.push({
-                question: this.question,
-                answers: this.list
-            })
-            localStorage['store'] = JSON.stringify(this.finalList);
-            console.log('aye' + JSON.stringify(this.finalList))
-
-        },
-
-        
     }
 }

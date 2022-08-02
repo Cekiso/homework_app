@@ -43,7 +43,7 @@
                 <div x-show="signLog" class="container">
                     <button class="btn btn-primary" @click="createAcc = true, signLog = false">Create Account</button>
                 </div>
-                
+
                 <div class="row">
 
                     <div class="col-12">
@@ -138,14 +138,16 @@
                             </div>
 
                             <div class="col-12">
+
                                 <button class="btn btn-primary" @click="logUser = false, addSubjectSection = true, login()" x-bind:disabled="!signIn.password">Login</button>
+
+                               
                             </div>
                         </div>
 
 
                     </div>
                 </div>
-
 
 
 
@@ -157,263 +159,269 @@
                             <nav class="navbar navbar-expand-lg navbar">
                                 <ul>
                                     <li class="current"><button class="btn" href="index.html" style="color:black;"
+                                            @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false">Home</button>
+                                    </li>
+                                    <li><button class="btn" href="index.html" style="color:black;"
+                                            @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false">Add-Homework</button>
+                                    </li>
+
+                                    <!-- <li><button class="btn" href="index.html" style="color:black;"
                                             @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
-                                    </li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button>
-                                    </li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </nav>
                         </div>
                     </div>
                 </header>
-                <!-- <div x-show="addSubjectSection">
+            </div>
+            <!-- <div x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
                 @click="addSubjectSection=true,teachersLandingPage=false">addHomework</button>
             </div> -->
-                <!-- teachers landing page -->
+            <!-- teachers landing page -->
 
-                <!-- teachers landing page -->
-                <div x-show="teachersLandingPage">
-                    <div class="row">
-                        <div class="col">
-                            <div id="homeScreen">
+            <!-- teachers landing page -->
+            <div x-show="teachersLandingPage">
+                <div class="row">
+                    <div class="col">
+                        <div id="homeScreen">
 
-                                <div class="d-flex justify-content-center" style="font-size: 35px;">
+                            <div class="d-flex justify-content-center" style="font-size: 35px;">
 
-                                    <h1>Welcome
-                                        <span x-text="signIn.username"></span>
-                                    </h1>
+                                <h1>Welcome
+                                    <span x-text="signIn.username"></span>
+                                </h1>
 
-                                    <!-- <button>hello</button> -->
-                                </div>
-                                <br />
-                                <div>
+                                <!-- <button>hello</button> -->
+                            </div>
+                            <br />
+                            <div>
 
-
-                                    <button type="button" class="btn m-1 text-primary" @click="addSubjectSection=false"
-                                        href="" style="font-size: 30px;">Add Subject</button>
-
-                                    <h2>Added Home work</h2>
-                                    <template x-for="subject in subjectsList">
+                                <h2>Added Home work</h2>
+                                <template x-for="subject in subjectsList">
 
 
-                                        <ul>
-                                            <li class="btn-group-vertical btn-lg">
-                                                <button class="a" x-text="subject.add_subject"
-                                                    @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,teachersLandingPage=false,console.log('and then '+ subjectname),displayTopics()"
-                                                    href=""></button>
-                                            </li>
-                                        </ul>
+                                    <ul>
+                                        <li class="btn-group-vertical btn-lg">
+                                            <button class="a" x-text="subject.add_subject"
+                                                @click="subjectname=subject.add_subject,addSubjectSection=false,teachersLandingPage=false,displayQuestionsSection=false,showTopicHW=true,console.log('and then '+ subjectname),displayTopics()"></button>
+                                        </li>
+                                    </ul>
 
-                                    </template>
-                                </div>
-
-
+                                </template>
                             </div>
 
+
                         </div>
+
                     </div>
                 </div>
+            </div>
 
-                <!-- teachers landing page -->
-
-                <div x-show="addSubjectSection" class="container">
-                    <!-- <div class="row">
+            <div class="container" x-show="showTopicHW">
+                <div class="row">
                     <div class="col">
+                        <div id="homework">
+                            <!-- <h2>HomeWork</h2> -->
+                            <h2>Subject Title:
+                                <span x-text="subjectname"></span>
+                            </h2>
 
-                        <div id="subject"> -->
-                    <div class="d-flex justify-content-center">
-                        <h1 style="font-family: 'Brush Script MT', cursive;">Please Add a Subject</h1>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-8">
-                            <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
-                            <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
-                                placeholder=" add subject ">
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" id="submit"
-                                @click="addSubject(),displaySubjects()">Add</button>
-                        </div>
-                        <div x-init="displaySubjects()"></div>
-                    </div>
-                    <hr><br>
-                    <div>
-                        <div class="wrapper">
-                            <template x-for="subject in subjectsList">
-                                <button class="a" x-text="subject.add_subject"
-                                    @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                    href=""></button>
-                            </template>
-                        </div>
-
-                    </div>
-
-                </div>
-                <!-- 
-                    </div>
-                </div>
-            </div> -->
-
-                <div class="container" x-show="topicSection">
-                    <!-- <div class="row">
-                    <div class="col">
-                        <div id="homework"> -->
-                    <!-- <h2>HomeWork</h2> -->
-
-                    <div class="col-12">
-                        <h3>Subject Title:
-                            <span x-text="subjectname"></span>
-                        </h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 d-flex justify-content-center">
-                            <h2 style="font-family: 'Brush Script MT', cursive;">Please Add a Topic</h2>
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-8">
-                            <label class="form-label" for="addedTopic"><b>Topic</b></label>
-
-                            <input class="form-control" x-model="addedTopic" type="text " name="" href="" id=""
-                                placeholder="add topic">
-
-                        
                             <hr><br>
+                            <div class="wrapper">
+                                <h3>Click on a topic to see the homework added</h3>
 
-                        <div class="col-4">
-                            <button class="btn btn-primary" id="submit"
-                                @click="addTopics(),displayTopics()">Add</button>
+                                <template x-for="topic in topicsList">
+                                    <button class="a" x-text="topic.topic"
+                                        @click="topicname=topic.topic,showTopicHW=false,displayQuestionsSection=true,displayHomework()"
+                                        href=" "></button>
+                                </template>
+                            </div>
                         </div>
-
                     </div>
+                </div>
+            </div>
 
+            <div x-show="addSubjectSection" class="container">
+                <!-- <div class="row">
+                    <div class="col">
+                        <div id="subject"> -->
+                <div class="d-flex justify-content-center">
+                    <h1 style="font-family: 'Brush Script MT', cursive;">Please Add a Subject</h1>
 
+                </div>
 
-                    <hr><br>
+                <div x-text="successMessage" class="text-success">
+
+                </div>
+
+                <div class="row">
+                    <div class="col-8">
+                        <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
+                        <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
+                            placeholder=" add subject ">
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" id="submit" @click="addSubject(),displaySubjects()">Add</button>
+                    </div>
+                    <div x-init="displaySubjects()"></div>
+                </div>
+                <hr><br>
+                <div>
                     <div class="wrapper">
-                        <template x-for="topic in topicsList">
-                            <p></p>
-                            <button class="a" x-text="topic.topic"
-                                @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
-                                href=" "></button>
+                        <template x-for="subject in subjectsList">
+                            <button class="a" x-text="subject.add_subject"
+                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                                href=""></button>
                         </template>
                     </div>
 
-                            </div>
-                            
-
                 </div>
-                <!-- </div>
+
+            </div>
+            <!-- 
+                    </div>
                 </div>
             </div> -->
 
-                <div x-show="addQuestionSection" class="container" x-init="">
-                    <div class="d-flex justify-content-center" style="font-size: 35px;">
-                        <h1>Topic:
-                            <span x-text="topicname"></span>
-                        </h1>
-                    </div>
-                    <div class="addingQuestions border m-1 p-2 ">
-                        <div class="questionInput m-1 ">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Question</label>
-                                <textarea class="form-control" x-model="question" id="exampleFormControlTextarea1 "
-                                    rows="5" placeholder="Enter your question"></textarea>
-                                <div class="d-inline-flex p-2">
-                                    <button id="addQuestions" class="btn mt-1 btn-outline-primary"
-                                        @click="addQuestions()">Add question</button>
-                                </div>
+            <div class="container" x-show="topicSection">
+                <div class="row">
+                    <div class="col">
+                        <div id="homework">
+                            <!-- <h2>HomeWork</h2> -->
+                            <h2>Subject Title:
+                                <span x-text="subjectname"></span>
+                            </h2>
+
+                            <h1>Add a Topic</h1>
+                            <div x-text="successMessage" class="text-success"></div>
+                            <!-- <label for="addedTopic">Topic:</label> -->
+                            <div class="content">
+                                <input class="addinput" x-model="addedTopic" type="text" name="" href="" id=""
+                                    placeholder="add topic">
+                                <button class="btn m-1" id="submit" @click="addTopics(),displayTopics()"
+                                    style="background-color: blue;color:white">Add</button>
+                            </div>
+
+                            <hr><br>
+                            <div class="wrapper">
+                                <h3>Add a topic for the selected subject</h3>
+
+                                <template x-for="topic in topicsList">
+                                    <button class="a" x-text="topic.topic"
+                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
+                                        href=" "></button>
+                                </template>
                             </div>
                         </div>
-                        <div class="answerInput m-1">
-                            <div class="form ">
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Answer</label>
-                                    <textarea class="form-control " x-model="answer" id="exampleFormControlTextarea1 "
-                                        rows="1 "></textarea>
-                                    <div class="d-inline-flex p-2">
-                                        <button id="addQuestions" class="btn mt-0 btn-outline-primary"
-                                            @click="addAnswers()">Add answer</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- displaying the possible answers -->
-                        <div class="answersOutput">
-                            <template x-for="answer in answerList">
-                                <div class="form-check m-1">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="flexRadioDefault1" @change="console.log(answer),getCorrectValue()">
-                                    <label class="form-check-label" for="flexRadioDefault1" x-text="answer"></label>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
-                    <div class=" d-flex justify-content-end p-2 ">
-                        <button type="button" class="btn m-1 text-primary">Cancel</button>
-                        <button type="button" class="btn m-1 btn-primary"
-                            @click="displayQuestionsSection=true,addQuestionSection=false,storingQAndA(),list=[]">Create</button>
                     </div>
                 </div>
-                <!-- last page -->
-                <div x-show="displayQuestionsSection" class="topic-heading">
-                    <h1 class="d-flex justify-content-center">Topic:
-                        <span x-text="topicname">
-                        </span>
+            </div>
+
+            <div x-show="addQuestionSection" class="container" x-init="">
+                <div class="d-flex justify-content-center" style="font-size: 35px;">
+                    <h1>Topic:
+                        <span x-text="topicname"></span>
                     </h1>
-                    <div class="border justify-content-center m-3 p-4 ">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <h2>Questions</h2>
+                </div>
+                <div class="addingQuestions border m-1 p-2 ">
+                    <div class="questionInput m-1 ">
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Question</label>
+                            <textarea class="form-control" x-model="question" id="exampleFormControlTextarea1 " rows="5"
+                                placeholder="Enter your question"></textarea>
+                            <div x-text="successMessageQuestion" class="text-success">
+
+                            </div>
+                            <div class="d-inline-flex p-2">
+                                <button id="addQuestions" class="btn mt-1 btn-outline-primary"
+                                    @click="addQuestions()">Add question</button>
+                            </div>
                         </div>
+                    </div>
+                    <div class="answerInput m-1">
+                        <div class="form ">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Answer</label>
+                                <textarea class="form-control " x-model="answer" id="exampleFormControlTextarea1 "
+                                    rows="1 "></textarea>
+                                <div class="d-inline-flex p-2">
+                                    <button id="addQuestions" class="btn mt-0 btn-outline-primary"
+                                        @click="addAnswers()">Add answer</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- displaying the possible answers -->
+                    <div class="answersOutput">
+                        <div x-text="successMessageAnswer" class="text-success">
 
-                        <div class="wrapper-options">
-                            <!-- <h2>Q1:<span class="" x-text="question"></span></h2> -->
-                            <!-- Possible answers -->
+                        </div>
+                        <template x-for="answer in answerList">
+                            <div class="form-check m-1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                    id="flexRadioDefault1" @change="console.log(answer),getCorrectValue()">
+                                <label class="form-check-label" for="flexRadioDefault1" x-text="answer"></label>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div class=" d-flex justify-content-end p-2 ">
+                    <button type="button" class="btn m-1 text-primary">Cancel</button>
+                    <button type="button" class="btn m-1 btn-primary"
+                        @click="displayQuestionsSection=true,addQuestionSection=false,displayHomework(),answerList=[]">Create</button>
+                </div>
+            </div>
+            <!-- last page -->
+            <div x-show="displayQuestionsSection" class="topic-heading">
+                <h1 class="d-flex justify-content-center">Topic:
+                    <span x-text="topicname">
+                    </span>
+                </h1>
+                <div class="border justify-content-center m-3 p-4 ">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h2>Questions</h2>
+                    </div>
+
+                    <div class="wrapper-options">
+                        <!-- <h2>Q1:<span class="" x-text="question"></span></h2> -->
+                        <!-- Possible answers -->
 
 
-                            <div class="row p-2">
+                        <div class="row p-2">
 
-                                <template x-for="item in finalList">
-                                    <div class="align-items-center border p-2">
+                            <template x-for="(item, index) in finalList" :key="index">
+                                <div class="align-items-center border p-2 wrapper">
 
-                                        <!-- <div class="item p-2"> -->
+                                 
+                                       <!-- <div class="item p-2"> --><span> Question </span><span x-text=""></span>
                                         <div class="d-flex justify-content-center">
                                             <h2><span x-text="item.question"></span></h2>
                                         </div>
-                                        <!-- <div class="" x-for="item in finalList"> -->
+                                
+                                    <!-- <div class="" x-for="item in finalList"> -->
+                                        Possible answers
+                                    <div class="d-flex justify-content-around">
+                                        
+                                        <template x-for="answer in item.answers">
+                                            <span class="m-3 p-4 border" x-text="answer.answer" :class="`answer.correct`"></span>
+                                        </template>
 
-                                        <div class="d-flex justify-content-around">
-                                            <template x-for="answer in item.answers">
-                                                <span class="m-3 border p-4" x-text="answer.answer"></span>
-                                            </template>
-
-                                        </div>
-                                        <!-- </div> -->
-                                        <!-- </div> -->
                                     </div>
-                                </template>
+                                    <!-- </div> -->
+                                    <!-- </div> -->
+                                </div>
+                            </template>
 
-                            </div>
                         </div>
-
                     </div>
 
-                    <div class="d-flex justify-content-end p-2">
-                        <button type="button " class="btn m-1 text-primary"
-                            @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
-                        <a href="./landing-page.html">landing</a>
-                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end p-2">
+                    <button type="button " class="btn m-1 text-primary"
+                        @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
+                    <a href="./landing-page.html">landing</a>
                 </div>
             </div>
 
@@ -427,7 +435,6 @@
                         @click="">English</button>
                 </div>
             </div>
-
             <!-- option page -->
             <div x-show="kidsQuestion">
                 <br>
@@ -454,29 +461,14 @@
 
 
 
-                <div id="wrapper">
-                    <div class="equation">
-                        <h1 id="num1" style="color:#FE4A49">1</h1>
-                        <h1 style="color: #2AB7CA;">+</h1>
-                        <h1 id="num2" style="color: #FED766">1</h1>
-                        <h1 style="color: #F86624">=</h1>
-                        <h1 style="color: gray">?</h1>
-                    </div>
 
-                    <div class="answer-options">
-                        <div class="options" style="background-color: #fe4949;">
-                            <h1 id="option1">1</h1>
-                        </div>
-                        <div class="options" style="background-color: #2a3aca;">
-                            <h1 id="option2">2</h1>
-                        </div>
-                        <div class="options" style="background-color: #fef166;">
-                            <h1 id="option3">3</h1>
-                        </div>
-                    </div>
-                </div>
             </div>
+
         </div>
+
+
+
+
 
 
         <!-- teachers screen -->
