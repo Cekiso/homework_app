@@ -40,30 +40,6 @@
 
                 </ul>
                 <!-- background -->
-<<<<<<< HEAD
-                <header>
-                    <div x-show="nav" class="container">
-                        <div class="navigation">
-                            <nav class="navbar navbar-expand-lg navbar">
-                                <ul>
-                                    <li class="current"><button class="btn" href="index.html" style="color:black;"
-                                            @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
-                                    </li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="addQuestionSection=true,teachersLandingPage=false">Add-Questions</button>
-                                    </li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="gameSection=true,teachersLandingPage=false">KidsGame</button></li>
-                                    <li><button class="btn" href="index.html" style="color:black;"
-                                            @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </header>
-=======
->>>>>>> 4527fd387d7f3f13c5a679e4ce2ae43e833831a9
                 <div x-show="signLog" class="container">
                     <button class="btn btn-primary" @click="createAcc = true, signLog = false">Create Account</button>
                 </div>
@@ -164,15 +140,14 @@
                             </div>
 
                             <div class="col-12">
-                                <button class="btn btn-primary"
-                                    @click="logUser = false,login()">Login</button>
+                                <button class="btn btn-primary" @click="logUser = false,login()">Login</button>
                             </div>
                         </div>
 
 
                     </div>
                 </div>
-            </div>
+
 
 
                 <!-- teachers screen -->
@@ -188,7 +163,7 @@
                                     <li><button class="btn" href="index.html" style="color:black;"
                                             @click="addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,displayQuestionsSection=false">Add-Homework</button>
                                     </li>
-                                
+
                                     <!-- <li><button class="btn" href="index.html" style="color:black;"
                                             @click="addSubjectSection=true,teachersLandingPage=false">Home-Work</button>
                                     </li> -->
@@ -241,7 +216,7 @@
                     </div>
                 </div>
             </div>
-
+            <br><br><br><br>
             <div class="container" x-show="showTopicHW">
                 <div class="row">
                     <div class="col">
@@ -274,29 +249,47 @@
                     <h1 style="font-family: 'Brush Script MT', cursive;">Please Add a Subject</h1>
 
                 </div>
+                <!-- <div class="content">
+                    <div class="d-flex align-items-center">
+                        <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
+
+                    <input class="addinput" x-model="addedSubject" type="text" name="" href="" id=""
+                        placeholder=" add subject ">
+                    <button class="btn m-1 " id="submit" @click="addSubject(),displaySubjects()"
+                        style="background-color: blue;color:white">Add</button>
+                    <div x-init="displaySubjects()"></div>
+                </div>
+                </div> -->
 
                 <div class="row">
                     <div class="col-8">
-                        <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
-                        <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
-                            placeholder=" add subject ">
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-primary" id="submit" @click="addSubject(),displaySubjects()">Add</button>
-                    </div>
-                    <div x-init="displaySubjects()"></div>
-                </div>
-                <hr><br>
-                <div>
-                    <div class="wrapper">
-                        <template x-for="subject in subjectsList">
-                            <button class="a" x-text="subject.add_subject"
-                                @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
-                                href=""></button>
-                        </template>
-                    </div>
 
+
+                        <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
+                        <div class="d-flex align-items-center">
+                            <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
+                                placeholder=" add subject ">
+                            <div class="col-4">
+                                <button class="btn btn-primary" id="submit"
+                                    @click="addSubject(),displaySubjects()">Add</button>
+                            </div>
+
+                        </div>
+                        <div x-init="displaySubjects()"></div>
+                    </div>
                 </div>
+
+                <hr><br>
+
+                <div class="wrapper">
+                    <template x-for="subject in subjectsList">
+                        <button class="a" x-text="subject.add_subject"
+                            @click="subjectname=subject.add_subject,addSubjectSection=false,topicSection=true,console.log('and then '+ subjectname),displayTopics()"
+                            href=""></button>
+                    </template>
+                </div>
+
+
 
             </div>
             <!-- 
@@ -350,7 +343,8 @@
                                 placeholder="Enter your question"></textarea>
                             <div class="d-inline-flex p-2">
                                 <button id="addQuestions" class="btn mt-1 btn-outline-primary"
-                                    @click="addQuestions()">Add question</button>
+                                    @click="addQuestions()">Add
+                                    question</button>
                             </div>
                         </div>
                     </div>
@@ -362,7 +356,8 @@
                                     rows="1 "></textarea>
                                 <div class="d-inline-flex p-2">
                                     <button id="addQuestions" class="btn mt-0 btn-outline-primary"
-                                        @click="addAnswers()">Add answer</button>
+                                        @click="addAnswers()">Add
+                                        answer</button>
                                 </div>
                             </div>
                         </div>
@@ -401,7 +396,7 @@
 
 
                         <div class="row p-2">
-                          
+
                             <template x-for="(item, index ) in finalList" :key="index">
                                 <div class="align-items-center border p-2">
 
@@ -418,7 +413,6 @@
 
                                     </div>
                                     <!-- </div> -->
-                                    <!-- </div> -->
                                 </div>
                             </template>
 
@@ -430,7 +424,7 @@
                 <div class="d-flex justify-content-end p-2">
                     <button type="button " class="btn m-1 text-primary"
                         @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
-                    <a href="./landing-page.html">landing</a>
+                    <!-- <a href="./landing-page.html">landing</a> -->
                 </div>
             </div>
 
@@ -444,41 +438,40 @@
                         @click="">English</button>
                 </div>
             </div>
-   <!-- option page -->
-        <div x-show="kidsQuestion">
-            <br>
-            <div class="homework-option"></div>
-            <audio id="myAudio">
-                <source src="audio/wrong.mp3" type="audio/mpeg">
-            </audio>
+            <!-- option page -->
+            <div x-show="kidsQuestion">
+                <br>
+                <div class="homework-option"></div>
+                <audio id="myAudio">
+                    <source src="audio/wrong.mp3" type="audio/mpeg">
+                </audio>
 
-            <header>
-                <div class="container">
-                    <div class="nav">
-                        <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATHS HOMEWORK</h2>
-                        <nav>
-                            <ul>
-                                <li class="current"><a href="index.html">Addition</a></li>
-                                <li><a href="subtract.html">Subtract</a></li>
-                                <li><a href="multiply.html">Multiply</a></li>
-                                <li><a href="divide.html">Divide</a></li>
-                            </ul>
-                        </nav>
+                <header>
+                    <div class="container">
+                        <div class="nav">
+                            <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATHS HOMEWORK</h2>
+                            <nav>
+                                <ul>
+                                    <li class="current"><a href="index.html">Addition</a></li>
+                                    <li><a href="subtract.html">Subtract</a></li>
+                                    <li><a href="multiply.html">Multiply</a></li>
+                                    <li><a href="divide.html">Divide</a></li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
-                </div>
-            </header>
+                </header>
 
 
 
+
+            </div>
 
         </div>
 
-        </div>
-    </div>
 
 
 
-     
 
 
         <!-- teachers screen -->

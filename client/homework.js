@@ -23,7 +23,7 @@ export default function homeworkApp() {
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav:true,
+        nav:false,
         addQuestionSection: false,
         question: null,
         questionId: null,
