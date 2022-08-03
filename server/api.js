@@ -261,7 +261,6 @@ module.exports = function name(app, db) {
               }
     
             // console.log('checking question and answers ' + JSON.stringify(list))
-
             res.json({
                 status: 'successful',
                 data: list
