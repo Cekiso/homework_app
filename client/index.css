@@ -501,6 +501,11 @@ button{
     padding: 10px 15px;
 }
 
+.correct{
+    border: green;
+}
+
+
 /* button {
     background-color: yellow;
     border: none;
