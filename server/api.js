@@ -74,18 +74,17 @@ module.exports = function name(app, db) {
                 throw Error("Invalid username Format")
             }
             const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
-            // console.log(oldUser.length === 0);
-
+            const userRole = await db.oneOrNone('select role from user_detail where role = $1', [role])
             if (oldUser.length === 0) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
-                let insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
-                // console.log(insert);
-                // const user = await db.manyOrNone('select * from user_detail where username = $1', [username])
+                const insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, userRole]);
 
-                // const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+                const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+
                 res.json({
                     status: 'success',
-                    // token
+                    token,
+                    insert
                 })
             }
             else {

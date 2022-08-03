@@ -3,12 +3,13 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
+       
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
-        signLog: false,
+        signLog: true,
         createAcc: false,
         logUser: false,
         teachersLandingPage:false,
@@ -31,14 +32,16 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection:true,
-        kidsQuestion:true,
-        radioValue: true,
+        gameSection:false,
+        kidsQuestion:false,
+        radioValue: false,
         object: {},
         index: null,
         displayQuestionsSection: false,
         answerId: null,
         topicId : null,
+        loginSuccessMsg: null,
+        registerSuccessMsg: null,
         successMessage: null,
         successMessageQuestion: null ,
         successMessageAnswer: null,
@@ -65,8 +68,14 @@ export default function homeworkApp() {
                     console.log(users.data)
                     this.createAcc = false
                     this.logUser = true
-                    this.user = users.data.user;
-                    
+                    if (users.data.status == 'success') {
+                        this.user = users.data.user;
+                        this.registerSuccessMsg = 'Successfully registered'
+                    }
+
+                    setTimeout(() => {
+                        this.registerSuccessMsg = '';
+                    }, 3000);
                 })
         },
 
@@ -81,7 +90,15 @@ export default function homeworkApp() {
                 .then((users) => {
                     console.log(users)
 
+                    if(users.data.status == 'success'){
                         this.user = users.data.user;
+                        this.loginSuccessMsg = 'Successfully login'
+                    }
+                    
+                    setTimeout(() => {
+                        this.loginSuccessMsg = ''
+                    }, 3000);
+
                         this.nav = true
                         this.teachersLandingPage = true;
                     

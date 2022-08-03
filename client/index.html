@@ -53,6 +53,12 @@
                                 <h1>Sign up</h1>
                                 <p>Please fill in this form to create an account</p>
                             </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div x-text="registerSuccessMsg"></div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-6 ">
                                     <label class="form-label" for="first_name"><b>Firstname</b></label>
@@ -89,7 +95,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label class="form-label" for="role"><b>Role</b></label>
-                                    <select class="form-select" x-model="signUp.role" x-bind:disabled="!signUp.role" name="" id="">
+                                    <select class="form-select" x-model="signUp.role" x-bind:disabled="!signUp.password" name="" id="">
                                         <option value="" disabled selected>Select your role</option>
                                         <option value="teacher">Teacher</option>
                                         <option value="learner">Learner</option>
@@ -120,10 +126,18 @@
                     <div class="col-12">
 
                         <div x-show="logUser" class="container">
-                            <div class="col-12">
-                                <h1>Login</h1>
-                                <p>Please login in your username and password</p>
+                            <div class="row">
+                                <div class="col-12">
+                                    <h1>Login</h1>
+                                    <p>Please login in your username and password</p>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div x-text="loginSuccessMsg"></div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-6">
                                     <label class="form-label">Username:</label>
