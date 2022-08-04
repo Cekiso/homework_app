@@ -8,7 +8,7 @@ export default function homeworkApp() {
         username: null,
         password: null,
         role: null,
-        signLog: true,
+        signLog: false,
         createAcc: false,
         logUser: false,
         teachersLandingPage:false,
@@ -119,18 +119,18 @@ export default function homeworkApp() {
                 .post('http://localhost:8585/api/addSubjects', { subject })
                 .then((result) => {
                     console.log(result.data)
-                    // this.successMessage = 'successfully added'
+
                     if(result.data.status == 'successful'){
                         this.successMessage = 'successfully added!'
+                        this.subjectsList = result.data.subjects
                     }
 
                     
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 3000);
-
+                   
                 })
-
         },
 
         displaySubjects() {
@@ -157,9 +157,8 @@ export default function homeworkApp() {
                     console.log('checking added topics' + JSON.stringify(result.data))
                     if(result.data.status == 'successful'){
                         this.successMessage = 'successfully added!'
+                        this.topicsList = result.data.topics
                     }
-
-                    
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 3000);
@@ -194,12 +193,10 @@ export default function homeworkApp() {
                         this.successMessageQuestion = 'successfully added!'
                     }
 
-                    
                     setTimeout(() => {
                         this.successMessageQuestion = '';
                     }, 3000);
                    
-
                 })
         },
         addAnswers() {

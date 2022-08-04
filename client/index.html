@@ -276,9 +276,9 @@
                             placeholder=" add subject ">
                     </div>
                     <div class="col-4">
-                        <button class="btn btn-primary" id="submit" @click="addSubject(),displaySubjects()">Add</button>
+                        <button class="btn btn-primary" id="submit" @click="addSubject()">Add</button>
                     </div>
-                    <div x-init="displaySubjects()"></div>
+                    <div></div>
                 </div>
                 <hr><br>
                 <div>
@@ -468,7 +468,7 @@
                             <nav>
                                 <ul>
                                     <template x-for="topic in topicsList">
-                                            <li class="current"  @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true">Addition</li>
+                                            <li class="current"  @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true" x-text="topic.topic"></li>
                                     </template>
                                     <!-- <li class="current"><a href="index.html">Addition</a></li>
                                     <li><a href="subtract.html">Subtract</a></li>
@@ -511,7 +511,7 @@
                   <div>
                     <template x-for="answer in kidAnswers">
                         <div class="options">
-                            <h1 id="option1" x-text="answer.answer" >1</h1>
+                            <h1 id="option1" x-text="answer.answer" x-model="answer.correct" @change="console.log('sdfgnm,' + answer.correct)"></h1>
                         </div>
                     </template>
                   </div>
