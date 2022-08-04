@@ -3,7 +3,6 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-       
         firstname: null,
         lastname: null,
         username: null,
@@ -32,12 +31,13 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection:false,
+        gameSection:true,
         kidsQuestion:false,
         radioValue: false,
         object: {},
         index: null,
         displayQuestionsSection: false,
+        qAndASection:false,
         answerId: null,
         topicId : null,
         loginSuccessMsg: null,

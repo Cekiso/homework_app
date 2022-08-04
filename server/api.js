@@ -78,7 +78,7 @@ module.exports = function name(app, db) {
             if (oldUser.length === 0) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
                 const insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, userRole]);
-
+                
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
 
                 res.json({
