@@ -31,6 +31,8 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
+        kidQuestion:null,
+        kidAnswers:[],
         gameSection:true,
         kidsQuestion:false,
         radioValue: false,
@@ -270,10 +272,26 @@ export default function homeworkApp() {
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log(result.data)
+                    console.log(result.data.data)
                     this.finalList = result.data.data
                     
                 })
+        },
+
+        displayHomeworkForKids(){
+            const topic = this.topicname
+            console.log('eyyyyy ' + topic)
+            axios
+                .get(`http://localhost:8585/api/qAndA/${topic}`)
+                .then((result) => {
+                    console.log('first Q&A'+ JSON.stringify(result.data.data[0].answers))
+
+                    this.kidQuestion = result.data.data[0].question
+                    this.kidAnswers = result.data.data[0].answers
+
+                })
+
+                console.log('kids Q&A'+ JSON.stringify(this.kidsQAndA))
         },
 
     }

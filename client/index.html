@@ -95,7 +95,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label class="form-label" for="role"><b>Role</b></label>
-                                    <select class="form-select" x-model="signUp.role" x-bind:disabled="!signUp.password" name="" id="">
+                                    <select class="form-select" x-model="signUp.role" x-bind:disabled="!signUp.password" name="" id="" @change="console.log(signUp.role)">
                                         <option value="" disabled selected>Select your role</option>
                                         <option value="teacher">Teacher</option>
                                         <option value="learner">Learner</option>
@@ -468,7 +468,7 @@
                             <nav>
                                 <ul>
                                     <template x-for="topic in topicsList">
-                                            <li class="current"  @click="topicname=topic.topic,displayHomework(),qAndASection=true">Addition</li>
+                                            <li class="current"  @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true">Addition</li>
                                     </template>
                                     <!-- <li class="current"><a href="index.html">Addition</a></li>
                                     <li><a href="subtract.html">Subtract</a></li>
@@ -483,15 +483,41 @@
               
             
                 <div id="wrapper" x-show="qAndASection">
+                    <!-- <template x-for="item in finalList">
+                        <div class="align-items-center border p-2 wrapper">
+                                <div class="d-flex justify-content-center">
+                                    <h2><span x-text="item.question"></span></h2>
+                                </div>
+                            <div class="d-flex justify-content-around">
+                                
+                                <template x-for="answer in item.answers">
+                                    <span class="m-3 p-4 border" x-text="answer.answer" :class="`answer.correct`"></span>
+                                </template>
+
+                            </div>
+                          
+                        </div>
+                    </template> -->
+                 
                     <div class="equation">
-                        <h1 id="num1" style="color:#FE4A49">1</h1>
+                        <!-- <h1 id="num1" style="color:#FE4A49">1</h1>
                         <h1 style="color: #2AB7CA;">+</h1>
                         <h1 id="num2" style="color: #FED766">1</h1>
                         <h1 style="color: #F86624">=</h1>
-                        <h1 style="color: gray">?</h1>
+                        <h1 style="color: gray">?</h1> -->
+                        <span x-text="kidQuestion"></span>
                     </div>
+
+                  <div>
+                    <template x-for="answer in kidAnswers">
+                        <div class="options">
+                            <h1 id="option1" x-text="answer.answer" >1</h1>
+                        </div>
+                    </template>
+                  </div>
+               
             
-                    <div class="answer-options">
+                    <!-- <div class="answer-options">
                         <div class="options" style="background-color: #fe4949;">
                             <h1 id="option1">1</h1>
                         </div>
@@ -501,7 +527,7 @@
                         <div class="options" style="background-color: #fef166;">
                             <h1 id="option3">3</h1>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
