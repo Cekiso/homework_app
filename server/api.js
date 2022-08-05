@@ -15,41 +15,42 @@ module.exports = function name(app, db) {
             if (!validUserFormat) {
                 throw Error("Invalid username Format")
             }
-            const user = await db.oneOrNone('select username from user_detail where username = $1', [username]);
+
+            const user = await db.oneOrNone('select * from user_detail where username = $1', [username]);
             // console.log(user);
-            if (user) {
-
-                const getPassword = await db.one('select password from user_detail where username= $1', [username]);
-                // console.log(getPassword.password);
-
-                const comparePasswords = await bcrypt.compare(password, getPassword.password);
-
-                // console.log(comparePasswords);
-                if (comparePasswords === false) {
-                    throw new Error("Invalid password, please try again")
-                }
-
-                const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
-
-                //     console.log(decode);
-                // console.log(token);
-                res.json({
-                    status: 'success',
-                    user,
-                    token,
-                    // data: decode
-                })
+            if (user === null) {
+                throw Error("User does not exist")
             }
 
-            else {
-                throw new Error("user not found, please try again")
+            // const getPassword = await db.one('select password from user_detail where username= $1', [username]);
+            // console.log(getPassword.password);
+            console.log(user);
+
+            const comparePasswords = await bcrypt.compare(password, user.password);
+
+            if (!comparePasswords) {
+                throw new Error("Invalid password, please try again")
             }
+
+            const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+
+            //     console.log(decode);
+            // console.log(token);
+            res.json({
+                status: 'success',
+                data: 'Successfully login',
+                user,
+                token,
+                // data: decode
+            })
+
 
 
         } catch (error) {
-            res.json({
+            res.status(500).json({
                 status: error.stack,
-                data: "error"
+                data: "error",
+                message: error.message
 
             })
         }
@@ -74,17 +75,18 @@ module.exports = function name(app, db) {
                 throw Error("Invalid username Format")
             }
             const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
-            const userRole = await db.oneOrNone('select role from user_detail where role = $1', [role])
+            
             if (oldUser.length === 0) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
-                const insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, userRole]);
-
+                const insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
+                console.log(insert);
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
 
                 res.json({
                     status: 'success',
                     token,
-                    insert
+                    data:insert
+
                 })
             }
             else {
@@ -95,8 +97,9 @@ module.exports = function name(app, db) {
 
         } catch (error) {
             console.log(error.message);
-            res.json({
-                status: error.message,
+            res.status(500).json({
+                data: 'error',
+                message: error.message,
             })
 
         }
@@ -257,30 +260,25 @@ module.exports = function name(app, db) {
                 })
             }
 
-            else {
+            for (const question of questions) {
 
-                let list = [];
+                let getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question.questions])
+                let answers = await db.manyOrNone('select answer,correct from answers_table where questions_id = $1', [getQuestionId.id])
 
-                for (const question of questions) {
-
-                    let getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question.questions])
-                    let answers = await db.manyOrNone('select answer,correct from answers_table where questions_id = $1', [getQuestionId.id])
-
-                    if (!list.includes(question.questions)) {
-                        list.push({
-                            question: question.questions,
-                            answers: answers
-                        })
-                    }
-                    // console.log('yeah ' + JSON.stringify(answers))
+                if (!list.includes(question.questions)) {
+                    list.push({
+                        question: question.questions,
+                        answers: answers
+                    })
                 }
-
-                // console.log('checking question and answers ' + JSON.stringify(list))
-                res.json({
-                    status: 'successful',
-                    data: list
-                })
+                // console.log('yeah ' + JSON.stringify(answers))
             }
+
+            // console.log('checking question and answers ' + JSON.stringify(list))
+            res.json({
+                status: 'successful',
+                data: list
+            })
 
         } catch (error) {
             console.log(error)
