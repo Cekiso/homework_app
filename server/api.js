@@ -119,11 +119,16 @@ module.exports = function name(app, db) {
 
             const checkSubject = await db.oneOrNone('select * from subject_table where add_subject= $1', [subject])
 
+
             if (checkSubject == null) {
                 await db.none('insert into subject_table(add_subject) values ($1)', [subject])
+                const getSubjects = await db.manyOrNone('select add_subject from subject_table')
+                // console.log('updated subjects' + JSON.stringify(getSubjects));
                 res.json({
                     status: 'successful',
-                    data: "subject added successfully"
+                    data: "subject added successfully",
+                    subjects: getSubjects
+
                 });
             }
             else {
@@ -139,11 +144,10 @@ module.exports = function name(app, db) {
 
     app.get('/api/topics/:subject', async function (req, res) {
         try {
-            let result = []
             const subject = req.params.subject
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1', [subject])
             // console.log('id ' + JSON.stringify(getSubjectId.id))
-            result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
+           let result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
             res.json({
                 status: 'successful',
                 data: result
@@ -153,7 +157,8 @@ module.exports = function name(app, db) {
         }
     });
 
-    app.post('/api/addTopics', async function (req, res) {
+    app.post('/api/addTopics', async function (req, res) 
+    {
         try {
             const { subject, topic } = req.body
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject= $1', [subject])
@@ -161,9 +166,12 @@ module.exports = function name(app, db) {
 
             if (checkTopic == null) {
                 await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
+                const getTopics = await db.manyOrNone('select topic from subject_table')
+                // console.log('updated topics' + JSON.stringify(getTopics));
                 res.json({
                     status: 'successful',
-                    data: 'added topic'
+                    data: 'added topic',
+                    topics: getTopics
                 });
             }
             else {
@@ -246,7 +254,11 @@ module.exports = function name(app, db) {
             let questions = await db.manyOrNone('select questions from questions_table where topic_id = $1', [getTopicId.id])
             // console.log('questions' + JSON.stringify(questions));
 
-            let list = [];
+            if (questions.length === 0) {
+                res.json({
+                    status: 'No Homework',
+                })
+            }
 
             for (const question of questions) {
 
