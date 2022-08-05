@@ -260,8 +260,7 @@
 
                                 <template x-for="topic in topicsList">
                                     <button class="a" x-text="topic.topic"
-                                        @click="topicname=topic.topic,showTopicHW=false,displayQuestionsSection=true,displayHomework()"
-                                        href=" "></button>
+                                        @click="topicname=topic.topic,showTopicHW=false,displayQuestionsSection=true,displayHomework(),console.log('ghetto'+topicname)"></button>
                                 </template>
                             </div>
                         </div>
@@ -285,8 +284,7 @@
                 <div class="row">
                     <div class="col-8">
                         <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
-                        <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
-                            placeholder=" add subject ">
+                        <input class="form-control" x-model="addedSubject" type="text"  placeholder=" add subject ">
                     </div>
                     <div class="col-4">
                         <button class="btn btn-primary" id="submit" @click="addSubject()">Add</button>
@@ -421,7 +419,7 @@
                                 <div class="align-items-center border p-2 wrapper">
 
 
-                                    <!-- <div class="item p-2"> --><span> Question </span><span x-text=""></span>
+                                    <!-- <div class="item p-2"> --><span> Question </span>
                                     <div class="d-flex justify-content-center">
                                         <h2><span x-text="item.question"></span></h2>
                                     </div>
@@ -455,7 +453,7 @@
 
             <div x-show="gameSection">
                 <div class="homework-option" x-init="displaySubjects()">
-                    <h1 x-model="" x-text="">Welcome <span x-text=""></span></h1>
+                    <h1>Welcome <span></span></h1>
                     <h2>Select a subject</h2>
                     <template x-for="subject in subjectsList">
                     <button id="optionBtn" type="button" class=" justify-content-center" x-text="subject.add_subject"
