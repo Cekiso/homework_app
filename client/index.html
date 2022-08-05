@@ -72,19 +72,21 @@
                                 </div>
                             </div>
 
+                           <div class="row">
                             <div class="col-12">
-
                                 <button class="btn btn-primary"
                                     @click="logUser = true, addSubjectSection = false, login()"
                                     >Login</button>
-
                             </div>
-                            <p>
-                                create an account here if you do not have one
-                            </p>
-                            <div>
-                                <button class="btn btn-primary" @click="createAcc = true, logUser = false">Create
-                                    Account</button>
+                           </div>
+                           <div class="row">
+                            <p class="col-12">
+                                Don't have an account?
+                            
+                            
+                                <a href="#" @click="createAcc = true, logUser = false">Create
+                                    Account</a>
+                                </p>
                             </div>
                         </div>
 
@@ -169,7 +171,7 @@
                                     >Signup</button>
                             </div>
                             <div>
-                                <button class="btn btn-primary" @click="logUser= true, createAcc= false">Login</button>
+                                <a href="#" @click="logUser= true, createAcc= false">Login</a>
                             </div>
 
                         </div>
