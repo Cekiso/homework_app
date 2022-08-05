@@ -3,28 +3,27 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-       
+
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
-        signLog: true,
         createAcc: false,
-        logUser: false,
-        teachersLandingPage:false,
+        logUser: true,
+        teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
-        showTopicHW:false,
+        showTopicHW: false,
         addSubjectSection: false,
         topicSection: false,
-        homeworkSection:false,
+        homeworkSection: false,
         homeworkForTopic: false,
         subjectsList: [],
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav:false,
+        nav: false,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -32,20 +31,20 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection:false,
-        kidsQuestion:false,
+        gameSection: false,
+        kidsQuestion: false,
         radioValue: false,
         object: {},
         index: null,
         displayQuestionsSection: false,
         answerId: null,
-        topicId : null,
+        topicId: null,
         loginSuccessMsg: null,
         registerSuccessMsg: null,
         successMessage: null,
-        successMessageQuestion: null ,
+        successMessageQuestion: null,
         successMessageAnswer: null,
-        
+
         signIn: {
             username: null,
             password: null,
@@ -59,70 +58,83 @@ export default function homeworkApp() {
             role: null,
         },
 
-   register() {
+        register() {
             const { firstname, lastname, username, password, role } = this.signUp
             axios.post('http://localhost:8585/api/signUp', {
                 firstname, lastname, username, password, role
             })
+                // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
+            
                     console.log(users.data)
+                    console.log('user ' + this.registerSuccessMsg);
                     this.createAcc = false
                     this.logUser = true
                     if (users.data.status == 'success') {
-                        this.user = users.data.user;
                         this.registerSuccessMsg = 'Successfully registered'
+                        this.user = users.data.user;
                     }
 
                     setTimeout(() => {
                         this.registerSuccessMsg = '';
                     }, 3000);
                 })
+                .catch(e => { 
+                    console.log(e)
+                    this.registerSuccessMsg = e.response.data.message
+                })
         },
 
         login() {
 
             const { username, password } = this.signIn
-            console.log('kkkkkk' + this.signUp.role)
 
             axios.post('http://localhost:8585/api/login', {
                 username, password
             })
+                // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
                     console.log(users)
-
-                    if(users.data.status == 'success'){
+                    console.log('user ' + this.loginSuccessMsg);
+                    if (users.data.status == 'success') {
                         this.user = users.data.user;
                         this.loginSuccessMsg = 'Successfully login'
                     }
-                    
+
+
                     setTimeout(() => {
-                        this.loginSuccessMsg = ''
+                        this.loginSuccessMsg = '';
                     }, 3000);
 
-                        this.nav = true
-                        this.teachersLandingPage = true;
-                    
-                        
+                    this.nav = true;
+                    this.teachersLandingPage = true;
+                    this.logUser = false;
+
+
                 })
-                .catch(e => console.log(e))
+                .catch(e => { 
+                    console.log(e)
+                    this.loginSuccessMsg = e.response.data.message
+                })
         },
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
 
             let subjectTitle = this.addedSubject
-           const subject = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1).toLowerCase();
+            const subject = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1).toLowerCase();
 
             axios
                 .post('http://localhost:8585/api/addSubjects', { subject })
                 .then((result) => {
                     console.log(result.data)
+
                     // this.successMessage = 'successfully added'
-                    if(result.data.status == 'successful'){
+                    if (result.data.status == 'successful') {
                         this.successMessage = 'successfully added!'
                     }
 
-                    
+
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 3000);
@@ -145,7 +157,7 @@ export default function homeworkApp() {
         addTopics() {
             console.log('hey' + this.subjectname + this.addedTopic)
 
-            
+
             const subject = this.subjectname
             const topic = this.addedTopic
 
@@ -153,11 +165,11 @@ export default function homeworkApp() {
                 .post('http://localhost:8585/api/addTopics', { subject, topic })
                 .then((result) => {
                     console.log('checking added topics' + JSON.stringify(result.data))
-                    if(result.data.status == 'successful'){
+                    if (result.data.status == 'successful') {
                         this.successMessage = 'successfully added!'
                     }
 
-                    
+
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 3000);
@@ -187,16 +199,16 @@ export default function homeworkApp() {
                 .then((result) => {
                     console.log(result.data)
                     this.questionId = result.data.questionid
-                    this.topicId =result.data.topicid
-                    if(result.data.status == 'successful'){
+                    this.topicId = result.data.topicid
+                    if (result.data.status == 'successful') {
                         this.successMessageQuestion = 'successfully added!'
                     }
 
-                    
+
                     setTimeout(() => {
                         this.successMessageQuestion = '';
                     }, 3000);
-                   
+
 
                 })
         },
@@ -209,14 +221,14 @@ export default function homeworkApp() {
             const booleanVal = this.radioValue
 
             axios
-                .post('http://localhost:8585/api/addAnswers', { answer, questionId,booleanVal })
+                .post('http://localhost:8585/api/addAnswers', { answer, questionId, booleanVal })
                 .then((result) => {
                     console.log(result.data)
                     this.list.push({
                         answer: this.answer,
                         id: result.data.answerId,
                         topicId: this.topicId,
-                        questionId : this.questionId,
+                        questionId: this.questionId,
                         correct: false,
                     });
                     console.log('list of answers' + JSON.stringify(this.list))
@@ -224,7 +236,7 @@ export default function homeworkApp() {
                     //     this.successMessageAnswer = 'successfully added!'
                     // }
 
-                    
+
                     // setTimeout(() => {
                     //     this.successMessage = '';
                     // }, 3000);
@@ -251,11 +263,11 @@ export default function homeworkApp() {
                     .put('http://localhost:8585/api/updateAnswer', { booleanVal, answerId })
                     .then((result) => {
                         console.log(result.data)
-                        if(result.data.status == 'success'){
+                        if (result.data.status == 'success') {
                             this.successMessageAnswer = 'successfully updated!'
                         }
-    
-                        
+
+
                         setTimeout(() => {
                             this.successMessageAnswer = '';
                         }, 3000);
@@ -264,7 +276,7 @@ export default function homeworkApp() {
 
         },
 
-        displayHomework(){
+        displayHomework() {
             const topic = this.topicname
             console.log('ASDFGNJM, ' + topic)
             axios
@@ -272,7 +284,7 @@ export default function homeworkApp() {
                 .then((result) => {
                     console.log(result.data)
                     this.finalList = result.data.data
-                    
+
                 })
         },
 
