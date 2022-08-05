@@ -18,8 +18,8 @@ module.exports = function name(app, db) {
 
             const user = await db.oneOrNone('select * from user_detail where username = $1', [username]);
             // console.log(user);
-            if (user === null) {
-                throw Error("User does not exist")
+            if (!user) {
+                throw Error("User does not exist, please create an account")
             }
 
             // const getPassword = await db.one('select password from user_detail where username= $1', [username]);
@@ -74,18 +74,18 @@ module.exports = function name(app, db) {
             if (!validUser) {
                 throw Error("Invalid username Format")
             }
-            const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
+            const oldUser = await db.oneOrNone('select * from user_detail where username = $1', [username])
             
-            if (oldUser.length === 0) {
+            if (!oldUser) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
-                const insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
-                console.log(insert);
+                const user = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5) returning *', [firstname, lastname, username, cryptedPassword, role]);
+                console.log(user);
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
 
                 res.json({
                     status: 'success',
                     token,
-                    data:insert
+                    data:user
 
                 })
             }
@@ -96,7 +96,7 @@ module.exports = function name(app, db) {
 
 
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
             res.status(500).json({
                 data: 'error',
                 message: error.message,
