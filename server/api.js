@@ -141,11 +141,10 @@ module.exports = function name(app, db) {
 
     app.get('/api/topics/:subject', async function (req, res) {
         try {
-            let result = []
             const subject = req.params.subject
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1', [subject])
             // console.log('id ' + JSON.stringify(getSubjectId.id))
-            result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
+           let result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
             res.json({
                 status: 'successful',
                 data: result
@@ -155,7 +154,8 @@ module.exports = function name(app, db) {
         }
     });
 
-    app.post('/api/addTopics', async function (req, res) {
+    app.post('/api/addTopics', async function (req, res) 
+    {
         try {
             const { subject, topic } = req.body
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject= $1', [subject])
@@ -164,7 +164,7 @@ module.exports = function name(app, db) {
             if (checkTopic == null) {
                 await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
                 const getTopics = await db.manyOrNone('select topic from subject_table')
-                console.log('updated topics' + JSON.stringify(getTopics));
+                // console.log('updated topics' + JSON.stringify(getTopics));
                 res.json({
                     status: 'successful',
                     data: 'added topic',
@@ -251,27 +251,36 @@ module.exports = function name(app, db) {
             let questions = await db.manyOrNone('select questions from questions_table where topic_id = $1', [getTopicId.id])
             // console.log('questions' + JSON.stringify(questions));
 
-            let list = [];
-
-            for (const question of questions) {
-
-                let getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question.questions])
-                let answers = await db.manyOrNone('select answer,correct from answers_table where questions_id = $1', [getQuestionId.id])
-
-                if (!list.includes(question.questions)) {
-                    list.push({
-                        question: question.questions,
-                        answers: answers
-                    })
-                }
-                // console.log('yeah ' + JSON.stringify(answers))
+            if (questions.length === 0) {
+                res.json({
+                    status: 'No Homework',
+                })
             }
 
-            // console.log('checking question and answers ' + JSON.stringify(list))
-            res.json({
-                status: 'successful',
-                data: list
-            })
+            else {
+
+                let list = [];
+
+                for (const question of questions) {
+
+                    let getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question.questions])
+                    let answers = await db.manyOrNone('select answer,correct from answers_table where questions_id = $1', [getQuestionId.id])
+
+                    if (!list.includes(question.questions)) {
+                        list.push({
+                            question: question.questions,
+                            answers: answers
+                        })
+                    }
+                    // console.log('yeah ' + JSON.stringify(answers))
+                }
+
+                // console.log('checking question and answers ' + JSON.stringify(list))
+                res.json({
+                    status: 'successful',
+                    data: list
+                })
+            }
 
         } catch (error) {
             console.log(error)
