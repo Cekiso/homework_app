@@ -3,7 +3,6 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-
         firstname: null,
         lastname: null,
         username: null,
@@ -37,6 +36,7 @@ export default function homeworkApp() {
         object: {},
         index: null,
         displayQuestionsSection: false,
+        qAndASection:false,
         answerId: null,
         topicId: null,
         loginSuccessMsg: null,
@@ -132,15 +132,15 @@ export default function homeworkApp() {
                     // this.successMessage = 'successfully added'
                     if (result.data.status == 'successful') {
                         this.successMessage = 'successfully added!'
+                        this.subjectsList = result.data.subjects
                     }
 
 
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 3000);
-
+                   
                 })
-
         },
 
         displaySubjects() {
@@ -167,6 +167,7 @@ export default function homeworkApp() {
                     console.log('checking added topics' + JSON.stringify(result.data))
                     if (result.data.status == 'successful') {
                         this.successMessage = 'successfully added!'
+                        this.topicsList = result.data.topics
                     }
 
 
@@ -282,10 +283,26 @@ export default function homeworkApp() {
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log(result.data)
+                    console.log(result.data.data)
                     this.finalList = result.data.data
 
                 })
+        },
+
+        displayHomeworkForKids(){
+            const topic = this.topicname
+            console.log('eyyyyy ' + topic)
+            axios
+                .get(`http://localhost:8585/api/qAndA/${topic}`)
+                .then((result) => {
+                    console.log('first Q&A'+ JSON.stringify(result.data.data[0].answers))
+
+                    this.kidQuestion = result.data.data[0].question
+                    this.kidAnswers = result.data.data[0].answers
+
+                })
+
+                console.log('kids Q&A'+ JSON.stringify(this.kidsQAndA))
         },
 
     }
