@@ -95,8 +95,36 @@
                 </div>
 
 
-            </div>
-        </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label" for="role"><b>Role</b></label>
+                                    <select class="form-select" x-model="signUp.role" 
+                                        name="" id="">
+                                        <option value="role" disabled selected>Select your role</option>
+                                        <option value="teacher">Teacher</option>
+                                        <option value="learner">Learner</option>
+                                        <option value="parent">Parent</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <p>By creating an account you agree to our <a href="#"
+                                            style="color:dodgerblue">Terms &
+                                            Privacy</a>.
+                                    </p>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary" @click="logUser = false, createAcc=true, register()"
+                                    >Signup</button>
+                            </div>
+                            <div>
+                                <a href="#" @click="logUser= true, createAcc= false">Login</a>
+                            </div>
 
         <div class="row">
             <div class="col-12">
