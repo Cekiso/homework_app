@@ -56,12 +56,11 @@
                             <div class="col-12">
                                 <div x-text="registerSuccessMsg"></div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6 ">
-                                <label class="form-label" for="first_name"><b>Firstname</b></label>
-                                <input class="form-control" type="text" id="first_name" x-model="signUp.firstname"
-                                    name="firstname" required>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div x-text="registerSuccessMsg" class="text-success"></div>
+                                </div>
                             </div>
 
                             <div class="col-6">
@@ -72,12 +71,12 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label" for="username"><b>Username</b></label>
-                                <input type="text" x-model="signUp.username" name=username
-                                    class="velidate; form-control" id="username" x-bind:disabled="!signUp.lastname"
-                                    required>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label" for="username"><b>Username</b></label>
+                                    <input type="text" x-model="signUp.username" name=username
+                                        class="velidate; form-control" id="username" x-bind:disabled="!signUp.lastname"
+                                        required>
 
                             </div>
 
@@ -91,83 +90,33 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label" for="role"><b>Role</b></label>
-                                <select class="form-select" x-model="signUp.role" x-bind:disabled="!signUp.password"
-                                    name="" id="">
-                                    <option value="" disabled selected>Select your role</option>
-                                    <option value="teacher">Teacher</option>
-                                    <option value="learner">Learner</option>
-                                    <option value="parent">Parent</option>
-                                </select>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label class="form-label" for="role"><b>Role</b></label>
+                                    <select class="form-select" x-model="signUp.role" x-bind:disabled="!signUp.password"
+                                        name="" id="">
+                                        <option value="role" disabled selected>Select your role</option>
+                                        <option value="teacher">Teacher</option>
+                                        <option value="learner">Learner</option>
+                                        <option value="parent">Parent</option>
+                                    </select>
 
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-12">
-                                <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
-                                        Privacy</a>.
-                                </p>
-
+                                <button class="btn btn-primary" @click="logUser = false, createAcc= true, register()"
+                                    x-bind:disabled="!signUp.role">Signup</button>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary" @click="logUser = true, createAcc= false, register()"
-                                x-bind:disabled="!signUp.role">Signup</button>
+
                         </div>
-
-
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
 
-                    <div x-show="logUser" class="container">
-                        <div class="row">
-                            <div class="col-12">
-                                <h1>Login</h1>
-                                <p>Please login in your username and password</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div x-text="loginSuccessMsg"></div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label">Username:</label>
-                                <input type="text" class="form-control" x-model="signIn.username">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label class="form-label">Password:</label>
-                                <input type="password" class="form-control" x-model="signIn.password"
-                                    x-bind:disabled="!signIn.username">
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-
-                            <button class="btn btn-primary" @click="logUser = false, addSubjectSection = true, login()"
-                                x-bind:disabled="!signIn.password">Login</button>
-
-
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-
-            <!-- teachers screen -->
+                <!-- teachers screen -->
 
             <header>
                 <div x-show="nav" class="container">
@@ -271,11 +220,16 @@
 
             </div>
 
-            <div class="row">
-                <div class="col-8">
-                    <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
-                    <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
-                        placeholder=" add subject ">
+                <div class="row">
+                    <div class="col-8">
+                        <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
+                        <input class="form-control" x-model="addedSubject" type="text" name="" href="" id=""
+                            placeholder=" add subject ">
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" id="submit" @click="addSubject()">Add</button>
+                    </div>
+                    <div></div>
                 </div>
                 <div class="col-4">
                     <button class="btn btn-primary" id="submit" @click="addSubject(),displaySubjects()">Add</button>
@@ -410,9 +364,23 @@
                             <div class="align-items-center border p-2 wrapper">
 
 
-                                <!-- <div class="item p-2"> --><span> Question </span><span x-text=""></span>
-                                <div class="d-flex justify-content-center">
-                                    <h2><span x-text="item.question"></span></h2>
+                                    <!-- <div class="item p-2"> --><span> Question </span><span x-text=""></span>
+                                    <div class="d-flex justify-content-center">
+                                        <h2><span x-text="item.question"></span></h2>
+                                    </div>
+
+                                    <!-- <div class="" x-for="item in finalList"> -->
+                                    Possible answers
+                                    <div class="d-flex justify-content-around">
+
+                                        <template x-for="answer in item.answers">
+                                            <span class="m-3 p-4 border" x-text="answer.answer"
+                                                :class="`answer.correct`"></span>
+                                        </template>
+
+                                    </div>
+                                    <!-- </div> -->
+                                    <!-- </div> -->
                                 </div>
 
                                 <!-- <div class="" x-for="item in finalList"> -->
@@ -480,9 +448,7 @@
                             <nav>
                                 <ul>
                                     <template x-for="topic in topicsList">
-                                        <li class="current"
-                                            @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true,console.log('dfgtyhuikkmjnhbvj'+topicname)"
-                                            x-text="topic.topic"></li>
+                                            <li class="current"  @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true" x-text="topic.topic"></li>
                                     </template>
                                     <!-- <li class="current"><a href="index.html">Addition</a></li>
                                     <li><a href="subtract.html">Subtract</a></li>
@@ -507,12 +473,11 @@
                                 <template x-for="answer in item.answers">
                                     <span class="m-3 p-4 border" x-text="answer.answer" :class="`answer.correct`"></span>
                                 </template>
-
                             </div>
                           
                         </div>
                     </template> -->
-
+                 
                     <div class="equation">
                         <!-- <h1 id="num1" style="color:#FE4A49">1</h1>
                         <h1 style="color: #2AB7CA;">+</h1>
@@ -522,16 +487,15 @@
                         <span x-text="kidQuestion"></span>
                     </div>
 
-                    <div>
-                        <template x-for="answer in kidAnswers">
-                            <div class="options">
-                                <h1 id="option1" x-text="answer.answer" x-model="answer.correct"
-                                    @change="console.log('sdfgnm,' + answer.correct)"></h1>
-                            </div>
-                        </template>
-                    </div>
-
-
+                  <div>
+                    <template x-for="answer in kidAnswers">
+                        <div class="options">
+                            <h1 id="option1" x-text="answer.answer" x-model="answer.correct" @change="console.log('sdfgnm,' + answer.correct)"></h1>
+                        </div>
+                    </template>
+                  </div>
+               
+            
                     <!-- <div class="answer-options">
                         <div class="options" style="background-color: #fe4949;">
                             <h1 id="option1">1</h1>

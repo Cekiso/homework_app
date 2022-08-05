@@ -15,41 +15,42 @@ module.exports = function name(app, db) {
             if (!validUserFormat) {
                 throw Error("Invalid username Format")
             }
-            const user = await db.oneOrNone('select username from user_detail where username = $1', [username]);
+
+            const user = await db.oneOrNone('select * from user_detail where username = $1', [username]);
             // console.log(user);
-            if (user) {
-
-                const getPassword = await db.one('select password from user_detail where username= $1', [username]);
-                // console.log(getPassword.password);
-
-                const comparePasswords = await bcrypt.compare(password, getPassword.password);
-
-                // console.log(comparePasswords);
-                if (comparePasswords === false) {
-                    throw new Error("Invalid password, please try again")
-                }
-
-                const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
-
-                //     console.log(decode);
-                // console.log(token);
-                res.json({
-                    status: 'success',
-                    user,
-                    token,
-                    // data: decode
-                })
+            if (user === null) {
+                throw Error("User does not exist")
             }
 
-            else {
-                throw new Error("user not found, please try again")
+            // const getPassword = await db.one('select password from user_detail where username= $1', [username]);
+            // console.log(getPassword.password);
+            console.log(user);
+
+            const comparePasswords = await bcrypt.compare(password, user.password);
+
+            if (!comparePasswords) {
+                throw new Error("Invalid password, please try again")
             }
+
+            const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
+
+            //     console.log(decode);
+            // console.log(token);
+            res.json({
+                status: 'success',
+                data: 'Successfully login',
+                user,
+                token,
+                // data: decode
+            })
+
 
 
         } catch (error) {
-            res.json({
+            res.status(500).json({
                 status: error.stack,
-                data: "error"
+                data: "error",
+                message: error.message
 
             })
         }
@@ -74,17 +75,18 @@ module.exports = function name(app, db) {
                 throw Error("Invalid username Format")
             }
             const oldUser = await db.manyOrNone('select * from user_detail where username = $1', [username])
-            const userRole = await db.oneOrNone('select role from user_detail where role = $1', [role])
+            
             if (oldUser.length === 0) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
-                const insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, userRole]);
-
+                const insert = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5)', [firstname, lastname, username, cryptedPassword, role]);
+                console.log(insert);
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
 
                 res.json({
                     status: 'success',
                     token,
-                    insert
+                    data:insert
+
                 })
             }
             else {
@@ -95,8 +97,9 @@ module.exports = function name(app, db) {
 
         } catch (error) {
             console.log(error.message);
-            res.json({
-                status: error.message,
+            res.status(500).json({
+                data: 'error',
+                message: error.message,
             })
 
         }
@@ -141,11 +144,10 @@ module.exports = function name(app, db) {
 
     app.get('/api/topics/:subject', async function (req, res) {
         try {
-            let result = []
             const subject = req.params.subject
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1', [subject])
             // console.log('id ' + JSON.stringify(getSubjectId.id))
-            result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
+           let result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
             res.json({
                 status: 'successful',
                 data: result
@@ -155,7 +157,8 @@ module.exports = function name(app, db) {
         }
     });
 
-    app.post('/api/addTopics', async function (req, res) {
+    app.post('/api/addTopics', async function (req, res) 
+    {
         try {
             const { subject, topic } = req.body
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject= $1', [subject])
@@ -164,7 +167,7 @@ module.exports = function name(app, db) {
             if (checkTopic == null) {
                 await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
                 const getTopics = await db.manyOrNone('select topic from subject_table')
-                console.log('updated topics' + JSON.stringify(getTopics));
+                // console.log('updated topics' + JSON.stringify(getTopics));
                 res.json({
                     status: 'successful',
                     data: 'added topic',
@@ -251,7 +254,11 @@ module.exports = function name(app, db) {
             let questions = await db.manyOrNone('select questions from questions_table where topic_id = $1', [getTopicId.id])
             // console.log('questions' + JSON.stringify(questions));
 
-            let list = [];
+            if (questions.length === 0) {
+                res.json({
+                    status: 'No Homework',
+                })
+            }
 
             for (const question of questions) {
 
