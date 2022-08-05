@@ -51,15 +51,15 @@ describe('The Homework API', function () {
 		assert.equal('success', checkRegistration.body.status);
 	});
 
-    // it('should let user to login', async () => {
+    it('should let user to login', async () => {
 
-	// 	const checkRegistration = await supertest(app).post('/api/login').send({
-	// 		username: 'Laika',
-	// 		password: 'password03',
-	// 	});
+		const checkRegistration = await supertest(app).post('/api/login').send({
+			username: 'Laika',
+			password: 'password03',
+		});
 
-	// 	assert.equal('success', checkRegistration.body.status);
-	// });
+		assert.equal('success', checkRegistration.body.status);
+	});
 
 
     it('should add subjects', async () => {
