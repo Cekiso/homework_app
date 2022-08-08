@@ -73,21 +73,21 @@ export default function homeworkApp() {
             
                     console.log(users.data)
                     console.log('user ' + this.registerSuccessMsg);
-                    this.createAcc = false
-                    this.logUser = true
+                    // this.createAcc = false
+                    // this.logUser = true
                     if (users.data.status == 'success') {
                         this.registerSuccessMsg = 'Successfully registered'
                         this.user = users.data.user;
                     }
 
-                    setTimeout(() => {
-                        this.registerSuccessMsg = '';
-                    }, 3000);
                 })
                 .catch(e => { 
                     console.log(e)
                     this.registerSuccessMsg = e.response.data.message
                 })
+                setTimeout(() => {
+                    this.registerSuccessMsg = '';
+                }, 3000);
         },
 
         login() {
@@ -105,11 +105,13 @@ export default function homeworkApp() {
                         this.user = users.data.user;
                         this.loginSuccessMsg = 'Successfully login'
                     }
+                    if (this.role = 'teacher') {
+                        this.teachersLandingPage = true;
+                    }
+                    else if (this.role = 'learner') {
+                        this.gameSection = true
+                    }
 
-
-                    setTimeout(() => {
-                        this.loginSuccessMsg = '';
-                    }, 3000);
 
                     this.nav = true;
                     this.teachersLandingPage = true;
@@ -121,6 +123,9 @@ export default function homeworkApp() {
                     console.log(e)
                     this.loginSuccessMsg = e.response.data.message
                 })
+                setTimeout(() => {
+                    this.loginSuccessMsg = '';
+                }, 3000);
         },
 
         addSubject() {
@@ -223,6 +228,7 @@ export default function homeworkApp() {
 
             this.answerList.push(this.answer)
             const answer = this.answer
+            console.log(this.questionId);
             const questionId = this.questionId
             const booleanVal = this.radioValue
 
@@ -230,6 +236,7 @@ export default function homeworkApp() {
                 .post('http://localhost:8585/api/addAnswers', { answer, questionId, booleanVal })
                 .then((result) => {
                     console.log(result.data)
+
                     this.list.push({
                         answer: this.answer,
                         id: result.data.answerId,
@@ -279,10 +286,11 @@ export default function homeworkApp() {
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log('ddata'+ JSON.stringify(result.data.data))
+                    console.log('ddata' + result.data.data)
                     this.finalList = result.data.data
 
                 })
+                console.log('yyyy' + JSON.stringify(this.finalList));
         },
 
         displayHomeworkForKids(){
