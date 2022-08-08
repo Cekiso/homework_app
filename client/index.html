@@ -47,10 +47,10 @@
                                 <h1>Login</h1>
                                 <p>Please login in your username and password</p>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div clas="red" x-text="loginSuccessMsg"></div>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div x-text="loginSuccessMsg"></div>
                             </div>
                         </div>
 
@@ -102,11 +102,12 @@
                             <div class="col-12">
                                 <div x-text="registerSuccessMsg" class="text-success"></div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-12">
-                                    <div x-text="registerSuccessMsg" class="red"></div>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 ">
+                                <label class="form-label" for="first_name"><b>Firstname</b></label>
+                                <input class="form-control" type="text" id="first_name" x-model="signUp.firstname"
+                                    name="firstname" required>
                             </div>
 
                             <div class="col-6">
@@ -235,24 +236,23 @@
             </div>
         </div>
 
-            <div class="container" x-show="showTopicHW">
-                <div class="row">
-                    <div class="col">
-                        <div id="homework">
-                            <!-- <h2>HomeWork</h2> -->
-                            <h2>Subject Title:
-                                <span x-text="subjectname"></span>
-                            </h2>
+        <div class="container" x-show="showTopicHW">
+            <div class="row">
+                <div class="col">
+                    <div id="homework">
+                        <!-- <h2>HomeWork</h2> -->
+                        <h2>Subject Title:
+                            <span x-text="subjectname"></span>
+                        </h2>
 
-                            <hr><br>
-                            <div class="wrapper">
-                                <h3>Click on a topic to see the homework added</h3>
+                        <hr><br>
+                        <div class="wrapper">
+                            <h3>Click on a topic to see the homework added</h3>
 
-                                <template x-for="topic in topicsList">
-                                    <button class="a" x-text="topic.topic"
-                                        @click="topicname=topic.topic,showTopicHW=false,displayQuestionsSection=true,displayHomework(),console.log('ghetto'+topicname)"></button>
-                                </template>
-                            </div>
+                            <template x-for="topic in topicsList">
+                                <button class="a" x-text="topic.topic"
+                                    @click="topicname=topic.topic,showTopicHW=false,displayQuestionsSection=true,displayHomework(),console.log('ghetto'+topicname)"></button>
+                            </template>
                         </div>
                     </div>
                 </div>
@@ -272,15 +272,10 @@
 
             </div>
 
-                <div class="row">
-                    <div class="col-8">
-                        <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
-                        <input class="form-control" x-model="addedSubject" type="text"  placeholder=" add subject ">
-                    </div>
-                    <div class="col-4">
-                        <button class="btn btn-primary" id="submit" @click="addSubject()">Add</button>
-                    </div>
-                    <div></div>
+            <div class="row">
+                <div class="col-8">
+                    <label class="form-label" style="font-size: 20px;"><b>Subject</b></label>
+                    <input class="form-control" x-model="addedSubject" type="text" placeholder=" add subject ">
                 </div>
                 <div class="col-4">
                     <button class="btn btn-primary" id="submit" @click="addSubject()">Add</button>
@@ -300,7 +295,10 @@
             </div>
 
         </div>
-      
+        <!-- 
+                    </div>
+                </div>
+            </div> -->
 
         <div class="container" x-show="topicSection">
             <div class="row">
@@ -412,10 +410,10 @@
                             <div class="align-items-center border p-2 wrapper">
 
 
-                                    <!-- <div class="item p-2"> --><span> Question </span>
-                                    <div class="d-flex justify-content-center">
-                                        <h2><span x-text="item.question"></span></h2>
-                                    </div>
+                                <!-- <div class="item p-2"> --><span> Question </span>
+                                <div class="d-flex justify-content-center">
+                                    <h2><span x-text="item.question"></span></h2>
+                                </div>
 
                                 <!-- <div class="" x-for="item in finalList"> -->
                                 Possible answers
@@ -437,9 +435,17 @@
 
             </div>
 
-            <div x-show="gameSection">
-                <div class="homework-option" x-init="displaySubjects()">
-                    <h1>Welcome <span></span></h1>
+            <div class="d-flex justify-content-end p-2">
+                <button type="button " class="btn m-1 text-primary"
+                    @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">Back</button>
+                <a href="./landing-page.html">landing</a>
+            </div>
+        </div>
+
+        <section id="learnersSide">
+            <div x-show="gameSection" x-init="displaySubjects()">
+                <div class="homework-option">
+                    <h1 x-model="" x-text="">Welcome <span x-text=""></span></h1>
                     <h2>Select a subject</h2>
 
                     <template x-for="subject in subjectsList">
