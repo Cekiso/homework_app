@@ -10,8 +10,8 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
-        teachersLandingPage: false,
+        logUser: false,
+        teachersLandingPage: true,
         addedSubject: null,
         addedTopic: null,
         showTopicHW: false,
@@ -23,7 +23,7 @@ export default function homeworkApp() {
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav: false,
+        nav: true,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -31,7 +31,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: false,
+        gameSection: true,
         kidsQuestion: false,
         kidQuestion:false,
         kidAnswers:[],
@@ -47,6 +47,8 @@ export default function homeworkApp() {
         successMessage: null,
         successMessageQuestion: null,
         successMessageAnswer: null,
+        i:0,
+        clickedAnswer:null,
 
         signIn: {
             username: null,
@@ -277,26 +279,51 @@ export default function homeworkApp() {
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log(result.data.data)
+                    console.log('ddata'+ JSON.stringify(result.data.data))
                     this.finalList = result.data.data
 
                 })
         },
 
         displayHomeworkForKids(){
+         
             const topic = this.topicname
-            console.log('eyyyyy ' + topic)
+
+            console.log('eyyyyy ' + this.clickedAnswer)
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log('first Q&A'+ JSON.stringify(result.data.data[0].answers))
+                    console.log('first Q&A' + JSON.stringify(result.data))
+                    if (result.data.status == 'successful') {
 
-                    this.kidQuestion = result.data.data[0].question
-                    this.kidAnswers = result.data.data[0].answers
+                        this.kidQuestion = result.data.data[this.i].question
+                        this.kidAnswers = result.data.data[this.i].answers
 
+
+                        if (this.clickedAnswer == true) {
+                            this.i += 1
+                            this.kidQuestion = result.data.data[this.i].question
+                            this.kidAnswers = result.data.data[this.i].answers
+                            this.successMessage = 'Correct!'
+                        }
+                        // else if(this.clickedAnswer == false){
+
+                        // }
+
+                        else if (this.clickedAnswer == false) {
+                            this.successMessage = 'Try again'
+                        }
+                    }
+                    else {
+                        this.kidQuestion = result.data.status
+                        this.kidAnswers = null
+                    }
+
+                    setTimeout(() => {
+                        this.successMessage = '';
+                        this.errorMessage = '';
+                    }, 3000);
                 })
-
-                console.log('kids Q&A'+ JSON.stringify(this.kidsQAndA))
         },
 
     }

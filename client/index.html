@@ -493,7 +493,7 @@
                 </header>
              
               
-            
+                <span x-text="successMessage" class="text-success"></span>
                 <div id="wrapper" x-show="qAndASection">
                     <!-- <template x-for="item in finalList">
                         <div class="align-items-center border p-2 wrapper">
@@ -509,7 +509,7 @@
                           
                         </div>
                     </template> -->
-                 
+                    
                     <div class="equation">
                         <!-- <h1 id="num1" style="color:#FE4A49">1</h1>
                         <h1 style="color: #2AB7CA;">+</h1>
@@ -522,7 +522,7 @@
                   <div>
                     <template x-for="answer in kidAnswers">
                         <div class="options">
-                            <h1 id="option1" x-text="answer.answer" x-model="answer.correct" @change="console.log('sdfgnm,' + answer.correct)"></h1>
+                            <h1 id="option1" x-text="answer.answer" x-model="answer.correct" @click="console.log('sdfgnm,' + answer.correct),clickedAnswer=answer.correct,displayHomeworkForKids()"></h1>
                         </div>
                     </template>
                   </div>
