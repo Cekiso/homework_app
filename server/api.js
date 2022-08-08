@@ -24,7 +24,7 @@ module.exports = function name(app, db) {
 
             // const getPassword = await db.one('select password from user_detail where username= $1', [username]);
             // console.log(getPassword.password);
-            console.log(user);
+            // console.log(user);
 
             const comparePasswords = await bcrypt.compare(password, user.password);
 
@@ -166,12 +166,12 @@ module.exports = function name(app, db) {
 
             if (checkTopic == null) {
                 await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
-                const getTopics = await db.manyOrNone('select topic from subject_table')
+                // const getTopics = await db.manyOrNone('select topic from subject_table')
                 // console.log('updated topics' + JSON.stringify(getTopics));
                 res.json({
                     status: 'successful',
                     data: 'added topic',
-                    topics: getTopics
+                    // topics: getTopics
                 });
             }
             else {
@@ -247,7 +247,12 @@ module.exports = function name(app, db) {
     app.get('/api/qAndA/:topic', async function (req, res) {
         try {
             const topic = req.params.topic
+
             let list = []
+
+        
+
+
             const getTopicId = await db.oneOrNone('select id from topic_table where topic = $1', [topic])
             // console.log('topic id ' + JSON.stringify(getTopicId.id))
 

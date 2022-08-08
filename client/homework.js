@@ -33,6 +33,8 @@ export default function homeworkApp() {
         finalList: [],
         gameSection: false,
         kidsQuestion: false,
+        kidQuestion:false,
+        kidAnswers:[],
         radioValue: false,
         object: {},
         index: null,
@@ -241,14 +243,6 @@ export default function homeworkApp() {
                         correct: false,
                     });
                     console.log('list of answers' + JSON.stringify(this.list))
-                    // if(result.data.status == 'successful'){
-                    //     this.successMessageAnswer = 'successfully added!'
-                    // }
-
-
-                    // setTimeout(() => {
-                    //     this.successMessage = '';
-                    // }, 3000);
                 })
         },
 
@@ -275,7 +269,6 @@ export default function homeworkApp() {
                         if (result.data.status == 'success') {
                             this.successMessageAnswer = 'successfully updated!'
                         }
-
 
                         setTimeout(() => {
                             this.successMessageAnswer = '';
