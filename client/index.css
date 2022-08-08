@@ -749,7 +749,7 @@ justify-content: space-around;
 
 /* UNIVERSAL */
 
-html,
+/* html,
 body {
   height: 100%;
   width: 100%;
@@ -764,12 +764,12 @@ body {
 }
 
 /* ROOT FONT STYLES */
-
+/* 
 * {
   font-family: 'Lato', Helvetica, sans-serif;
   color: #333447;
   line-height: 1.5;
-}
+} */
 
 /* TYPOGRAPHY */
 
@@ -817,7 +817,7 @@ p {
 
 /* POSITIONING */
 
-.left {
+/* .left {
   text-align: left;
 }
 
@@ -833,7 +833,7 @@ p {
 
 .justify {
   text-align: justify;
-}
+} */
 
 /* ==== GRID SYSTEM ==== */
 

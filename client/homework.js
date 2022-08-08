@@ -11,7 +11,7 @@ export default function homeworkApp() {
         role: null,
         createAcc: false,
         logUser: false,
-        teachersLandingPage: true,
+        teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
         showTopicHW: false,
