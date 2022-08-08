@@ -250,9 +250,6 @@ module.exports = function name(app, db) {
 
             let list = []
 
-        
-
-
             const getTopicId = await db.oneOrNone('select id from topic_table where topic = $1', [topic])
             // console.log('topic id ' + JSON.stringify(getTopicId.id))
 

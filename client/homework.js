@@ -3,14 +3,13 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
         createAcc: false,
-        logUser: false,
+        logUser: true,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -31,7 +30,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: true,
+        gameSection: false,
         kidsQuestion: false,
         kidQuestion:false,
         kidAnswers:[],
@@ -49,6 +48,7 @@ export default function homeworkApp() {
         successMessageAnswer: null,
         i:0,
         clickedAnswer:null,
+        addingAnswers:[],
 
         signIn: {
             username: null,
@@ -249,6 +249,8 @@ export default function homeworkApp() {
         },
 
         getCorrectValue() {
+            console.log('alien' + JSON.stringify(this.list));
+
             this.list.forEach(element => {
                 if (element.answer == this.answer) {
                     element.correct = true
@@ -275,8 +277,12 @@ export default function homeworkApp() {
                         setTimeout(() => {
                             this.successMessageAnswer = '';
                         }, 3000);
+
+                        // this.list=[]
                     })
             });
+
+        
 
         },
 
@@ -286,11 +292,13 @@ export default function homeworkApp() {
             axios
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
-                    console.log('ddata' + result.data.data)
+                    console.log('ddata' + JSON.stringify(result.data.data))
                     this.finalList = result.data.data
 
                 })
                 console.log('yyyy' + JSON.stringify(this.finalList));
+
+                
         },
 
         displayHomeworkForKids(){
@@ -302,6 +310,7 @@ export default function homeworkApp() {
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
                     console.log('first Q&A' + JSON.stringify(result.data))
+                    
                     if (result.data.status == 'successful') {
 
                         this.kidQuestion = result.data.data[this.i].question
