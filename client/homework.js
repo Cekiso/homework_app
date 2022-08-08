@@ -3,14 +3,13 @@ import axios from "axios";
 export default function homeworkApp() {
 
     return {
-
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
         createAcc: false,
-        logUser: false,
+        logUser: true,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -31,7 +30,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: true,
+        gameSection: false,
         kidsQuestion: false,
         kidQuestion:false,
         kidAnswers:[],
