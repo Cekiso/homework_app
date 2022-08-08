@@ -509,6 +509,8 @@
                           
                         </div>
                     </template> -->
+                    
+            <div x-text="successMessage" class="text-success"></div>
 
                     <div class="equation">
                         <!-- <h1 id="num1" style="color:#FE4A49">1</h1>
@@ -523,7 +525,7 @@
                         <template x-for="answer in kidAnswers">
                             <div class="options">
                                 <h1 id="option1" x-text="answer.answer" x-model="answer.correct"
-                                    @change="console.log('sdfgnm,' + answer.correct)"></h1>
+                                    @change="console.log('sdfgnm,' + answer.correct)" @click="clickedAnswer=answer.correct,console.log('hp'+clickedAnswer),displayHomeworkForKids()"></h1>
                             </div>
                         </template>
                     </div>
