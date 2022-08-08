@@ -1,7 +1,6 @@
 import './style.css'
 import './index.css'
-import './learner.css'
-import './sign.css'
+import '/learner.css'
 import Alpine from 'alpinejs'
 import homeworkApp from './homework'
 // import signLog from './signup'
