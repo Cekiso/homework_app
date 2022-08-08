@@ -10,7 +10,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -31,8 +31,10 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: false,
+        gameSection: true,
         kidsQuestion: false,
+        kidQuestion:false,
+        kidAnswers:[],
         radioValue: false,
         object: {},
         index: null,
@@ -216,10 +218,8 @@ export default function homeworkApp() {
         },
         addAnswers() {
             console.log('check answers  ' + this.answer + this.questionId)
-        
 
             this.answerList.push(this.answer)
-            console.log('welcome'+this.answerList);
             const answer = this.answer
             const questionId = this.questionId
             const booleanVal = this.radioValue
@@ -236,19 +236,10 @@ export default function homeworkApp() {
                         correct: false,
                     });
                     console.log('list of answers' + JSON.stringify(this.list))
-                    // if(result.data.status == 'successful'){
-                    //     this.successMessageAnswer = 'successfully added!'
-                    // }
-
-
-                    // setTimeout(() => {
-                    //     this.successMessage = '';
-                    // }, 3000);
                 })
         },
 
         getCorrectValue() {
-            console.log(this.answer +'bee');
             this.list.forEach(element => {
                 if (element.answer == this.answer) {
                     element.correct = true
@@ -271,7 +262,6 @@ export default function homeworkApp() {
                         if (result.data.status == 'success') {
                             this.successMessageAnswer = 'successfully updated!'
                         }
-
 
                         setTimeout(() => {
                             this.successMessageAnswer = '';
