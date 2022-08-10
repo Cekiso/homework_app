@@ -31,7 +31,7 @@ export default function homeworkApp() {
         list: [],
         finalList: [],
         gameSection: false,
-        kidsTopic:false,
+        kidsTopic: false,
         kidsQuestion: false,
         kidQuestion: false,
         kidAnswers: [],
@@ -50,6 +50,8 @@ export default function homeworkApp() {
         i: 0,
         clickedAnswer: null,
         addingAnswers: [],
+        studentId: 0,
+        status: null,
 
         signIn: {
             username: null,
@@ -113,6 +115,7 @@ export default function homeworkApp() {
                     else if (users.data.status == 'success' && users.data.role == 'learner') {
                         this.gameSection = true
                         this.logUser = false;
+                        this.studentId = users.data.userid
                     }
                 })
                 .catch(e => {
@@ -311,6 +314,7 @@ export default function homeworkApp() {
 
                         this.kidQuestion = result.data.data[this.i].question
                         this.kidAnswers = result.data.data[this.i].answers
+                        this.question = result.data.data[this.i].question
 
                         if (this.clickedAnswer == true) {
 
@@ -328,11 +332,42 @@ export default function homeworkApp() {
                                 this.kidAnswers = result.data.data[this.i].answers
                             }
                         }
-
-                        else if (this.clickedAnswer == false) {
-                            this.successMessage = 'Try again'
+                        else if (this.status == 'attempt 3') {
+                            this.i += 1
+                            this.kidQuestion = result.data.data[this.i].question
+                            this.kidAnswers = result.data.data[this.i].answers
                         }
+                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
+                            this.successMessage = 'Try again'
+
+                            const studentId = this.studentId
+                            const question = this.question
+
+                            axios
+                                .post('http://localhost:8585/api/kidsAttempt', { studentId, question })
+                                .then((result) => {
+                                    console.log(result.data)
+                                })
+
+                            axios
+                                .put('http://localhost:8585/api/recordAttempts', { studentId, question })
+                                .then((result) => {
+                                    console.log(result.data)
+                                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
+                                        this.status = 'attempt 3'
+
+                                    }
+
+                                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
+                                        this.status = null
+
+                                    }
+
+                                })
+                        }
+
                     }
+
                     else {
                         this.kidQuestion = result.data.status
                         this.kidAnswers = null
@@ -344,6 +379,7 @@ export default function homeworkApp() {
                     }, 3000);
                 })
         },
+
 
     }
 }
