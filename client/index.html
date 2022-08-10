@@ -184,18 +184,18 @@
                             <li class="home">
                                 <i id="hide" class="fa fa-home" aria-hidden="true" href="index.html"
                                     style="font-size: 36px;"
-                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false"><b>Home</b></i>
+                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false"><b style="font-size: 20px;">Home</b></i>
                             </li>
                             <li class="addHomework">
 
                                 <i id="hide1" class="fa fa-pencil-square-o" aria-hidden="true" href="index.html"
                                     style="font-size: 36px;"
-                                    @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false"><b>Add
-                                        Home-Work</b></i>
+                                    @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false"><b style="font-size: 16px;">Add
+                                        HomeWork</b></i>
                             </li>
 
                             <li class="LogOut">
-                                <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;"><b>LogOut</b></i>
+                                <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b style="font-size: 20px;">LogOut</b></i>
                             </li>
 
 
@@ -470,7 +470,7 @@
                         <ul>
                             <li class="btn-group-vertical btn-lg">
                                 <button id="optionBtn" type="button" x-text="subject.add_subject"
-                                    @click="gameSection=false,kidsQuestion=true,subjectname=subject.add_subject,console.log('and then '+ subjectname),displayTopics()"></button>
+                                    @click="gameSection=false,kidsQuestion=false,kidsTopic=true,subjectname=subject.add_subject,console.log('and then '+ subjectname),displayTopics()"></button>
                             </li>
                         </ul>
 
@@ -481,7 +481,40 @@
                 </div>
             </div>
             <!-- option page -->
+            <div class="container" x-show="kidsTopic">
+                <div class="row">
+                    <div class="col">
+                        <div id="homework">
+                            <h2>Subject Title:
+                                <span x-text="subjectname"></span>
+                            </h2>
+    
+                            <hr><br>
+                            <div class="wrapper">
+                                <h3>Click on a topic to see the homework added</h3>
+                                <template x-for="topic in topicsList">
+                                <ul>
+                                    <li class="btn-group-vertical btn-lg">
+                                        <button id="optionBtn" 
+                                            @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true,kidsQuestion=true,kidsTopic=false"
+                                            x-text="topic.topic"></button>
+                                    </li>
+                                </ul>
+                                </template>
+                                <!-- <template x-for="topic in topicsList">
+                                    <li class="current"
+                                        @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=false,kidQuestion=true"
+                                        x-text="topic.topic">
 
+
+                                    </li>
+                                </template> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- trying -->
             <div x-show="kidsQuestion">
                 <br>
                 <div class="homework-option"></div>
