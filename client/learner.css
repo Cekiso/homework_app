@@ -317,3 +317,7 @@ nav li{
   .nav .Home:hover b {
     display: block;
   }
+  #successText{
+    text-align: center;
+    font-size: 35px;
+  }
