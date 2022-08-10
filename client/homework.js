@@ -31,6 +31,7 @@ export default function homeworkApp() {
         list: [],
         finalList: [],
         gameSection: false,
+        kidsTopic:false,
         kidsQuestion: false,
         kidQuestion: false,
         kidAnswers: [],
