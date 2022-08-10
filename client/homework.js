@@ -10,7 +10,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: false,
+        logUser: true,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -31,7 +31,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: true,
+        gameSection: false,
         kidsQuestion: false,
         kidQuestion:false,
         kidAnswers:[],
@@ -97,22 +97,23 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users)
-                    console.log('user ' + this.loginSuccessMsg);
+                    console.log(users.data.user.role)
+                    // console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success') {
                         this.user = users.data.user;
                         this.loginSuccessMsg = 'Successfully login'
                     }
+                    console.log(this.role);
+                    console.log("------------");
                     if (this.role = 'teacher') {
                         this.teachersLandingPage = true;
                     }
                     else if (this.role = 'learner') {
-                        this.gameSection = true
+                        this.gameSection = true;
                     }
 
-
                     this.nav = true;
-                    this.teachersLandingPage = true;
+                    // this.teachersLandingPage = true;
                     this.logUser = false;
 
 
