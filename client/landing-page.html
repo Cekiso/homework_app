@@ -35,7 +35,7 @@
         <source src="audio/wrong.mp3" type="audio/mpeg">
       </audio>
     
-      <header>
+      <!-- <header>
         <div class="container">
           <div class="nav">
             <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span> MATHS HOMEWORK</h2>
@@ -49,8 +49,28 @@
             </nav>
           </div>
         </div>
-      </header>
-      
+      </header> -->
+            <!-- navigation -->
+            <header>
+              <div class="container">
+                <div class="tooltip facebook">
+                    <span class="tooltipText fb">Home</span>
+                    <i class="fa fa-home" aria-hidden="true" href="index.html" style="font-size: 36px;"
+                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false"></i>
+                </div>
+                <div class="tooltip twitter">
+                    <span class="tooltipText tw">Add Home-Work</span>
+                    <i class="fa fa-pencil-square-o" aria-hidden="true" href="index.html" style="font-size: 36px;"
+                    @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false"></i>
+                </div>
+                <div class="tooltip whatsapp">
+                    <span class="tooltipText wa">LogOut</span>
+                    <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;"></i>
+                </div>
+            </div>
+            </header>
+        
+            <!-- navigation -->
       <div id="wrapper">
           <div class="equation">
             <h1  id="num1" style="color:#FE4A49">1</h1>
