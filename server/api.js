@@ -33,7 +33,7 @@ module.exports = function name(app, db) {
             }
 
             const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
-
+            const role = await db.oneOrNone('select role from user_detail where username = $1', [username]);
             //     console.log(decode);
             // console.log(token);
             res.json({
@@ -41,6 +41,7 @@ module.exports = function name(app, db) {
                 data: 'Successfully login',
                 user,
                 token,
+                role: role.role
                 // data: decode
             })
 
