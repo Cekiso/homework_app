@@ -9,7 +9,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -30,7 +30,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: false,
+        gameSection: true,
         kidsQuestion: false,
         kidQuestion:false,
         kidAnswers:[],
@@ -310,23 +310,30 @@ export default function homeworkApp() {
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
                     console.log('first Q&A' + JSON.stringify(result.data))
-                    
+
                     if (result.data.status == 'successful') {
 
                         this.kidQuestion = result.data.data[this.i].question
                         this.kidAnswers = result.data.data[this.i].answers
 
 
-                        if (this.clickedAnswer == true) {
-                            this.i += 1
-                            this.kidQuestion = result.data.data[this.i].question
-                            this.kidAnswers = result.data.data[this.i].answers
-                            this.successMessage = 'Correct!'
+                        if (this.clickedAnswer == true ) {
+
+                            if(this.i == result.data.data.length -1){
+                                this.kidQuestion = 'Homework finished!'
+                                this.kidAnswers = null
+                                // this.successMessage = 'Done!'
+                                console.log('beyonce')
+                            }
+
+                            else{
+                                this.successMessage = 'Correct!'
+                                this.i += 1
+                                this.kidQuestion = result.data.data[this.i].question
+                                this.kidAnswers = result.data.data[this.i].answers
+                            }
                         }
-                        // else if(this.clickedAnswer == false){
-
-                        // }
-
+                       
                         else if (this.clickedAnswer == false) {
                             this.successMessage = 'Try again'
                         }
