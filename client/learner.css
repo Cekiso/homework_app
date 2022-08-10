@@ -220,3 +220,100 @@ nav li{
    text-align: center;
   
   }
+
+  /* nav */
+  .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  .nav li {
+    font-size: 13px;
+    display: block;
+    float: left;
+    height: 90px;
+    width: 145px;
+    /*new*/
+    text-align: center;
+    /*new*/
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .nav .Home {
+    background: #F18701;
+  }
+  
+  
+  .nav .signOut {
+    background: #F35B04;
+  }
+  
+  .nav .graduation {
+    background: #F7B801;
+  }
+  
+  .nav li {
+    /* font-family: FontAwesome; */
+    color: #eee;
+    font-size: 0;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+  }
+  
+  .nav .home li i {
+    color: #fff;
+    padding: 0 10px;
+  }
+  
+  .nav li b {
+    padding: 15px 0;
+    display: none;
+  }
+  
+  .nav a:hover {
+    color: #fff;
+  }
+  
+  .nav .addHomework a:hover {
+    color: #fff;
+  }
+  .nav .graduation a:hover {
+    color: #fff;
+  }
+  .nav .signOut:hover {
+    color: #fff;
+  }
+  .nav .graduation:hover {
+    color: #fff;
+  }
+  
+  .nav .Home a:hover i {
+    display: none;
+  }
+  
+  .nav .addHomework a:hover i {
+    display: none;
+  }
+  
+  .nav .signOut a:hover i {
+    display: none;
+  }
+  
+  .nav .addHomework:hover b {
+    display: block;
+  }
+  .nav .graduation:hover b {
+    display: block;
+  }
+  .nav .signOut:hover b {
+    display: block;
+  }
+  
+  .nav .Home:hover b {
+    display: block;
+  }

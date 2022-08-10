@@ -17,6 +17,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Gayathri&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap"
         rel="stylesheet">
+        <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <title>Teachers</title>
 </head>
 
@@ -195,7 +196,7 @@
                             </li>
 
                             <li class="LogOut">
-                                <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b style="font-size: 20px;">LogOut</b></i>
+                                <i class='fas fa-sign-in-alt' style="font-size: 36px;" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b style="font-size: 20px;">LogOut</b></i>
                             </li>
 
 
@@ -521,34 +522,34 @@
                 <audio id="myAudio">
                     <source src="audio/wrong.mp3" type="audio/mpeg">
                 </audio>
-                <header>
-                    <div class="container">
+                <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span><span
+                    x-text="subjectname"></span> HOMEWORK</h2>
+                    <header>
                         <div class="nav">
-                            <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span><span
-                                    x-text="subjectname"></span> HOMEWORK</h2>
-
-                            <img src="../client/imgs/icons8-storytelling-48.png" alt="">
+        
                             <nav>
                                 <ul>
-                                    <template x-for="topic in topicsList">
-                                        <li class="current"
-                                            @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true"
-                                            x-text="topic.topic">
-
-
-                                        </li>
-                                    </template>
-                                    <!-- <li class="current"><a href="index.html">Addition</a></li>
-                                    <li><a href="subtract.html">Subtract</a></li>
-                                    <li><a href="multiply.html">Multiply</a></li>
-                                    <li><a href="divide.html">Divide</a></li> -->
+        
+                                    <li class="Home">
+                                        <i   class="fas fa-chalkboard-teacher" href="index.html"
+                                            style="font-size: 36px;"
+                                           @click="gameSection=true,kidsQuestion=false,qAndASection=false"><b style="font-size: 20px;">Home</b></i>
+                                    </li>
+                                    <li class="graduation">
+        
+                                        <i class='fas fa-book-open' href="index.html"
+                                            style="font-size: 36px;"
+                                    @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=true"><b style="font-size: 16px;">Select Topic</b></i>
+                                    </li>
+        
+                                    <li class="signOut">
+                                        <i class='fas fa-sign-in-alt' style="font-size: 36px;" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false"><b style="font-size: 20px;">LogOut</b></i>
+                                    </li>
                                 </ul>
                             </nav>
+        
                         </div>
-                    </div>
-                </header>
-
-
+                    </header>
 
                 <div id="wrapper" x-show="qAndASection">
                     <!-- <template x-for="item in finalList">
@@ -580,7 +581,7 @@
                     <div>
                         <template x-for="answer in kidAnswers">
                             <div class="options">
-                                <h1 id="option1" x-text="answer.answer" x-model="answer.correct"
+                                <h1  id="option1" x-text="answer.answer" x-model="answer.correct"
                                     @change="console.log('sdfgnm,' + answer.correct)"
                                     @click="clickedAnswer=answer.correct,console.log('hp'+clickedAnswer),displayHomeworkForKids()">
                                 </h1>
