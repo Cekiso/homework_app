@@ -34,6 +34,7 @@ module.exports = function name(app, db) {
 
             const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
             const role = await db.oneOrNone('select role from user_detail where username = $1', [username]);
+            const getUserId = await db.oneOrNone('select id from user_detail where username = $1', [username]);
             //     console.log(decode);
             // console.log(token);
             res.json({
@@ -41,7 +42,8 @@ module.exports = function name(app, db) {
                 data: 'Successfully login',
                 user,
                 token,
-                role: role.role
+                role: role.role,
+                userid:getUserId.id
                 // data: decode
             })
 
@@ -76,17 +78,17 @@ module.exports = function name(app, db) {
                 throw Error("Invalid username Format")
             }
             const oldUser = await db.oneOrNone('select * from user_detail where username = $1', [username])
-            
+
             if (!oldUser) {
                 const cryptedPassword = await bcrypt.hash(password, 10)
                 const user = await db.any('INSERT INTO user_detail (first_name, lastname, username, password, role) VALUES ($1, $2, $3, $4, $5) returning *', [firstname, lastname, username, cryptedPassword, role]);
-                console.log(user);
+                // console.log(user);
                 const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
 
                 res.json({
                     status: 'success',
                     token,
-                    data:user
+                    data: user
 
                 })
             }
@@ -148,7 +150,7 @@ module.exports = function name(app, db) {
             const subject = req.params.subject
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject=$1', [subject])
             // console.log('id ' + JSON.stringify(getSubjectId.id))
-           let result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
+            let result = await db.manyOrNone("select topic from topic_table where subject_id=$1", [getSubjectId.id])
             res.json({
                 status: 'successful',
                 data: result
@@ -158,8 +160,7 @@ module.exports = function name(app, db) {
         }
     });
 
-    app.post('/api/addTopics', async function (req, res) 
-    {
+    app.post('/api/addTopics', async function (req, res) {
         try {
             const { subject, topic } = req.body
             const getSubjectId = await db.oneOrNone('select id from subject_table where add_subject= $1', [subject])
@@ -285,6 +286,90 @@ module.exports = function name(app, db) {
 
         } catch (error) {
             console.log(error)
+        }
+    });
+
+    app.post('/api/kidsAttempt', async function (req, res) {
+        try {
+            const { studentId, question } = req.body
+            const getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question])
+            const questionId = getQuestionId.id
+            console.log('tt'+ JSON.stringify(questionId));
+
+            const checkAttempt = await db.oneOrNone('select * from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+            
+            if (!checkAttempt) {
+                await db.oneOrNone('insert into attempts_table(student_id,question_id) values ($1,$2)', [studentId, questionId])
+                return res.json({
+                    status: 'successful',
+                });
+            }
+
+            else {
+                throw Error("already exists");
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                status: error.stack,
+                data: "error",
+                message: error.message
+
+            })
+        }
+    });
+
+    app.put('/api/recordAttempts', async function (req, res) {
+        try {
+            const { studentId, question } = req.body
+
+            const getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question])
+            const questionId = getQuestionId.id
+            console.log('tt'+ JSON.stringify(questionId));
+            const checkAttempt1 = await db.oneOrNone('select attempt_1 from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+            const checkAttempt2 = await db.oneOrNone('select attempt_2 from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+            const checkAttempt3 = await db.oneOrNone('select attempt_3 from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+
+            if (checkAttempt1.attempt_1 == null) {
+                await db.none("update attempts_table set attempt_1 = $1 where student_id = $2 and question_id = $3", [1,studentId, questionId])
+                return res.json({
+                    status: 'successful',
+                    data:'recorded attempt 1'
+                });
+            }
+
+            else if (checkAttempt2.attempt_2 == null) {
+                await db.none("update attempts_table set attempt_2 = $1 where student_id = $2 and question_id = $3", [1,studentId, questionId])
+                return res.json({
+                    status: 'successful',
+                    data:'recorded attempt 2'
+                });
+            }
+
+           else  if (checkAttempt3.attempt_3 == null) {
+                await db.none("update attempts_table set attempt_3 = $1 where student_id = $2 and question_id = $3", [1,studentId, questionId])
+                return res.json({
+                    status: 'successful',
+                    data:'recorded attempt 3'
+                });
+            }
+
+             else {
+                return res.json({
+                    status: 'successful',
+                    data:'all attempts have been used'
+                });
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                status: error.stack,
+                data: "error",
+                message: error.message
+
+            })
         }
     });
 
