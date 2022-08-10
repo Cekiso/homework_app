@@ -236,7 +236,7 @@ nav li{
     display: block;
     float: left;
     height: 90px;
-    width: 145px;
+    width: 100px;
     /*new*/
     text-align: center;
     /*new*/
@@ -319,5 +319,5 @@ nav li{
   }
   #successText{
     text-align: center;
-    font-size: 35px;
+    font-size: 30px;
   }
