@@ -113,8 +113,6 @@ export default function homeworkApp() {
                         this.gameSection = true
                         this.logUser = false;
                     }
-
-
                 })
                 .catch(e => {
                     console.log(e)
@@ -312,7 +310,6 @@ export default function homeworkApp() {
 
                         this.kidQuestion = result.data.data[this.i].question
                         this.kidAnswers = result.data.data[this.i].answers
-
 
                         if (this.clickedAnswer == true) {
 
