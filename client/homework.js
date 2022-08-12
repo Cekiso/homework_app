@@ -9,7 +9,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -30,7 +30,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: false,
+        gameSection: true,
         kidsTopic: false,
         kidsQuestion: false,
         kidQuestion: false,
@@ -52,6 +52,7 @@ export default function homeworkApp() {
         addingAnswers: [],
         studentId: 0,
         status: null,
+        privacy:false,
 
         signIn: {
             username: null,

@@ -8,16 +8,16 @@
     <link rel="icon" type="imgs/svg+xml" href="imgs/Hakuna-Matata.jpg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gayathri&family=Luckiest+Guy&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap"
-        rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gayathri&family=Luckiest+Guy&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Gayathri&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Gayathri&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap"
-        rel="stylesheet">
-        <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <title>Teachers</title>
 </head>
 
@@ -195,7 +195,7 @@
                             </li>
 
                             <li class="LogOut">
-                                <i class='fas fa-sign-in-alt' style="font-size: 36px;" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b style="font-size: 20px;">LogOut</b></i>
+                                <i class="fa fa-sign-out" aria-hidden="true"  style="font-size: 36px;" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b style="font-size: 20px;">LogOut</b></i>
                             </li>
 
 
@@ -461,6 +461,7 @@
         </div>
 
         <section id="learnersSide">
+           
             <div x-show="gameSection" x-init="displaySubjects()">
                 <div class="homework-option">
                     <h1>Welcome <span x-text="signIn.username"></span></h1>
@@ -530,19 +531,22 @@
                                 <ul>
         
                                     <li class="Home">
-                                        <i   class="fas fa-chalkboard-teacher" href="index.html"
+                                        <i  class="fa fa-graduation-cap" aria-hidden="true"  href="index.html"
                                             style="font-size: 36px;"
                                            @click="gameSection=true,kidsQuestion=false,qAndASection=false"><b style="font-size: 20px;">Home</b></i>
                                     </li>
                                     <li class="graduation">
         
-                                        <i class='fas fa-book-open' href="index.html"
+                                        <i  class="fa fa-book" aria-hidden="true"  href="index.html"
                                             style="font-size: 36px;"
                                     @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=true"><b style="font-size: 20px;">Topics</b></i>
                                     </li>
         
                                     <li class="signOut">
-                                        <i class='fas fa-sign-in-alt' style="font-size: 36px;" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false"><b style="font-size: 20px;">LogOut</b></i>
+                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false"><b style="font-size: 20px;">LogOut</b></i>
+                                    </li>
+                                    <li class="Lock">
+                                        <i class="fa fa-lock" aria-hidden="true" style="font-size: 36px;" href="index.html"   @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=true"><b style="font-size: 20px;">Privacy</b></i>
                                     </li>
                                 </ul>
                             </nav>
@@ -603,12 +607,34 @@
                 </div>
             </div>
         </section>
+        <section class="container" x-show="privacy">
+            <h3 class="pt-4 pb-2">Bootstrap Datepicker</h3>
+            <form>
+                <div class="row form-group">
+                    <label for="date" class="col-sm-1 col-form-label">Date</label>
+                    <div class="col-sm-4">
+                        <div class="input-group date" id="datepicker">
+                            <input type="text" class="form-control">
+                            <span class="input-group-append">
+                                <span class="input-group-text bg-white d-block">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
     </div>
 
 
 
 
-
+    <script type="text/javascript">
+        $(function() {
+            $('#datepicker').datepicker();
+        });
+    </script>
     <script type="module" src="/main.js"></script>
 </body>
 
