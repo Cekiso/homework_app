@@ -23,7 +23,7 @@ export default function homeworkApp() {
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav: false,
+        nav: true,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -110,7 +110,7 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users)
+                    console.log(users.data.role)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
                         this.user = users.data.user;
@@ -324,6 +324,8 @@ export default function homeworkApp() {
         displayHomeworkForKids() {
             const topic = this.topicname
             const url = `${URL_BASE}/api/qAndA/${topic}`
+            const url2 = `${URL_BASE}/api/kidsAttempt`
+            const url3 = `${URL_BASE}/api/recordAttempts`
             
             console.log('eyyyyy ' + this.clickedAnswer)
             axios
@@ -369,12 +371,12 @@ export default function homeworkApp() {
 
                             today = `${yyyy}-${mm}-${dd}`
 
-                            console.log('asdfcv' + today);
+                            console.log('asdfcv' + this.studentId);
 
                             const studentId = this.studentId
                             const question = this.question
                             const date = today
-                            const url2 = `${URL_BASE}/api/kidsAttempt`
+                            
                             axios.post(url2, {
                                 studentId,
                                 question,
@@ -384,7 +386,7 @@ export default function homeworkApp() {
                                     console.log(result.data)
                                 })
 
-                                const url3 = `${URL_BASE}/api/recordAttempts`
+                                
                             axios
                                 .put(url3, { 
                                     studentId, 

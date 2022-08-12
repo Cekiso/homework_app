@@ -22,6 +22,8 @@ module.exports = function name(app, db) {
                 throw Error("User does not exist, please create an account")
             }
 
+            const getRole = await db.oneOrNone('select role from user_detail where username = $1', [username]);
+            const getUserid = await db.oneOrNone('select id from user_detail where username = $1', [username]);
             // const getPassword = await db.one('select password from user_detail where username= $1', [username]);
             // console.log(getPassword.password);
             // console.log(user);
@@ -41,6 +43,8 @@ module.exports = function name(app, db) {
                 data: 'Successfully login',
                 user,
                 token,
+                role:getRole.role,
+                userid: getUserid.id
                 // data: decode
             })
 
@@ -284,6 +288,90 @@ module.exports = function name(app, db) {
 
         } catch (error) {
             console.log(error)
+        }
+    });
+
+    app.post('/api/kidsAttempt', async function (req, res) {
+        try {
+            const { studentId, question , date} = req.body
+            const getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question])
+            const questionId = getQuestionId.id
+            console.log('tt'+ JSON.stringify(questionId));
+
+            const checkAttempt = await db.oneOrNone('select * from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+            
+            if (!checkAttempt) {
+                await db.oneOrNone('insert into attempts_table(student_id,question_id,attempt_date) values ($1,$2,$3)', [studentId, questionId, date])
+                return res.json({
+                    status: 'successful',
+                });
+            }
+
+            else {
+                throw Error("already exists");
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                status: error.stack,
+                data: "error",
+                message: error.message
+
+            })
+        }
+    });
+
+    app.put('/api/recordAttempts', async function (req, res) {
+        try {
+            const { studentId, question } = req.body
+
+            const getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question])
+            const questionId = getQuestionId.id
+            console.log('tt'+ JSON.stringify(questionId));
+            const checkAttempt1 = await db.oneOrNone('select attempt_1 from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+            const checkAttempt2 = await db.oneOrNone('select attempt_2 from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+            const checkAttempt3 = await db.oneOrNone('select attempt_3 from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
+
+            if (checkAttempt1.attempt_1 == null) {
+                await db.none("update attempts_table set attempt_1 = $1 where student_id = $2 and question_id = $3", [1,studentId, questionId])
+                return res.json({
+                    status: 'successful',
+                    data:'recorded attempt 1'
+                });
+            }
+
+            else if (checkAttempt2.attempt_2 == null) {
+                await db.none("update attempts_table set attempt_2 = $1 where student_id = $2 and question_id = $3", [1,studentId, questionId])
+                return res.json({
+                    status: 'successful',
+                    data:'recorded attempt 2'
+                });
+            }
+
+           else  if (checkAttempt3.attempt_3 == null) {
+                await db.none("update attempts_table set attempt_3 = $1 where student_id = $2 and question_id = $3", [1,studentId, questionId])
+                return res.json({
+                    status: 'successful',
+                    data:'recorded attempt 3'
+                });
+            }
+
+             else {
+                return res.json({
+                    status: 'successful',
+                    data:'all attempts have been used'
+                });
+            }
+
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({
+                status: error.stack,
+                data: "error",
+                message: error.message
+
+            })
         }
     });
 
