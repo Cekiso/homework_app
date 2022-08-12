@@ -1,7 +1,7 @@
 import axios from "axios";
-const URL_BASE = import.meta.env.VITE_SERVER_URL;
 
 export default function homeworkApp() {
+    const URL_BASE = import.meta.env.VITE_SERVER_URL
 
     return {
         firstname: null,
@@ -66,7 +66,7 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
-
+        
         register() {
             const url = `${URL_BASE}/api/signUp`
             const { firstname, lastname, username, password, role } = this.signUp
@@ -197,8 +197,9 @@ export default function homeworkApp() {
 
         displayTopics() {
             console.log('oooo' + this.subjectname)
-            const url = `${URL_BASE}/api/topics${subject}`
             const subject = this.subjectname
+
+            const url = `${URL_BASE}/api/topics/${subject}`
 
             axios.get(url)
                 .then((result) => {
@@ -211,7 +212,7 @@ export default function homeworkApp() {
 
         addQuestions() {
             console.log('check question  ' + this.question + this.topicname)
-            const url = `${URL_BASE}/api/addQuestions}`
+            const url = `${URL_BASE}/api/addQuestions`
             const question = this.question
             const topic = this.topicname
             axios.post(url,{
@@ -303,11 +304,12 @@ export default function homeworkApp() {
         },
 
         displayHomework() {
-            const url = `${URL_BASE}/api/qAndA/${topic}`
             const topic = this.topicname
+            const url = `${URL_BASE}/api/qAndA/${topic}`
+            
             console.log('ASDFGNJM, ' + topic)
             axios
-                .get()
+                .get(url)
                 .then((result) => {
                     console.log('ddata' + JSON.stringify(result.data.data))
                     this.finalList = result.data.data
@@ -319,9 +321,9 @@ export default function homeworkApp() {
         },
 
         displayHomeworkForKids() {
-            const url = `${URL_BASE}/api/qAndA/${topic}`
             const topic = this.topicname
-
+            const url = `${URL_BASE}/api/qAndA/${topic}`
+            
             console.log('eyyyyy ' + this.clickedAnswer)
             axios
                 .get(url)
@@ -356,23 +358,34 @@ export default function homeworkApp() {
                             this.kidAnswers = result.data.data[this.i].answers
                         }
                         else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                            const url = `${URL_BASE}/api/kidsAttempt`
-                            const url = `${URL_BASE}/api/recordAttempts`
+                           
                             this.successMessage = 'Try again'
+
+                            let today = new Date();
+                            let dd = String(today.getDate()).padStart(2, '0');
+                            let mm = String(today.getMonth() + 1).padStart(2, '0');
+                            let yyyy = today.getFullYear();
+
+                            today = `${yyyy}-${mm}-${dd}`
+
+                            console.log('asdfcv' + today);
 
                             const studentId = this.studentId
                             const question = this.question
-
-                            axios.post(url, {
+                            const date = today
+                            const url2 = `${URL_BASE}/api/kidsAttempt`
+                            axios.post(url2, {
                                 studentId,
-                                question
+                                question,
+                                date
                             })
                                 .then((result) => {
                                     console.log(result.data)
                                 })
 
+                                const url3 = `${URL_BASE}/api/recordAttempts`
                             axios
-                                .put(url, { 
+                                .put(url3, { 
                                     studentId, 
                                     question
                                  })
