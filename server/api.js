@@ -291,7 +291,7 @@ module.exports = function name(app, db) {
 
     app.post('/api/kidsAttempt', async function (req, res) {
         try {
-            const { studentId, question } = req.body
+            const { studentId, question , date} = req.body
             const getQuestionId = await db.oneOrNone('select id from questions_table where questions = $1', [question])
             const questionId = getQuestionId.id
             console.log('tt'+ JSON.stringify(questionId));
@@ -299,7 +299,7 @@ module.exports = function name(app, db) {
             const checkAttempt = await db.oneOrNone('select * from attempts_table where student_id = $1 and question_id = $2', [studentId, questionId])
             
             if (!checkAttempt) {
-                await db.oneOrNone('insert into attempts_table(student_id,question_id) values ($1,$2)', [studentId, questionId])
+                await db.oneOrNone('insert into attempts_table(student_id,question_id,attempt_date) values ($1,$2,$3)', [studentId, questionId, date])
                 return res.json({
                     status: 'successful',
                 });

@@ -340,11 +340,21 @@ export default function homeworkApp() {
                         else if (this.clickedAnswer == false && this.status != 'attempt 3') {
                             this.successMessage = 'Try again'
 
+                            let today = new Date();
+                            let dd = String(today.getDate()).padStart(2, '0');
+                            let mm = String(today.getMonth() + 1).padStart(2, '0');
+                            let yyyy = today.getFullYear();
+
+                            // today = mm + '/' + dd + '/' + yyyy;
+                            today = `${yyyy}-${mm}-${dd}`
+
+                            console.log('asdfcv' + today);
+
                             const studentId = this.studentId
                             const question = this.question
-
+                            const date = today
                             axios
-                                .post('http://localhost:8585/api/kidsAttempt', { studentId, question })
+                                .post('http://localhost:8585/api/kidsAttempt', { studentId, question, date})
                                 .then((result) => {
                                     console.log(result.data)
                                 })
