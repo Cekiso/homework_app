@@ -34,4 +34,16 @@ create table answers_table(
     foreign key (questions_id) references questions_table(id)
 );
 
+create table attempts_table(
+    id serial not null primary key,
+    student_id int not null,
+    question_id int not null,
+    attempt_1 int,
+    attempt_2 int,
+    attempt_3 int,
+    foreign key (student_id) references user_detail(id),
+    foreign key (question_id) references questions_table(id)
+);
+
+
 
