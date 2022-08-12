@@ -255,7 +255,9 @@ nav li{
   .nav .graduation {
     background: #F7B801;
   }
-  
+  .nav .Lock {
+    background: #35404f;
+  }
   .nav li {
     /* font-family: FontAwesome; */
     color: #eee;
@@ -282,10 +284,16 @@ nav li{
   .nav .addHomework a:hover {
     color: #fff;
   }
+  .nav .Lock a:hover {
+    color: #fff;
+  }
   .nav .graduation a:hover {
     color: #fff;
   }
   .nav .signOut:hover {
+    color: #fff;
+  }
+  .nav .Lock:hover {
     color: #fff;
   }
   .nav .graduation:hover {
@@ -293,6 +301,9 @@ nav li{
   }
   
   .nav .Home a:hover i {
+    display: none;
+  }
+  .nav .Lock a:hover i {
     display: none;
   }
   
@@ -311,6 +322,9 @@ nav li{
     display: block;
   }
   .nav .signOut:hover b {
+    display: block;
+  }
+  .nav .Lock:hover b {
     display: block;
   }
   
