@@ -1,4 +1,5 @@
 import axios from "axios";
+const URL_BASE = import.meta.env.VITE_SERVER_URL;
 
 export default function homeworkApp() {
 
@@ -68,9 +69,14 @@ export default function homeworkApp() {
         },
 
         register() {
+            const url = `${URL_BASE}/api/signUp`
             const { firstname, lastname, username, password, role } = this.signUp
-            axios.post('http://localhost:8585/api/signUp', {
-                firstname, lastname, username, password, role
+            axios.post(url, {
+                firstname,
+                lastname,
+                username,
+                password,
+                role
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
@@ -95,11 +101,12 @@ export default function homeworkApp() {
         },
 
         login() {
-
+            const url = `${URL_BASE}/api/login`
             const { username, password } = this.signIn
 
-            axios.post('http://localhost:8585/api/login', {
-                username, password
+            axios.post(url,{
+                username,
+                password
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
@@ -130,12 +137,13 @@ export default function homeworkApp() {
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
-
+            const url = `${URL_BASE}/api/addedSubject`
             let subjectTitle = this.addedSubject
             const subject = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1).toLowerCase();
 
-            axios
-                .post('http://localhost:8585/api/addSubjects', { subject })
+            axios.post(url, {
+                subject
+            })
                 .then((result) => {
                     console.log(result.data)
 
@@ -154,8 +162,8 @@ export default function homeworkApp() {
         },
 
         displaySubjects() {
-            axios
-                .get(`http://localhost:8585/api/subjects`)
+            const url = `${URL_BASE}/api/subjects`
+            axios.get(url)
                 .then((result) => {
                     console.log(result.data.data)
                     console.log('jjj' + JSON.stringify(result.data.data))
@@ -166,13 +174,14 @@ export default function homeworkApp() {
 
         addTopics() {
             console.log('hey' + this.subjectname + this.addedTopic)
-
-
+            const url = `${URL_BASE}/api/addTopics`
             const subject = this.subjectname
             const topic = this.addedTopic
 
-            axios
-                .post('http://localhost:8585/api/addTopics', { subject, topic })
+            axios.post(url, {
+                subject,
+                topic
+            })
                 .then((result) => {
                     console.log('checking added topics' + JSON.stringify(result.data))
                     if (result.data.status == 'successful') {
@@ -189,10 +198,10 @@ export default function homeworkApp() {
 
         displayTopics() {
             console.log('oooo' + this.subjectname)
+            const url = `${URL_BASE}/api/topics${subject}`
             const subject = this.subjectname
 
-            axios
-                .get(`http://localhost:8585/api/topics/${subject}`)
+            axios.get(url)
                 .then((result) => {
                     console.log('checking' + result.data)
                     console.log('checking topics' + JSON.stringify(result.data))
@@ -203,10 +212,13 @@ export default function homeworkApp() {
 
         addQuestions() {
             console.log('check question  ' + this.question + this.topicname)
+            const url = `${URL_BASE}/api/addQuestions}`
             const question = this.question
             const topic = this.topicname
-            axios
-                .post('http://localhost:8585/api/addQuestions', { question, topic })
+            axios.post(url,{
+                question,
+                topic
+            })
                 .then((result) => {
                     console.log(result.data)
                     this.questionId = result.data.questionid
@@ -225,15 +237,18 @@ export default function homeworkApp() {
         },
         addAnswers() {
             console.log('check answers  ' + this.answer + this.questionId)
-
+            const url = `${URL_BASE}/api/addAnswers`
             this.answerList.push(this.answer)
             const answer = this.answer
             console.log(this.questionId);
             const questionId = this.questionId
             const booleanVal = this.radioValue
 
-            axios
-                .post('http://localhost:8585/api/addAnswers', { answer, questionId, booleanVal })
+            axios.post(url, {
+                answer,
+                questionId,
+                booleanVal
+            })
                 .then((result) => {
                     console.log(result.data)
 
@@ -262,12 +277,14 @@ export default function homeworkApp() {
             console.log('updated list' + JSON.stringify(this.list))
 
             this.list.forEach(element => {
-
+                const url = `${URL_BASE}/api/updateAnswer`
                 let booleanVal = element.correct
                 let answerId = element.id
                 console.log('beyonce' + booleanVal + answerId)
-                axios
-                    .put('http://localhost:8585/api/updateAnswer', { booleanVal, answerId })
+                axios.put(url,{
+                    booleanVal,
+                    answerId
+                })
                     .then((result) => {
                         console.log(result.data)
                         if (result.data.status == 'success') {
@@ -287,10 +304,11 @@ export default function homeworkApp() {
         },
 
         displayHomework() {
+            const url = `${URL_BASE}/api/qAndA/${topic}`
             const topic = this.topicname
             console.log('ASDFGNJM, ' + topic)
             axios
-                .get(`http://localhost:8585/api/qAndA/${topic}`)
+                .get(url)
                 .then((result) => {
                     console.log('ddata' + JSON.stringify(result.data.data))
                     this.finalList = result.data.data
@@ -301,85 +319,92 @@ export default function homeworkApp() {
 
         },
 
-        displayHomeworkForKids() {
+        // displayHomeworkForKids() {
+        //     const url = `${URL_BASE}/api/qAndA/${topic}`
+        //     const topic = this.topicname
 
-            const topic = this.topicname
+        //     console.log('eyyyyy ' + this.clickedAnswer)
+        //     axios
+        //         .get(url)
+        //         .then((result) => {
+        //             console.log('first Q&A' + JSON.stringify(result.data))
 
-            console.log('eyyyyy ' + this.clickedAnswer)
-            axios
-                .get(`http://localhost:8585/api/qAndA/${topic}`)
-                .then((result) => {
-                    console.log('first Q&A' + JSON.stringify(result.data))
+        //             if (result.data.status == 'successful') {
 
-                    if (result.data.status == 'successful') {
+        //                 this.kidQuestion = result.data.data[this.i].question
+        //                 this.kidAnswers = result.data.data[this.i].answers
+        //                 this.question = result.data.data[this.i].question
 
-                        this.kidQuestion = result.data.data[this.i].question
-                        this.kidAnswers = result.data.data[this.i].answers
-                        this.question = result.data.data[this.i].question
+        //                 if (this.clickedAnswer == true) {
 
-                        if (this.clickedAnswer == true) {
+        //                     if (this.i == result.data.data.length - 1) {
+        //                         this.kidQuestion = 'Homework finished!'
+        //                         this.kidAnswers = null
+                               
+        //                         console.log('beyonce')
+        //                     }
 
-                            if (this.i == result.data.data.length - 1) {
-                                this.kidQuestion = 'Homework finished!'
-                                this.kidAnswers = null
-                                // this.successMessage = 'Done!'
-                                console.log('beyonce')
-                            }
+        //                     else {
+        //                         this.successMessage = 'Correct!'
+        //                         this.i += 1
+        //                         this.kidQuestion = result.data.data[this.i].question
+        //                         this.kidAnswers = result.data.data[this.i].answers
+        //                     }
+        //                 }
+        //                 else if (this.status == 'attempt 3') {
+        //                     this.i += 1
+        //                     this.kidQuestion = result.data.data[this.i].question
+        //                     this.kidAnswers = result.data.data[this.i].answers
+        //                 }
+        //                 else if (this.clickedAnswer == false && this.status != 'attempt 3') {
+        //                     const url = `${URL_BASE}/api/kidsAttempt`
+                            
+        //                     this.successMessage = 'Try again'
 
-                            else {
-                                this.successMessage = 'Correct!'
-                                this.i += 1
-                                this.kidQuestion = result.data.data[this.i].question
-                                this.kidAnswers = result.data.data[this.i].answers
-                            }
-                        }
-                        else if (this.status == 'attempt 3') {
-                            this.i += 1
-                            this.kidQuestion = result.data.data[this.i].question
-                            this.kidAnswers = result.data.data[this.i].answers
-                        }
-                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                            this.successMessage = 'Try again'
+        //                     const studentId = this.studentId
+        //                     const question = this.question
 
-                            const studentId = this.studentId
-                            const question = this.question
+        //                     axios.post(url, {
+        //                         studentId,
+        //                         question
+        //                     })
+        //                         .then((result) => {
+        //                             console.log(result.data)
+        //                         })
+        //                         const url = `${URL_BASE}/api/recordAttempts`
+        //                     axios
+        //                         .put(url, { 
+        //                             studentId, 
+        //                             question
+        //                          })
+        //                         .then((result) => {
+        //                             console.log(result.data)
+        //                             if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
+        //                                 this.status = 'attempt 3'
 
-                            axios
-                                .post('http://localhost:8585/api/kidsAttempt', { studentId, question })
-                                .then((result) => {
-                                    console.log(result.data)
-                                })
+        //                             }
 
-                            axios
-                                .put('http://localhost:8585/api/recordAttempts', { studentId, question })
-                                .then((result) => {
-                                    console.log(result.data)
-                                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
-                                        this.status = 'attempt 3'
+        //                             if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
+        //                                 this.status = null
 
-                                    }
+        //                             }
 
-                                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
-                                        this.status = null
+        //                         })
+        //                 }
 
-                                    }
+        //             }
 
-                                })
-                        }
+        //             else {
+        //                 this.kidQuestion = result.data.status
+        //                 this.kidAnswers = null
+        //             }
 
-                    }
-
-                    else {
-                        this.kidQuestion = result.data.status
-                        this.kidAnswers = null
-                    }
-
-                    setTimeout(() => {
-                        this.successMessage = '';
-                        this.errorMessage = '';
-                    }, 3000);
-                })
-        },
+        //             setTimeout(() => {
+        //                 this.successMessage = '';
+        //                 this.errorMessage = '';
+        //             }, 3000);
+        //         })
+        // },
 
 
     }
