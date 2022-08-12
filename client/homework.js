@@ -318,92 +318,92 @@ export default function homeworkApp() {
 
         },
 
-        displayHomeworkForKids() {
-            const url = `${URL_BASE}/api/qAndA/${topic}`
-            const topic = this.topicname
+        // displayHomeworkForKids() {
+        //     const url = `${URL_BASE}/api/qAndA/${topic}`
+        //     const topic = this.topicname
 
-            console.log('eyyyyy ' + this.clickedAnswer)
-            axios
-                .get(url)
-                .then((result) => {
-                    console.log('first Q&A' + JSON.stringify(result.data))
+        //     console.log('eyyyyy ' + this.clickedAnswer)
+        //     axios
+        //         .get(url)
+        //         .then((result) => {
+        //             console.log('first Q&A' + JSON.stringify(result.data))
 
-                    if (result.data.status == 'successful') {
+        //             if (result.data.status == 'successful') {
 
-                        this.kidQuestion = result.data.data[this.i].question
-                        this.kidAnswers = result.data.data[this.i].answers
-                        this.question = result.data.data[this.i].question
+        //                 this.kidQuestion = result.data.data[this.i].question
+        //                 this.kidAnswers = result.data.data[this.i].answers
+        //                 this.question = result.data.data[this.i].question
 
-                        if (this.clickedAnswer == true) {
+        //                 if (this.clickedAnswer == true) {
 
-                            if (this.i == result.data.data.length - 1) {
-                                this.kidQuestion = 'Homework finished!'
-                                this.kidAnswers = null
-                                // this.successMessage = 'Done!'
-                                console.log('beyonce')
-                            }
+        //                     if (this.i == result.data.data.length - 1) {
+        //                         this.kidQuestion = 'Homework finished!'
+        //                         this.kidAnswers = null
+                               
+        //                         console.log('beyonce')
+        //                     }
 
-                            else {
-                                this.successMessage = 'Correct!'
-                                this.i += 1
-                                this.kidQuestion = result.data.data[this.i].question
-                                this.kidAnswers = result.data.data[this.i].answers
-                            }
-                        }
-                        else if (this.status == 'attempt 3') {
-                            this.i += 1
-                            this.kidQuestion = result.data.data[this.i].question
-                            this.kidAnswers = result.data.data[this.i].answers
-                        }
-                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                            const url = `${URL_BASE}/api/kidsAttempt`
+        //                     else {
+        //                         this.successMessage = 'Correct!'
+        //                         this.i += 1
+        //                         this.kidQuestion = result.data.data[this.i].question
+        //                         this.kidAnswers = result.data.data[this.i].answers
+        //                     }
+        //                 }
+        //                 else if (this.status == 'attempt 3') {
+        //                     this.i += 1
+        //                     this.kidQuestion = result.data.data[this.i].question
+        //                     this.kidAnswers = result.data.data[this.i].answers
+        //                 }
+        //                 else if (this.clickedAnswer == false && this.status != 'attempt 3') {
+        //                     const url = `${URL_BASE}/api/kidsAttempt`
                             
-                            this.successMessage = 'Try again'
+        //                     this.successMessage = 'Try again'
 
-                            const studentId = this.studentId
-                            const question = this.question
+        //                     const studentId = this.studentId
+        //                     const question = this.question
 
-                            axios.post(url, {
-                                studentId,
-                                question
-                            })
-                                .then((result) => {
-                                    console.log(result.data)
-                                })
-                                const url = `${URL_BASE}/api/recordAttempts`
-                            axios
-                                .put(url, { 
-                                    studentId, 
-                                    question
-                                 })
-                                .then((result) => {
-                                    console.log(result.data)
-                                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
-                                        this.status = 'attempt 3'
+        //                     axios.post(url, {
+        //                         studentId,
+        //                         question
+        //                     })
+        //                         .then((result) => {
+        //                             console.log(result.data)
+        //                         })
+        //                         const url = `${URL_BASE}/api/recordAttempts`
+        //                     axios
+        //                         .put(url, { 
+        //                             studentId, 
+        //                             question
+        //                          })
+        //                         .then((result) => {
+        //                             console.log(result.data)
+        //                             if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
+        //                                 this.status = 'attempt 3'
 
-                                    }
+        //                             }
 
-                                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
-                                        this.status = null
+        //                             if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
+        //                                 this.status = null
 
-                                    }
+        //                             }
 
-                                })
-                        }
+        //                         })
+        //                 }
 
-                    }
+        //             }
 
-                    else {
-                        this.kidQuestion = result.data.status
-                        this.kidAnswers = null
-                    }
+        //             else {
+        //                 this.kidQuestion = result.data.status
+        //                 this.kidAnswers = null
+        //             }
 
-                    setTimeout(() => {
-                        this.successMessage = '';
-                        this.errorMessage = '';
-                    }, 3000);
-                })
-        },
+        //             setTimeout(() => {
+        //                 this.successMessage = '';
+        //                 this.errorMessage = '';
+        //             }, 3000);
+        //         })
+        // },
 
 
     }
