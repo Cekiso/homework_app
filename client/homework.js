@@ -31,14 +31,15 @@ export default function homeworkApp() {
         list: [],
         finalList: [],
         gameSection: false,
+        kidsTopic: false,
         kidsQuestion: false,
-        kidQuestion:false,
-        kidAnswers:[],
+        kidQuestion: false,
+        kidAnswers: [],
         radioValue: false,
         object: {},
         index: null,
         displayQuestionsSection: false,
-        qAndASection:false,
+        qAndASection: false,
         answerId: null,
         topicId: null,
         loginSuccessMsg: null,
@@ -46,9 +47,11 @@ export default function homeworkApp() {
         successMessage: null,
         successMessageQuestion: null,
         successMessageAnswer: null,
-        i:0,
-        clickedAnswer:null,
-        addingAnswers:[],
+        i: 0,
+        clickedAnswer: null,
+        addingAnswers: [],
+        studentId: 0,
+        status: null,
 
         signIn: {
             username: null,
@@ -70,7 +73,7 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-            
+
                     console.log(users.data)
                     console.log('user ' + this.registerSuccessMsg);
                     // this.createAcc = false
@@ -81,13 +84,13 @@ export default function homeworkApp() {
                     }
 
                 })
-                .catch(e => { 
+                .catch(e => {
                     console.log(e)
                     this.registerSuccessMsg = e.response.data.message
                 })
-                setTimeout(() => {
-                    this.registerSuccessMsg = '';
-                }, 3000);
+            setTimeout(() => {
+                this.registerSuccessMsg = '';
+            }, 3000);
         },
 
         login() {
@@ -99,34 +102,29 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users.data.user.role)
-                    // console.log('user ' + this.loginSuccessMsg);
-                    if (users.data.status == 'success') {
+                    console.log(users)
+                    console.log('user ' + this.loginSuccessMsg);
+                    if (users.data.status == 'success' && users.data.role == 'teacher') {
                         this.user = users.data.user;
                         this.loginSuccessMsg = 'Successfully login'
-                    }
-                    console.log(this.role);
-                    console.log("------------");
-                    if (this.role = 'teacher') {
+                        this.nav = true;
                         this.teachersLandingPage = true;
-                    }
-                    else if (this.role = 'learner') {
-                        this.gameSection = true;
+                        this.logUser = false;
                     }
 
-                    this.nav = true;
-                    // this.teachersLandingPage = true;
-                    this.logUser = false;
-
-
+                    else if (users.data.status == 'success' && users.data.role == 'learner') {
+                        this.gameSection = true
+                        this.logUser = false;
+                        this.studentId = users.data.userid
+                    }
                 })
-                .catch(e => { 
+                .catch(e => {
                     console.log(e)
                     this.loginSuccessMsg = e.response.data.message
                 })
-                setTimeout(() => {
-                    this.loginSuccessMsg = '';
-                }, 3000);
+            setTimeout(() => {
+                this.loginSuccessMsg = '';
+            }, 3000);
         },
 
         addSubject() {
@@ -150,7 +148,7 @@ export default function homeworkApp() {
                     setTimeout(() => {
                         this.successMessage = '';
                     }, 3000);
-                   
+
                 })
         },
 
@@ -283,7 +281,7 @@ export default function homeworkApp() {
                     })
             });
 
-        
+
 
         },
 
@@ -297,13 +295,13 @@ export default function homeworkApp() {
                     this.finalList = result.data.data
 
                 })
-                console.log('yyyy' + JSON.stringify(this.finalList));
+            console.log('yyyy' + JSON.stringify(this.finalList));
 
-                
+
         },
 
-        displayHomeworkForKids(){
-         
+        displayHomeworkForKids() {
+
             const topic = this.topicname
 
             console.log('eyyyyy ' + this.clickedAnswer)
@@ -311,27 +309,65 @@ export default function homeworkApp() {
                 .get(`http://localhost:8585/api/qAndA/${topic}`)
                 .then((result) => {
                     console.log('first Q&A' + JSON.stringify(result.data))
-                    
+
                     if (result.data.status == 'successful') {
 
                         this.kidQuestion = result.data.data[this.i].question
                         this.kidAnswers = result.data.data[this.i].answers
-
+                        this.question = result.data.data[this.i].question
 
                         if (this.clickedAnswer == true) {
+
+                            if (this.i == result.data.data.length - 1) {
+                                this.kidQuestion = 'Homework finished!'
+                                this.kidAnswers = null
+                                // this.successMessage = 'Done!'
+                                console.log('beyonce')
+                            }
+
+                            else {
+                                this.successMessage = 'Correct!'
+                                this.i += 1
+                                this.kidQuestion = result.data.data[this.i].question
+                                this.kidAnswers = result.data.data[this.i].answers
+                            }
+                        }
+                        else if (this.status == 'attempt 3') {
                             this.i += 1
                             this.kidQuestion = result.data.data[this.i].question
                             this.kidAnswers = result.data.data[this.i].answers
-                            this.successMessage = 'Correct!'
                         }
-                        // else if(this.clickedAnswer == false){
-
-                        // }
-
-                        else if (this.clickedAnswer == false) {
+                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
                             this.successMessage = 'Try again'
+
+                            const studentId = this.studentId
+                            const question = this.question
+
+                            axios
+                                .post('http://localhost:8585/api/kidsAttempt', { studentId, question })
+                                .then((result) => {
+                                    console.log(result.data)
+                                })
+
+                            axios
+                                .put('http://localhost:8585/api/recordAttempts', { studentId, question })
+                                .then((result) => {
+                                    console.log(result.data)
+                                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
+                                        this.status = 'attempt 3'
+
+                                    }
+
+                                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
+                                        this.status = null
+
+                                    }
+
+                                })
                         }
+
                     }
+
                     else {
                         this.kidQuestion = result.data.status
                         this.kidAnswers = null
@@ -343,6 +379,7 @@ export default function homeworkApp() {
                     }, 3000);
                 })
         },
+
 
     }
 }
