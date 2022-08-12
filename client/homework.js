@@ -307,7 +307,7 @@ export default function homeworkApp() {
             const topic = this.topicname
             console.log('ASDFGNJM, ' + topic)
             axios
-                .get()
+                .get(url)
                 .then((result) => {
                     console.log('ddata' + JSON.stringify(result.data.data))
                     this.finalList = result.data.data
@@ -357,7 +357,7 @@ export default function homeworkApp() {
                         }
                         else if (this.clickedAnswer == false && this.status != 'attempt 3') {
                             const url = `${URL_BASE}/api/kidsAttempt`
-                            const url = `${URL_BASE}/api/recordAttempts`
+                            
                             this.successMessage = 'Try again'
 
                             const studentId = this.studentId
@@ -370,7 +370,7 @@ export default function homeworkApp() {
                                 .then((result) => {
                                     console.log(result.data)
                                 })
-
+                                const url = `${URL_BASE}/api/recordAttempts`
                             axios
                                 .put(url, { 
                                     studentId, 
