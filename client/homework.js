@@ -23,7 +23,7 @@ export default function homeworkApp() {
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav: true,
+        nav: false,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -326,7 +326,7 @@ export default function homeworkApp() {
             const url = `${URL_BASE}/api/qAndA/${topic}`
             const url2 = `${URL_BASE}/api/kidsAttempt`
             const url3 = `${URL_BASE}/api/recordAttempts`
-            
+
             console.log('eyyyyy ' + this.clickedAnswer)
             axios
                 .get(url)
