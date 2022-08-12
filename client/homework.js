@@ -53,6 +53,7 @@ export default function homeworkApp() {
         addingAnswers: [],
         studentId: 0,
         status: null,
+        privacy:false,
 
         signIn: {
             username: null,
