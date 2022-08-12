@@ -6,11 +6,14 @@ require('dotenv').config()
 
 const API = require('./api.js')
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
 app.use(cors())
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const config = {
-    connectionString: DATABASE_URL
+    connectionString: DATABASE_URL,
+    max: 30,
+    ssl: { rejectUnauthorized: false }
 }
 if (process.env.NODE_ENV == 'production') {
     config.ssl = {
