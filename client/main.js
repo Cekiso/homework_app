@@ -7,6 +7,7 @@ import homeworkApp from './homework'
 // Alpine.data ('signup',signLog)
 window.Alpine = Alpine
 
+
 Alpine.data('homework', homeworkApp)
 
 Alpine.start()
