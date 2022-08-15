@@ -6,14 +6,11 @@ require('dotenv').config()
 
 const API = require('./api.js')
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }));
 app.use(cors())
 
 const DATABASE_URL = process.env.DATABASE_URL;
 const config = {
-    connectionString: DATABASE_URL,
-    max: 30,
-    ssl: { rejectUnauthorized: false }
+    connectionString: DATABASE_URL
 }
 if (process.env.NODE_ENV == 'production') {
     config.ssl = {
@@ -31,8 +28,6 @@ let PORT = process.env.PORT;
 app.listen(PORT, function() {
     console.log('App starting on port', PORT);
 })
-
-
 
 // const supertest = require('supertest');
 // const PgPromise = require("pg-promise");
