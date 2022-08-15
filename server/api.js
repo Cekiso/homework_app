@@ -110,13 +110,13 @@ module.exports = function name(app, db) {
     })
 
 
-    app.get('/api/subjects', async function (req, res) {
+    // app.get('/api/subjects', async function (req, res) {
 
-        let result = await db.manyOrNone("select add_subject from subject_table")
-        res.json({
-            data: result
-        })
-    });
+    //     let result = await db.manyOrNone("select add_subject from subject_table")
+    //     res.json({
+    //         data: result
+    //     })
+    // });
     app.post('/api/addSubjects', async function (req, res) {
         try {
             let { subject } = req.body
