@@ -1,4 +1,4 @@
-/* html,
+html,
 body,
 div,
 span,
@@ -86,7 +86,7 @@ video {
     font: inherit;
     vertical-align: baseline;
 }
- */
+ 
 
 /* make sure to set some focus styles for accessibility */
 
@@ -441,12 +441,12 @@ input::-moz-focus-inner {
     /* 1 *
     vertical-align: top;/
     /* 2 */
-/* } */
+/* }
 
 
-/**
- * Remove most spacing between table cells.
- */
+/* *
+ * Remove most spacing between table cells. */
+
 
 body {
   /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
