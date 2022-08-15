@@ -3,6 +3,7 @@
 import axios from "axios";
 
 export default function homeworkApp() {
+    const URL_BASE = import.meta.env.VITE_SERVER_URL
 
     return {
         firstname: null,
@@ -68,7 +69,7 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
-
+        
         register() {
             const url = `${URL_BASE}/api/signUp`
             const { firstname, lastname, username, password, role } = this.signUp
@@ -113,7 +114,7 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users)
+                    console.log(users.data.role)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
                         this.user = users.data.user;
@@ -201,8 +202,9 @@ export default function homeworkApp() {
 
         displayTopics() {
             console.log('oooo' + this.subjectname)
-            const url = `${URL_BASE}/api/topics${subject}`
             const subject = this.subjectname
+
+            const url = `${URL_BASE}/api/topics/${subject}`
 
             axios.get(url)
                 .then((result) => {
@@ -215,7 +217,7 @@ export default function homeworkApp() {
 
         addQuestions() {
             console.log('check question  ' + this.question + this.topicname)
-            const url = `${URL_BASE}/api/addQuestions}`
+            const url = `${URL_BASE}/api/addQuestions`
             const question = this.question
             const topic = this.topicname
             axios.post(url,{
@@ -307,8 +309,9 @@ export default function homeworkApp() {
         },
 
         displayHomework() {
-            const url = `${URL_BASE}/api/qAndA/${topic}`
             const topic = this.topicname
+            const url = `${URL_BASE}/api/qAndA/${topic}`
+            
             console.log('ASDFGNJM, ' + topic)
             axios
                 .get(url)
@@ -421,92 +424,105 @@ export default function homeworkApp() {
         },
 
 
-        // displayHomeworkForKids() {
-        //     const url = `${URL_BASE}/api/qAndA/${topic}`
-        //     const topic = this.topicname
+        displayHomeworkForKids() {
+            const topic = this.topicname
+            const url = `${URL_BASE}/api/qAndA/${topic}`
+            const url2 = `${URL_BASE}/api/kidsAttempt`
+            const url3 = `${URL_BASE}/api/recordAttempts`
 
-        //     console.log('eyyyyy ' + this.clickedAnswer)
-        //     axios
-        //         .get(url)
-        //         .then((result) => {
-        //             console.log('first Q&A' + JSON.stringify(result.data))
+            console.log('eyyyyy ' + this.clickedAnswer)
+            axios
+                .get(url)
+                .then((result) => {
+                    console.log('first Q&A' + JSON.stringify(result.data))
 
-        //             if (result.data.status == 'successful') {
+                    if (result.data.status == 'successful') {
 
-        //                 this.kidQuestion = result.data.data[this.i].question
-        //                 this.kidAnswers = result.data.data[this.i].answers
-        //                 this.question = result.data.data[this.i].question
+                        this.kidQuestion = result.data.data[this.i].question
+                        this.kidAnswers = result.data.data[this.i].answers
+                        this.question = result.data.data[this.i].question
 
-        //                 if (this.clickedAnswer == true) {
+                        if (this.clickedAnswer == true) {
 
-        //                     if (this.i == result.data.data.length - 1) {
-        //                         this.kidQuestion = 'Homework finished!'
-        //                         this.kidAnswers = null
-                               
-        //                         console.log('beyonce')
-        //                     }
+                            if (this.i == result.data.data.length - 1) {
+                                this.kidQuestion = 'Homework finished!'
+                                this.kidAnswers = null
+                                // this.successMessage = 'Done!'
+                                console.log('beyonce')
+                            }
 
-        //                     else {
-        //                         this.successMessage = 'Correct!'
-        //                         this.i += 1
-        //                         this.kidQuestion = result.data.data[this.i].question
-        //                         this.kidAnswers = result.data.data[this.i].answers
-        //                     }
-        //                 }
-        //                 else if (this.status == 'attempt 3') {
-        //                     this.i += 1
-        //                     this.kidQuestion = result.data.data[this.i].question
-        //                     this.kidAnswers = result.data.data[this.i].answers
-        //                 }
-        //                 else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-        //                     const url = `${URL_BASE}/api/kidsAttempt`
+                            else {
+                                this.successMessage = 'Correct!'
+                                this.i += 1
+                                this.kidQuestion = result.data.data[this.i].question
+                                this.kidAnswers = result.data.data[this.i].answers
+                            }
+                        }
+                        else if (this.status == 'attempt 3') {
+                            this.i += 1
+                            this.kidQuestion = result.data.data[this.i].question
+                            this.kidAnswers = result.data.data[this.i].answers
+                        }
+                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
+                           
+                            this.successMessage = 'Try again'
+
+                            let today = new Date();
+                            let dd = String(today.getDate()).padStart(2, '0');
+                            let mm = String(today.getMonth() + 1).padStart(2, '0');
+                            let yyyy = today.getFullYear();
+
+                            today = `${yyyy}-${mm}-${dd}`
+
+                            console.log('asdfcv' + this.studentId);
+
+                            const studentId = this.studentId
+                            const question = this.question
+                            const date = today
                             
-        //                     this.successMessage = 'Try again'
+                            axios.post(url2, {
+                                studentId,
+                                question,
+                                date
+                            })
+                                .then((result) => {
+                                    console.log(result.data)
+                                })
 
-        //                     const studentId = this.studentId
-        //                     const question = this.question
+                                
+                            axios
+                                .put(url3, { 
+                                    studentId, 
+                                    question
+                                 })
+                                .then((result) => {
+                                    console.log(result.data)
+                                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
+                                        this.status = 'attempt 3'
 
-        //                     axios.post(url, {
-        //                         studentId,
-        //                         question
-        //                     })
-        //                         .then((result) => {
-        //                             console.log(result.data)
-        //                         })
-        //                         const url = `${URL_BASE}/api/recordAttempts`
-        //                     axios
-        //                         .put(url, { 
-        //                             studentId, 
-        //                             question
-        //                          })
-        //                         .then((result) => {
-        //                             console.log(result.data)
-        //                             if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
-        //                                 this.status = 'attempt 3'
+                                    }
 
-        //                             }
+                                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
+                                        this.status = null
 
-        //                             if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
-        //                                 this.status = null
+                                    }
 
-        //                             }
+                                })
+                        }
 
-        //                         })
-        //                 }
+                    }
 
-        //             }
+                    else {
+                        this.kidQuestion = result.data.status
+                        this.kidAnswers = null
+                    }
 
-        //             else {
-        //                 this.kidQuestion = result.data.status
-        //                 this.kidAnswers = null
-        //             }
-
-        //             setTimeout(() => {
-        //                 this.successMessage = '';
-        //                 this.errorMessage = '';
-        //             }, 3000);
-        //         })
-        // },
+                    setTimeout(() => {
+                        this.successMessage = '';
+                        this.errorMessage = '';
+                    }, 3000);
+                })
+        },
 
 
     }
