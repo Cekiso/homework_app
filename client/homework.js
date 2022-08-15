@@ -72,7 +72,7 @@ export default function homeworkApp() {
             const url = `${URL_BASE}/api/signUp`
             const { firstname, lastname, username, password, role } = this.signUp
             axios.post(url, {
-                firstname,
+                firstname:
                 lastname,
                 username,
                 password,
@@ -105,8 +105,8 @@ export default function homeworkApp() {
             const { username, password } = this.signIn
 
             axios.post(url,{
-                username,
-                password
+                username: this.username,
+                password: this.password
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
