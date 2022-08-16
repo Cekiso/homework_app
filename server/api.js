@@ -1,6 +1,15 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 module.exports = function name(app, db) {
+    const verification = (req, res, next) => {
+        const authHeader = req.headers['authorization']
+        const token = authHeader && authHeader.split(' ')[1]
+        if (token == null) 
+        return res.sendStatus(401)
+
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err))
+
+    }
 
     app.post('/api/login', async (req, res) => {
         const { username,
@@ -24,9 +33,9 @@ module.exports = function name(app, db) {
 
             const getRole = await db.oneOrNone('select role from user_detail where username = $1', [username]);
             const getUserid = await db.oneOrNone('select id from user_detail where username = $1', [username]);
-            // const getPassword = await db.one('select password from user_detail where username= $1', [username]);
-            // console.log(getPassword.password);
-            // console.log(user);
+            const getPassword = await db.one('select password from user_detail where username= $1', [username]);
+            console.log(getPassword.password);
+            console.log(user);
 
             const comparePasswords = await bcrypt.compare(password, user.password);
 
@@ -110,13 +119,13 @@ module.exports = function name(app, db) {
     })
 
 
-    // app.get('/api/subjects', async function (req, res) {
+    app.get('/api/subjects', async function (req, res) {
 
-    //     let result = await db.manyOrNone("select add_subject from subject_table")
-    //     res.json({
-    //         data: result
-    //     })
-    // });
+        let result = await db.manyOrNone("select add_subject from subject_table")
+        res.json({
+            data: result
+        })
+    });
     app.post('/api/addSubjects', async function (req, res) {
         try {
             let { subject } = req.body
