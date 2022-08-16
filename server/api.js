@@ -1,6 +1,15 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 module.exports = function name(app, db) {
+    const verification = (req, res, next) => {
+        const authHeader = req.headers['authorization']
+        const token = authHeader && authHeader.split(' ')[1]
+        if (token == null) 
+        return res.sendStatus(401)
+
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err))
+
+    }
 
     app.post('/api/login', async (req, res) => {
         const { username,
@@ -108,6 +117,7 @@ module.exports = function name(app, db) {
 
         }
     })
+
 
 
     app.get('/api/subjects', async function (req, res) {
