@@ -4,18 +4,21 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build --mode production",
+    "preview": "vite preview",
+    "start": "node index.js"
   },
   "devDependencies": {
-    "vite": "^2.9.9"
+    "@types/node": "^18.0.4",
+    "vite": "^2.9.14"
   },
   "dependencies": {
     "@alpinejs/persist": "^3.10.2",
     "@bundled-es-modules/axios": "^0.27.2",
-    "alpinejs": "^3.10.2",
+    "alpinejs": "^3.10.3",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1"
   }
 }
