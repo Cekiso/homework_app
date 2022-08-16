@@ -8,16 +8,22 @@
     <link rel="icon" type="imgs/svg+xml" href="imgs/Hakuna-Matata.jpg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Gayathri&family=Luckiest+Guy&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gayathri&family=Luckiest+Guy&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Gayathri&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Gayathri&family=Noto+Serif&family=Press+Start+2P&family=Source+Serif+Pro:ital,wght@1,200&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <title>Teachers</title>
 </head>
 
@@ -185,17 +191,21 @@
                             <li class="home">
                                 <i id="hide" class="fa fa-home" aria-hidden="true" href="index.html"
                                     style="font-size: 36px;"
-                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false"><b style="font-size: 20px;">Home</b></i>
+                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false"><b
+                                        style="font-size: 20px;">Home</b></i>
                             </li>
                             <li class="addHomework">
 
                                 <i id="hide1" class="fa fa-pencil-square-o" aria-hidden="true" href="index.html"
                                     style="font-size: 36px;"
-                                    @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false"><b style="font-size: 17px;">HomeWork</b></i>
+                                    @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false"><b
+                                        style="font-size: 17px;">HomeWork</b></i>
                             </li>
 
                             <li class="LogOut">
-                                <i class="fa fa-sign-out" aria-hidden="true"  style="font-size: 36px;" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b style="font-size: 20px;">LogOut</b></i>
+                                <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;" href="index.html"
+                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b
+                                        style="font-size: 20px;">LogOut</b></i>
                             </li>
 
 
@@ -461,7 +471,7 @@
         </div>
 
         <section id="learnersSide">
-           
+
             <div x-show="gameSection" x-init="displaySubjects()">
                 <div class="homework-option">
                     <h1>Welcome <span x-text="signIn.username"></span></h1>
@@ -489,18 +499,18 @@
                             <h2>Subject Title:
                                 <span x-text="subjectname"></span>
                             </h2>
-    
+
                             <hr><br>
                             <div class="wrapper">
                                 <h3>Click on a topic to see the homework added</h3>
                                 <template x-for="topic in topicsList">
-                                <ul>
-                                    <li class="btn-group-vertical btn-lg">
-                                        <button id="optionBtn" 
-                                            @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true,kidsQuestion=true,kidsTopic=false"
-                                            x-text="topic.topic"></button>
-                                    </li>
-                                </ul>
+                                    <ul>
+                                        <li class="btn-group-vertical btn-lg">
+                                            <button id="optionBtn"
+                                                @click="topicname=topic.topic,displayHomeworkForKids(),qAndASection=true,kidsQuestion=true,kidsTopic=false"
+                                                x-text="topic.topic"></button>
+                                        </li>
+                                    </ul>
                                 </template>
                                 <!-- <template x-for="topic in topicsList">
                                     <li class="current"
@@ -522,37 +532,43 @@
                 <audio id="myAudio">
                     <source src="audio/wrong.mp3" type="audio/mpeg">
                 </audio>
-                <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span><span
-                    x-text="subjectname"></span> HOMEWORK</h2>
-                    <header>
-                        <div class="nav">
-        
-                            <nav>
-                                <ul>
-        
-                                    <li class="Home">
-                                        <i  class="fa fa-graduation-cap" aria-hidden="true"  href="index.html"
-                                            style="font-size: 36px;"
-                                           @click="gameSection=true,kidsQuestion=false,qAndASection=false"><b style="font-size: 20px;">Home</b></i>
-                                    </li>
-                                    <li class="graduation">
-        
-                                        <i  class="fa fa-book" aria-hidden="true"  href="index.html"
-                                            style="font-size: 36px;"
-                                    @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=true"><b style="font-size: 20px;">Topics</b></i>
-                                    </li>
-        
-                                    <li class="signOut">
-                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false"><b style="font-size: 20px;">LogOut</b></i>
-                                    </li>
-                                    <li class="Lock">
-                                        <i class="fa fa-lock" aria-hidden="true" style="font-size: 36px;" href="index.html"   @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=true"><b style="font-size: 20px;">Privacy</b></i>
-                                    </li>
-                                </ul>
-                            </nav>
-        
-                        </div>
-                    </header>
+                <h2><span><i class="fa fa-trophy" aria-hidden="true"></i></span><span x-text="subjectname"></span>
+                    HOMEWORK</h2>
+                <header>
+                    <div class="nav">
+
+                        <nav>
+                            <ul>
+
+                                <li class="Home">
+                                    <i class="fa fa-graduation-cap" aria-hidden="true" href="index.html"
+                                        style="font-size: 36px;"
+                                        @click="gameSection=true,kidsQuestion=false,qAndASection=false"><b
+                                            style="font-size: 20px;">Home</b></i>
+                                </li>
+                                <li class="graduation">
+
+                                    <i class="fa fa-book" aria-hidden="true" href="index.html" style="font-size: 36px;"
+                                        @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=true"><b
+                                            style="font-size: 20px;">Topics</b></i>
+                                </li>
+
+                                <li class="signOut">
+                                    <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px;"
+                                        href="index.html"
+                                        @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false"><b
+                                            style="font-size: 20px;">LogOut</b></i>
+                                </li>
+                                <li class="Lock">
+                                    <i class="fa fa-lock" aria-hidden="true" style="font-size: 36px;" href="index.html"
+                                        @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=true,checkProgressByDate()"><b
+                                            style="font-size: 20px;">Privacy</b></i>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </header>
 
                 <div id="wrapper" x-show="qAndASection">
                     <!-- <template x-for="item in finalList">
@@ -584,7 +600,7 @@
                     <div>
                         <template x-for="answer in kidAnswers">
                             <div class="options">
-                                <h1  id="option1" x-text="answer.answer" x-model="answer.correct"
+                                <h1 id="option1" x-text="answer.answer" x-model="answer.correct"
                                     @change="console.log('sdfgnm,' + answer.correct)"
                                     @click="clickedAnswer=answer.correct,console.log('hp'+clickedAnswer),displayHomeworkForKids()">
                                 </h1>
@@ -608,17 +624,20 @@
             </div>
         </section>
         <section class="container" x-show="privacy">
-            <h3 class="pt-4 pb-2">Bootstrap Datepicker</h3>
             <form>
                 <div class="row form-group">
-                    <label for="date" class="col-sm-1 col-form-label">Date</label>
+                    <label for="date" class="col-md-1 col-label">Date</label>
                     <div class="col-sm-4">
-                        <div class="input-group date" id="datepicker">
-                            <input type="text" class="form-control">
+                        <div class="input-group date datepicker" id="datepicker">
+                            <br><br><br>
+                            <input type="text" id="example" class="form-control">
                             <span class="input-group-append">
-                                <span class="input-group-text bg-white d-block">
+
+                                <span class="input-text white d-block">
                                     <i class="fa fa-calendar"></i>
                                 </span>
+
+
                             </span>
                         </div>
                     </div>
@@ -627,14 +646,6 @@
         </section>
     </div>
 
-
-
-
-    <script type="text/javascript">
-        $(function() {
-            $('#datepicker').datepicker();
-        });
-    </script>
     <script type="module" src="/main.js"></script>
 </body>
 

@@ -53,7 +53,8 @@ export default function homeworkApp() {
         addingAnswers: [],
         studentId: 0,
         status: null,
-        privacy:false,
+        privacy: false,
+        date: null,
 
         signIn: {
             username: null,
@@ -67,7 +68,7 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
-        
+
         register() {
             const url = `${URL_BASE}/api/signUp`
             const { firstname, lastname, username, password, role } = this.signUp
@@ -104,7 +105,7 @@ export default function homeworkApp() {
             const url = `${URL_BASE}/api/login`
             const { username, password } = this.signIn
 
-            axios.post(url,{
+            axios.post(url, {
                 username,
                 password
             })
@@ -216,7 +217,7 @@ export default function homeworkApp() {
             const url = `${URL_BASE}/api/addQuestions`
             const question = this.question
             const topic = this.topicname
-            axios.post(url,{
+            axios.post(url, {
                 question,
                 topic
             })
@@ -282,7 +283,7 @@ export default function homeworkApp() {
                 let booleanVal = element.correct
                 let answerId = element.id
                 console.log('beyonce' + booleanVal + answerId)
-                axios.put(url,{
+                axios.put(url, {
                     booleanVal,
                     answerId
                 })
@@ -307,7 +308,7 @@ export default function homeworkApp() {
         displayHomework() {
             const topic = this.topicname
             const url = `${URL_BASE}/api/qAndA/${topic}`
-            
+
             console.log('ASDFGNJM, ' + topic)
             axios
                 .get(url)
@@ -324,23 +325,26 @@ export default function homeworkApp() {
         displayHomeworkForKids() {
             const topic = this.topicname
             const url = `${URL_BASE}/api/qAndA/${topic}`
-            const url2 = `${URL_BASE}/api/kidsAttempt`
-            const url3 = `${URL_BASE}/api/recordAttempts`
 
             console.log('eyyyyy ' + this.clickedAnswer)
             axios
                 .get(url)
                 .then((result) => {
                     console.log('first Q&A' + JSON.stringify(result.data))
-
                     if (result.data.status == 'successful') {
 
                         this.kidQuestion = result.data.data[this.i].question
                         this.kidAnswers = result.data.data[this.i].answers
                         this.question = result.data.data[this.i].question
+                        this.recordAttempts()
+                        if (this.i == result.data.data.length - 1) {
+                            this.kidQuestion = 'Homework finished!'
+                            this.kidAnswers = null
+                            // this.successMessage = 'Done!'
+                            console.log('beyonce')
+                        }
 
-                        if (this.clickedAnswer == true) {
-
+                        if (this.clickedAnswer == true ) {
                             if (this.i == result.data.data.length - 1) {
                                 this.kidQuestion = 'Homework finished!'
                                 this.kidAnswers = null
@@ -349,66 +353,25 @@ export default function homeworkApp() {
                             }
 
                             else {
-                                this.successMessage = 'Correct!'
                                 this.i += 1
                                 this.kidQuestion = result.data.data[this.i].question
                                 this.kidAnswers = result.data.data[this.i].answers
+                                this.successMessage = 'Correct!'
                             }
                         }
-                        else if (this.status == 'attempt 3') {
+                        else if (this.clickedAnswer == false && this.status == 'attempt 3') {
                             this.i += 1
                             this.kidQuestion = result.data.data[this.i].question
                             this.kidAnswers = result.data.data[this.i].answers
+                            this.status = null
                         }
+
                         else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                           
                             this.successMessage = 'Try again'
-
-                            let today = new Date();
-                            let dd = String(today.getDate()).padStart(2, '0');
-                            let mm = String(today.getMonth() + 1).padStart(2, '0');
-                            let yyyy = today.getFullYear();
-
-                            today = `${yyyy}-${mm}-${dd}`
-
-                            console.log('asdfcv' + this.studentId);
-
-                            const studentId = this.studentId
-                            const question = this.question
-                            const date = today
-                            
-                            axios.post(url2, {
-                                studentId,
-                                question,
-                                date
-                            })
-                                .then((result) => {
-                                    console.log(result.data)
-                                })
-
-                                
-                            axios
-                                .put(url3, { 
-                                    studentId, 
-                                    question
-                                 })
-                                .then((result) => {
-                                    console.log(result.data)
-                                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
-                                        this.status = 'attempt 3'
-
-                                    }
-
-                                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
-                                        this.status = null
-
-                                    }
-
-                                })
+                            this.updateAttempts()
                         }
 
                     }
-
                     else {
                         this.kidQuestion = result.data.status
                         this.kidAnswers = null
@@ -421,6 +384,69 @@ export default function homeworkApp() {
                 })
         },
 
+        recordAttempts() {
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+
+            today = `${yyyy}-${mm}-${dd}`
+
+            const studentId = this.studentId
+            const question = this.question
+            const date = today
+            console.log('ju' + studentId + question + date);
+
+            const url = `${URL_BASE}/api/kidsAttempt`
+
+            axios.post(url, {
+                studentId,
+                question,
+                date
+            })
+                .then((result) => {
+                    console.log(result.data)
+                })
+        },
+
+        updateAttempts() {
+            const url = `${URL_BASE}/api/recordAttempts`
+
+            const studentId = this.studentId
+            const question = this.question
+
+            axios
+                .put(url, {
+                    studentId,
+                    question
+                })
+                .then((result) => {
+                    console.log(result.data)
+                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
+                        this.status = 'attempt 3'
+
+                    }
+
+                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
+                        this.status = null
+
+                    }
+
+                })
+        },
+
+        checkProgressByDate() {
+            $(function () {
+                $('#datepicker').datepicker();
+            });
+
+            $('.datepicker').on('change', function () {
+                let date = $('#example').val()
+                console.log('ggggg' + date)
+            })
+
+
+        },
 
     }
 }
