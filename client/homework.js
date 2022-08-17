@@ -54,7 +54,14 @@ export default function homeworkApp() {
         studentId: 0,
         status: null,
         privacy: false,
-        date: null,
+        getDate: null,
+        progressReport: false,
+        good: false,
+        concern: false,
+        name: null,
+        goodTopic: [],
+        concernTopic: [],
+        failed: null,
 
         signIn: {
             username: null,
@@ -68,6 +75,8 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
+
+
 
         register() {
             const url = `${URL_BASE}/api/signUp`
@@ -125,6 +134,9 @@ export default function homeworkApp() {
                         this.gameSection = true
                         this.logUser = false;
                         this.studentId = users.data.userid
+                        this.name = users.data.name
+
+                        console.log('fff' + this.name);
                     }
                 })
                 .catch(e => {
@@ -344,7 +356,7 @@ export default function homeworkApp() {
                             console.log('beyonce')
                         }
 
-                        if (this.clickedAnswer == true ) {
+                        if (this.clickedAnswer == true) {
                             if (this.i == result.data.data.length - 1) {
                                 this.kidQuestion = 'Homework finished!'
                                 this.kidAnswers = null
@@ -437,16 +449,62 @@ export default function homeworkApp() {
 
         checkProgressByDate() {
             $(function () {
-                $('#datepicker').datepicker();
+                $('#datepicker').datepicker({
+                    format: "yyyy-mm-dd",
+                });
             });
 
-            $('.datepicker').on('change', function () {
-                let date = $('#example').val()
-                console.log('ggggg' + date)
+            $('.datepicker').on('change', () => {
+                this.getDate = $('#example').datepicker({ format: "yyyy-mm-dd", }).val();
+                console.log('date' + this.getDate)
             })
-
-
         },
 
+        displayProgress() {
+            const url = `${URL_BASE}/api/getProgress`
+
+            console.log(`Whats the ${this.studentId} ${this.getDate}`);
+
+            const studentId = this.studentId
+            const date = this.getDate
+
+            axios.post(url, {
+                studentId,
+                date
+            })
+                .then((result) => {
+                    console.log(result.data)
+                    // {topic: 'Addition', numberOfQuestions: '4', numberOfAttempt3s: 3, avgOfAttempt3: 75}
+                    if (result.data.status == 'failed') {
+                        this.failed = 'No recorded homework for this day'
+                        this.good = false
+                        this.concern = false
+                        this.goodTopic = []
+                        this.concernTopic = []
+                    }
+                    else if (result.data.status == 'success') {
+                        this.progressReport = true
+                        this.getDate = date
+                        console.log('3 more days' + this.getDate)
+
+                        result.data.data.forEach(element => {
+                            if (element.avgOfAttempt3 <= 50) {
+                                this.good = true
+                                this.goodTopic.push(element.topic);
+                                this.failed = null
+                                // this.concern = false
+                            }
+
+                            else if (element.avgOfAttempt3 > 50) {
+                                this.concern = true
+                                this.concernTopic.push(element.topic);
+                                this.failed = null
+                            }
+                        })
+
+                        console.log('lists' + JSON.stringify(this.goodTopic) + JSON.stringify(this.concernTopic))
+                    }
+                })
+        }
     }
 }

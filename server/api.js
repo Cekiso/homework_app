@@ -1,15 +1,16 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 module.exports = function name(app, db) {
-    const verification = (req, res, next) => {
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(' ')[1]
-        if (token == null) 
-        return res.sendStatus(401)
 
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err))
+    // const verification = (req, res, next) => {
+    //     const authHeader = req.headers['authorization']
+    //     const token = authHeader && authHeader.split(' ')[1]
+    //     if (token == null) 
+    //     return res.sendStatus(401)
 
-    }
+    //     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err))
+
+    // }
 
     app.post('/api/login', async (req, res) => {
         const { username,
@@ -33,6 +34,7 @@ module.exports = function name(app, db) {
 
             const getRole = await db.oneOrNone('select role from user_detail where username = $1', [username]);
             const getUserid = await db.oneOrNone('select id from user_detail where username = $1', [username]);
+            const getName = await db.oneOrNone('select first_name from user_detail where username = $1', [username]);
             const getPassword = await db.one('select password from user_detail where username= $1', [username]);
             // console.log(getPassword.password);
             // console.log(user);
@@ -53,7 +55,8 @@ module.exports = function name(app, db) {
                 user,
                 token,
                 role: getRole.role,
-                userid: getUserid.id
+                userid: getUserid.id,
+                name: getName.first_name
                 // data: decode
             })
 
@@ -82,6 +85,7 @@ module.exports = function name(app, db) {
             if (!(username && password && firstname && lastname)) {
                 throw Error("All input is required");
             }
+
 
             let validUser = /^[0-9a-zA-Z_.-]+$/.test(username);
             if (!validUser) {
@@ -118,8 +122,6 @@ module.exports = function name(app, db) {
         }
     })
 
-
-
     app.get('/api/subjects', async function (req, res) {
 
         let result = await db.manyOrNone("select add_subject from subject_table")
@@ -127,6 +129,7 @@ module.exports = function name(app, db) {
             data: result
         })
     });
+
     app.post('/api/addSubjects', async function (req, res) {
         try {
             let { subject } = req.body
@@ -222,6 +225,7 @@ module.exports = function name(app, db) {
             console.log(error)
         }
     });
+
     app.post('/api/addAnswers', async function (req, res) {
         try {
             const { answer, questionId, booleanVal } = req.body
@@ -387,70 +391,63 @@ module.exports = function name(app, db) {
     app.post('/api/getProgress', async function (req, res) {
         try {
             const { studentId, date } = req.body
-
+    
+            const checkStudentAttempt = await db.manyOrNone('select * from attempts_table where student_id = $1 and attempt_date = $2', [studentId, date])
+                      
+            if(checkStudentAttempt.length == 0){
+                res.json({
+                    status: 'failed',
+                });
+            }
+          
+           else{
             const joinTables = await db.manyOrNone(`select attempts_table.*,questions_table.topic_id,topic_table.topic from attempts_table
             inner join questions_table on attempts_table.question_id = questions_table.id inner join topic_table on topic_table.id = questions_table.topic_id
             where student_id=$1 and attempt_date=$2`, [studentId, date]);
 
-            let topicsForStudent = []
-            let list = []
-            let list2 = []
+                let topicsForStudent = []
+                let list = []
 
-            joinTables.forEach(element => {
-                if (!topicsForStudent.includes(element.topic_id)) {
-                    topicsForStudent.push(element.topic_id)
-                }
-            });
-
-            console.log(topicsForStudent);
-            console.log('woof ' + joinTables);
-
-            for (const topic of topicsForStudent) {
-                let numberOfQuestions = await db.oneOrNone(`select count(topic_id) from questions_table where topic_id=$1`, [topic])
-                let i = 0
                 joinTables.forEach(element => {
-                    if(element.attempt3 == 1 && item.topic_id == topic){
-                     console.log('cvb');
+                    if (!topicsForStudent.includes(element.topic_id)) {
+                        topicsForStudent.push(element.topic_id)
                     }
-                })
-                list.push({
-                    topic: topic,
-                    numberOfQuestions: numberOfQuestions.count,
-                    numberOfAttempt3s: i
-                })
+                });
+
+                console.log(topicsForStudent);
+                console.log('woof ' + joinTables);
+
+                for (const topic of topicsForStudent) {
+                    let numberOfQuestions = await db.oneOrNone(`select count(topic_id) from questions_table where topic_id=$1`, [topic])
+                    let topicName = await db.oneOrNone(`select topic from topic_table where id = $1 `, [topic])
+
+                    let i = 0
+                    joinTables.forEach(element => {
+                        console.log('alien' + JSON.stringify(element));
+                        if (element.attempt_3 == 1 && element.topic_id == topic) {
+                            i++
+                        }
+                    })
+                    list.push({
+                        topic: topicName.topic,
+                        numberOfQuestions: numberOfQuestions.count,
+                        numberOfAttempt3s: i
+                    })
+                }
+
+                console.log('the ' + JSON.stringify(list));
+
+                list.forEach(element => {
+                    element.avgOfAttempt3 = element.numberOfAttempt3s / element.numberOfQuestions * 100
+                });
+
+                console.log('roof' + JSON.stringify(list));
+
+                res.json({
+                    status: 'success',
+                    data: list
+                });
             }
-
-            console.log('the ' + JSON.stringify(list));
-
-            // list.forEach(element => {
-            //     console.log('lll'+element.topic);
-            //     if (!list2.includes(element.topic)) {
-            //         list2.push({
-            //             topic: element.topic,
-            //             topicId: element.topicId,
-            //             numberOfQuestions: element.numberOfQuestions
-            //         })
-            //     }
-            // })
-
-            // console.log('roof'+JSON.stringify(list2));
-            // const reformattedArray = kvArray.map(({ key, value}) => ({ [key]: value }));
-            // if (checkTopic == null) {
-            //     await db.none('insert into topic_table(topic,subject_id) values ($1,$2)', [topic, getSubjectId.id])
-            //     // const getTopics = await db.manyOrNone('select topic from subject_table')
-            //     // console.log('updated topics' + JSON.stringify(getTopics));
-            //     res.json({
-            //         status: 'successful',
-            //         data: 'added topic',
-            //         // topics: getTopics
-            //     });
-            // }
-            // else {
-            //     res.json({
-            //         status: 'failure',
-            //         data: 'already added topic'
-            //     });
-            // }
         } catch (error) {
             console.log(error)
         }
