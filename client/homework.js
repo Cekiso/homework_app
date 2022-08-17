@@ -1,9 +1,8 @@
-    const URL_BASE = import.meta.env.VITE_SERVER_URL;
-
 import axios from "axios";
 
 export default function homeworkApp() {
-    const URL_BASE = import.meta.env.VITE_SERVER_URL
+    const URL_BASE =
+        import.meta.env.VITE_SERVER_URL
 
     return {
         firstname: null,
@@ -12,7 +11,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -33,7 +32,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: false,
+        gameSection: true,
         kidsTopic: false,
         kidsQuestion: false,
         kidQuestion: false,
@@ -55,7 +54,8 @@ export default function homeworkApp() {
         addingAnswers: [],
         studentId: 0,
         status: null,
-        privacy:false,
+        privacy: false,
+        videos: [],
 
         signIn: {
             username: null,
@@ -69,17 +69,23 @@ export default function homeworkApp() {
             password: null,
             role: null,
         },
-        
+
         register() {
             const url = `${URL_BASE}/api/signUp`
-            const { firstname, lastname, username, password, role } = this.signUp
-            axios.post(url, {
+            const {
                 firstname,
                 lastname,
                 username,
                 password,
                 role
-            })
+            } = this.signUp
+            axios.post(url, {
+                    firstname,
+                    lastname,
+                    username,
+                    password,
+                    role
+                })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
 
@@ -108,10 +114,10 @@ export default function homeworkApp() {
             const url = `${URL_BASE}/api/login`
             // const { username, password } = this.signIn
 
-            axios.post(url,{
-                username:this.signIn.username,
-                password:this.signIn.password
-            })
+            axios.post(url, {
+                    username: this.signIn.username,
+                    password: this.signIn.password
+                })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
                     console.log(users.data.role)
@@ -122,9 +128,7 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
-                    }
-
-                    else if (users.data.status == 'success' && users.data.role == 'learner') {
+                    } else if (users.data.status == 'success' && users.data.role == 'learner') {
                         this.gameSection = true
                         this.logUser = false;
                         this.studentId = users.data.userid
@@ -146,8 +150,8 @@ export default function homeworkApp() {
             const subject = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1).toLowerCase();
 
             axios.post(url, {
-                subject
-            })
+                    subject
+                })
                 .then((result) => {
                     console.log(result.data)
 
@@ -183,9 +187,9 @@ export default function homeworkApp() {
             const topic = this.addedTopic
 
             axios.post(url, {
-                subject,
-                topic
-            })
+                    subject,
+                    topic
+                })
                 .then((result) => {
                     console.log('checking added topics' + JSON.stringify(result.data))
                     if (result.data.status == 'successful') {
@@ -220,10 +224,10 @@ export default function homeworkApp() {
             const url = `${URL_BASE}/api/addQuestions`
             const question = this.question
             const topic = this.topicname
-            axios.post(url,{
-                question,
-                topic
-            })
+            axios.post(url, {
+                    question,
+                    topic
+                })
                 .then((result) => {
                     console.log(result.data)
                     this.questionId = result.data.questionid
@@ -250,10 +254,10 @@ export default function homeworkApp() {
             const booleanVal = this.radioValue
 
             axios.post(url, {
-                answer,
-                questionId,
-                booleanVal
-            })
+                    answer,
+                    questionId,
+                    booleanVal
+                })
                 .then((result) => {
                     console.log(result.data)
 
@@ -286,10 +290,10 @@ export default function homeworkApp() {
                 let booleanVal = element.correct
                 let answerId = element.id
                 console.log('beyonce' + booleanVal + answerId)
-                axios.put(url,{
-                    booleanVal,
-                    answerId
-                })
+                axios.put(url, {
+                        booleanVal,
+                        answerId
+                    })
                     .then((result) => {
                         console.log(result.data)
                         if (result.data.status == 'success') {
@@ -311,7 +315,7 @@ export default function homeworkApp() {
         displayHomework() {
             const topic = this.topicname
             const url = `${URL_BASE}/api/qAndA/${topic}`
-            
+
             console.log('ASDFGNJM, ' + topic)
             axios
                 .get(url)
@@ -349,21 +353,17 @@ export default function homeworkApp() {
                                 this.kidAnswers = null
                                 // this.successMessage = 'Done!'
                                 console.log('beyonce')
-                            }
-
-                            else {
+                            } else {
                                 this.successMessage = 'Correct!'
                                 this.i += 1
                                 this.kidQuestion = result.data.data[this.i].question
                                 this.kidAnswers = result.data.data[this.i].answers
                             }
-                        }
-                        else if (this.status == 'attempt 3') {
+                        } else if (this.status == 'attempt 3') {
                             this.i += 1
                             this.kidQuestion = result.data.data[this.i].question
                             this.kidAnswers = result.data.data[this.i].answers
-                        }
-                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
+                        } else if (this.clickedAnswer == false && this.status != 'attempt 3') {
 
                             this.successMessage = 'Try again'
 
@@ -380,20 +380,20 @@ export default function homeworkApp() {
                             const question = this.question
                             const date = today
                             axios.post(url2, {
-                                studentId,
-                                question,
-                                date
-                            })
+                                    studentId,
+                                    question,
+                                    date
+                                })
                                 .then((result) => {
                                     console.log(result.data)
                                 })
 
 
                             axios
-                                .put(url3, { 
-                                    studentId, 
+                                .put(url3, {
+                                    studentId,
                                     question
-                                 })
+                                })
                                 .then((result) => {
                                     console.log(result.data)
                                     if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
@@ -409,9 +409,7 @@ export default function homeworkApp() {
                                 })
                         }
 
-                    }
-
-                    else {
+                    } else {
                         this.kidQuestion = result.data.status
                         this.kidAnswers = null
                     }
@@ -449,22 +447,18 @@ export default function homeworkApp() {
                                 this.kidAnswers = null
                                 // this.successMessage = 'Done!'
                                 console.log('beyonce')
-                            }
-
-                            else {
+                            } else {
                                 this.successMessage = 'Correct!'
                                 this.i += 1
                                 this.kidQuestion = result.data.data[this.i].question
                                 this.kidAnswers = result.data.data[this.i].answers
                             }
-                        }
-                        else if (this.status == 'attempt 3') {
+                        } else if (this.status == 'attempt 3') {
                             this.i += 1
                             this.kidQuestion = result.data.data[this.i].question
                             this.kidAnswers = result.data.data[this.i].answers
-                        }
-                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                           
+                        } else if (this.clickedAnswer == false && this.status != 'attempt 3') {
+
                             this.successMessage = 'Try again'
 
                             let today = new Date();
@@ -479,22 +473,22 @@ export default function homeworkApp() {
                             const studentId = this.studentId
                             const question = this.question
                             const date = today
-                            
+
                             axios.post(url2, {
-                                studentId,
-                                question,
-                                date
-                            })
+                                    studentId,
+                                    question,
+                                    date
+                                })
                                 .then((result) => {
                                     console.log(result.data)
                                 })
 
-                                
+
                             axios
-                                .put(url3, { 
-                                    studentId, 
+                                .put(url3, {
+                                    studentId,
                                     question
-                                 })
+                                })
                                 .then((result) => {
                                     console.log(result.data)
                                     if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
@@ -510,9 +504,7 @@ export default function homeworkApp() {
                                 })
                         }
 
-                    }
-
-                    else {
+                    } else {
                         this.kidQuestion = result.data.status
                         this.kidAnswers = null
                     }
@@ -523,7 +515,15 @@ export default function homeworkApp() {
                     }, 3000);
                 })
         },
-
+        youTube() {
+            axios
+                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&query=${this.videoId}`)
+                .then((App) => {
+                    console.log(App.data);
+                    this.videos = App.data
+                    console.log(this.videos + 'am here ');
+                })
+        }
 
     }
 }
