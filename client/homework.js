@@ -1,8 +1,7 @@
 import axios from "axios";
 
 export default function homeworkApp() {
-    const URL_BASE =
-        import.meta.env.VITE_SERVER_URL
+    const URL_BASE = import.meta.env.VITE_SERVER_URL
 
     return {
         firstname: null,
