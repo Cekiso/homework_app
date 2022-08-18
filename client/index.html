@@ -616,8 +616,10 @@
                         
                     </div>
                 </div>
-                <button class="btn-primary" @click="displayProgress(),goodTopic=[],concernTopic=[]">Enter</button>
+                
             </form>
+
+            <button class="btn-primary" @click="displayProgress(),goodTopic=[],concernTopic=[]">Enter</button>
 
             <div x-show="progressReport">
                 <h1>Progress report for <span x-text="getDate"></span></h1>
@@ -629,6 +631,9 @@
                     <p class="text-warning">Concerning -</p>
                     <p><span x-text="name"></span> is struggling with <span x-text="concernTopic"></span></p>
                     <p>Here are some links to help you further assist <span x-text="name"></span></p>
+                    <!-- <a href="url" x-text="url"></a> -->
+                    <!-- <img :src="`https://image.tmdb.org/t/p/w500${favmovie.image}`" alt="Responsive image" /> -->
+                    <a :href="`${url}`" target=_blank x-text="url"></a>
                 </div>
             </div>
 
