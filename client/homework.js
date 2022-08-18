@@ -509,6 +509,7 @@ export default function homeworkApp() {
             })
                 .then((result) => {
                     console.log(result.data)
+                    // {topic: 'Addition', numberOfQuestions: '4', numberOfAttempt3s: 3, avgOfAttempt3: 75}
                     if (result.data.status == 'failed') {
                         this.failed = 'No recorded homework for this day'
                         this.good = false
@@ -542,6 +543,7 @@ export default function homeworkApp() {
                 })
         },
 
+        
         youTube() {
             axios
                 .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic}`)
@@ -553,9 +555,10 @@ export default function homeworkApp() {
                
         },
 
-        viewProgress(){
-            Math.floor(Math.random()*10 + 1)
+        // viewProgress(){
+        //     Math.floor(Math.random()*10 + 1)
 
-        }
+        // }
+
     }
 }
