@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-<<<<<<< HEAD
 module.exports = (app, db) => {
 
     const verification = (req, res, next) => {
@@ -17,19 +16,6 @@ module.exports = (app, db) => {
             next()
         })
     }
-=======
-module.exports = function name(app, db) {
-
-    // const verification = (req, res, next) => {
-    //     const authHeader = req.headers['authorization']
-    //     const token = authHeader && authHeader.split(' ')[1]
-    //     if (token == null) 
-    //     return res.sendStatus(401)
-
-    //     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err))
-
-    // }
->>>>>>> 4274deddef55b362a534bafab037ff5608acecfd
 
     app.post('/api/login', async (req, res) => {
         const { username,
@@ -139,7 +125,6 @@ module.exports = function name(app, db) {
         }
     })
 
-<<<<<<< HEAD
     // app.get('/api/authorization', async function (req, res) {
     //     const token = req.body.token;
     // })
@@ -147,9 +132,6 @@ module.exports = function name(app, db) {
 
 
     app.get('/api/subjects', verification, async function (req, res) {
-=======
-    app.get('/api/subjects', async function (req, res) {
->>>>>>> 4274deddef55b362a534bafab037ff5608acecfd
 
         let result = await db.manyOrNone("select add_subject from subject_table")
 
@@ -466,7 +448,6 @@ module.exports = function name(app, db) {
 
                 console.log('the ' + JSON.stringify(list));
 
-<<<<<<< HEAD
             for (const topic of topicsForStudent) {
                 let numberOfQuestions = await db.oneOrNone(`select count(topic_id) from questions_table where topic_id=$1`, [topic])
                 let i = 0
@@ -481,13 +462,6 @@ module.exports = function name(app, db) {
                     numberOfAttempt3s: i
                 })
             }
-=======
-                list.forEach(element => {
-                    element.avgOfAttempt3 = element.numberOfAttempt3s / element.numberOfQuestions * 100
-                });
-
-                console.log('roof' + JSON.stringify(list));
->>>>>>> 4274deddef55b362a534bafab037ff5608acecfd
 
                 res.json({
                     status: 'success',
