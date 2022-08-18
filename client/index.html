@@ -443,12 +443,29 @@
                     @click="displayQuestionsSection=false,addQuestionSection=true,answerList=[],question=null,answer=null">
                     Back
                 </button>
-                <a href="./landing-page.html">landing</a>
             </div>
         </div>
 
         <section id="learnersSide">
             <div x-show="gameSection" x-init="displaySubjects()">
+                <header>
+                    <div class="nav">
+                        <nav>
+                            <ul class="m-3">
+                                <li class="Lock">
+                                    <i class="fa fa-lock" aria-hidden="true" style="font-size: 36px" href="index.html"
+                                        @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=true,checkProgressByDate()"><b
+                                            style="font-size: 20px">Progress</b></i>
+                                </li>
+                                <li class="signOut">
+                                    <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html"
+                                        @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,progressReport=false"><b
+                                            style="font-size: 20px">LogOut</b></i>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </header>
                 <div class="homework-option">
                     <h1>Welcome <span x-text="signIn.username"></span></h1>
                     <h2>Select a subject</h2>
@@ -532,8 +549,8 @@
                                 </li>
                                 <li class="Lock">
                                     <i class="fa fa-lock" aria-hidden="true" style="font-size: 36px" href="index.html"
-                                        @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=true,checkProgressByDate()"><b
-                                            style="font-size: 20px">Privacy</b></i>
+                                        @click="gameSection=true,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,checkProgressByDate()"><b
+                                            style="font-size: 20px">Progress</b></i>
                                 </li>
                             </ul>
                         </nav>
@@ -593,33 +610,57 @@
             </div>
         </section>
         <section class="container" x-show="privacy">
-            <h1><span x-text="name"></span>'s Progress</h1>
+            <header>
+                <div class="nav">
+                    <nav>
+                        <ul>
+                            <li class="Home">
+                                <i class="fa fa-graduation-cap" aria-hidden="true" href="index.html"
+                                    style="font-size: 36px"
+                                    @click="gameSection=true,kidsQuestion=false,qAndASection=false,privacy=false,progressReport=false"><b
+                                        style="font-size: 20px">Home</b></i>
+                            </li>
+                            <li class="signOut">
+                                <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html"
+                                    @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,progressReport=false"><b
+                                        style="font-size: 20px">LogOut</b></i>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </header>
+            <div class="d-flex justify-content-center">
+                <h1><span x-text="name"></span>'s Progress</h1>
+            </div>
+            <div class="d-flex justify-content-center m-1 mb-2">
+                <h8>Choose a date to view progress </h8>
+            </div>
             <form>
-                <div class="row form-group">
+                <div class="d-flex justify-content-center row form-group ">
                     <label for="date" class="col-md-1 col-label">Date</label>
                     <div class="col-sm-4">
                         <div class="input-group date datepicker" id="datepicker">
-                            <!-- <div class="input-group date" id="datepicker"> -->
-                            <!-- <input type="text" class="form-control" /> -->
+                            <br><br>
                             <input type="text" id="example" class="form-control" />
                             <span class="input-group-append">
 
-                                <span class="input-text white d-block">
+                                <span class="ml-3 input-text white d-block">
                                     <i class="fa fa-calendar"></i>
                                 </span>
 
-
                             </span>
                         </div>
-                        
+
                     </div>
                 </div>
-                
+
             </form>
+            <div class="d-flex justify-content-center"><button class="btn btn-primary"
+                    @click="displayProgress(),goodTopic=[],concernTopic=[]">Enter</button></div>
 
-            <button class="btn-primary" @click="displayProgress(),goodTopic=[],concernTopic=[]">Enter</button>
 
-            <div x-show="progressReport">
+            <div class="p-3 mt-4 bg-white text-dark" x-show="progressReport">
                 <h1>Progress report for <span x-text="getDate"></span></h1>
                 <div x-show="good">
                     <p class="text-success">Good -</p>
@@ -631,9 +672,10 @@
                     <p>Here are some links to help you further assist <span x-text="name"></span></p>
                     <a :href="`${url}`" target=_blank x-text="url"></a>
                 </div>
+                <p x-text="failed"></p>
             </div>
 
-            <p x-text="failed"></p>
+
         </section>
     </div>
 

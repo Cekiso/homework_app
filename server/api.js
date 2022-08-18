@@ -449,20 +449,11 @@ module.exports = (app, db) => {
 
                 console.log('the ' + JSON.stringify(list));
 
-            for (const topic of topicsForStudent) {
-                let numberOfQuestions = await db.oneOrNone(`select count(topic_id) from questions_table where topic_id=$1`, [topic])
-                let i = 0
-                joinTables.forEach(element => {
-                    if (element.attempt3 == 1 && item.topic_id == topic) {
-                        console.log('cvb');
-                    }
-                })
-                list.push({
-                    topic: topic,
-                    numberOfQuestions: numberOfQuestions.count,
-                    numberOfAttempt3s: i
-                })
-            }
+                list.forEach(element => {
+                    element.avgOfAttempt3 = element.numberOfAttempt3s / element.numberOfQuestions * 100
+                });
+
+                console.log('roof' + JSON.stringify(list));
 
                 res.json({
                     status: 'success',
