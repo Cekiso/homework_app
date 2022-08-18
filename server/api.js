@@ -2,20 +2,20 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 module.exports = (app, db) => {
 
-    const verification = (req, res, next) => {
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(' ')[1]
-        console.log(token + "token");
-        if (!token)
-            return res.sendStatus(401).json()
-        console.log(token + "23232323");
-        console.log(authHeader + " 99999999");
-        jwt.verify(token, `secretKey`, (err, user) => {
-            if (err) return res.sendStatus(403)
-            req.user = user
-            next()
-        })
-    }
+    // const verification = (req, res, next) => {
+    //     const authHeader = req.headers['authorization']
+    //     const token = authHeader && authHeader.split(' ')[1]
+    //     console.log(token + "token");
+    //     if (!token)
+    //         return res.sendStatus(401).json()
+    //     console.log(token + "23232323");
+    //     console.log(authHeader + " 99999999");
+    //     jwt.verify(token, `secretKey`, (err, user) => {
+    //         if (err) return res.sendStatus(403)
+    //         req.user = user
+    //         next()
+    //     })
+    // }
 
     app.post('/api/login', async (req, res) => {
         const { username,
@@ -131,7 +131,8 @@ module.exports = (app, db) => {
 
 
 
-    app.get('/api/subjects', verification, async function (req, res) {
+    // app.get('/api/subjects', verification, async function (req, res) {
+        app.get('/api/subjects', async function (req, res) {
 
         let result = await db.manyOrNone("select add_subject from subject_table")
 
