@@ -124,7 +124,7 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users.data.role)
+                    console.log(users.data)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
                         this.user = users.data.user;
