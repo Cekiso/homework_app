@@ -64,6 +64,8 @@ export default function homeworkApp() {
         failed: null,
         url:null,
         link:null,
+        number1:0,
+        number2:0,
 
         signIn: {
             username: null,
@@ -514,10 +516,15 @@ export default function homeworkApp() {
                 .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic}`)
                 .then((result) => {
                     console.log('ooooo' + JSON.stringify(result.data.items[0].id.videoId));
-                    this.link = result.data.items[0].id.videoId
+                    // this.link = result.data.items[0].id.videoId
                     this.url = `https://www.youtube.com/watch?v=${result.data.items[0].id.videoId}`;
                 })
                
+        },
+
+        viewProgress(){
+            Math.floor(Math.random()*10 + 1)
+
         }
     }
 }
