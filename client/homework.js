@@ -16,7 +16,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -84,22 +84,23 @@ export default function homeworkApp() {
             role: null,
         },
 
-        // init() {
-        //     this.tryLogin()
-        // },
-        // tryLogin() {
-        //     if (localStorage.getItem('token')) {
-        //         console.log('token', localStorage.getItem('token'))
-        //         this
-        //             .displaySubjects()
-        //             console.log(this.subjectsList + ' subject')
-        //                 if (Object.keys(this.subjectsList).length > 0) {
-        //                     this.logUser = true;
-        //                 } else {
-        //                     this.logUser = false;
-        //                 }
-        //     }
-        // },
+        init() {
+            this.tryLogin()
+        },
+        tryLogin() {
+            if (localStorage.getItem('token')) {
+                console.log('token', localStorage.getItem('token'))
+                this.displaySubjects()
+                    
+                    console.log(this.subjectsList + ' subject')
+                        if (Object.keys(this.subjectsList).length > 0) {
+                            this.logUser = true;
+                        } else {
+                            this.logUser = false;
+                        }
+          
+            }
+        },
 
 
         register() {
