@@ -1,26 +1,21 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap'); */
+
 
 *{
   padding: 0;
   margin: 0;
 }
 
-body{
+#learnersSide{
   font-family: 'Luckiest Guy', cursive;
-  background-color: #E6E6EA;
- 
 }
 
-header{
-  background: #FE4A49;
-}
 
 .container{
   width: 95%;
   margin: auto;
 }
 
-.nav{
+/* .nav{
   overflow: hidden;
   background:#FE4A49;
   color: #fff;
@@ -30,11 +25,11 @@ header{
 .nav h2{
   font-size: 2rem;
   float: left;
-}
+} */
 
-nav{
+/* nav{
   float: right;
-}
+} */
 
 nav ul{
   list-style-type: none;
@@ -43,14 +38,14 @@ nav ul{
 nav li{
   font-size: 1.3rem;
   margin-top: 5px;
-  float: left;
+  /* float: left; */
   padding: 0 15px;
 }
 
-nav a{
+/* nav a{
   text-decoration: none;
   color: #fff;
-}
+} */
 
 .current a::after{
   content: '-';
@@ -60,8 +55,8 @@ nav a{
 }
 
 #wrapper{
-  display: grid;
-  grid-template-columns: 82% 18%;
+  /* display: grid; */
+  grid-template-columns: 82%;
 }
 
 .equation{
@@ -73,27 +68,49 @@ nav a{
   background: #fff;
   border-radius: 3px;
   text-align: center;
-  margin: 10px 10px 0px 10px;
+  margin: 10px 51px 0px 51px;
 }
+.options h1{
+  cursor: pointer;
+  color: whitesmoke;
+  border-radius: 3px;
+  margin-top: 10px;
+  margin-right:50px ;
+  text-align: center;
+  width: 100%;
+}  
 
+#option1{
+  background-color: orange;
+  transition: 1s;
+}
+#option1:hover{
+  color: #FE4A49;
+  background-color: white;
+}
 .equation h1{
   display: inline;
   padding: 20px;
 }
 
-.answer-options{
+/* .answer-options{
   font-size: 5.2vw;
-  margin-right: 10px;
-}
-
-.options{
   display: flex;
+  margin: 85px 46px;
+  margin-right: 10px;
+  justify-content: center;
+
+} */
+
+ .options{
+  display: inline-block;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   border-radius: 3px;
-  margin-top: 10px;
-  color: #fff;
+  margin-top: 25px;
+  margin: 11px 0px 0px 20%;
+  /* color: #fff; */
   transition: 2s;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.9);
 }
@@ -122,11 +139,6 @@ nav a{
     text-align: center;
   }
 
-  .equation h1{
-    display: inline;
-    padding: 10px;
-  } 
-
   nav li{
     font-size: .8rem;
   }
@@ -134,7 +146,7 @@ nav a{
 }
 
 /* background clouds */
-.cloud.one {
+/* .cloud.one {
     top: 50%;
     width: 300px;
     height: 100px;
@@ -159,7 +171,7 @@ nav a{
     left: 0;
     background: white;
     border-radius: 1000px;
-  /*   animation: zoomies 5s infinite linear; */
+    animation: zoomies 5s infinite linear;
   }
   
   .cloud::before {
@@ -194,16 +206,132 @@ nav a{
       left: 100%;
       transform: translateY(0%);
     }
-  }
+  } */
   /* options */
   #optionBtn{
     color:#fff;
     background-color: orange;
-    height: 45px;
-    width: 50%;
-    justify-content: space-between;
+  border: 2px solid rgb(0, 255, 242);
+  /* border-radius: 10px; */
+  padding: 6px 78px;
+  margin: 11px;
   }
   .homework-option{
    text-align: center;
   
+  }
+
+  /* nav */
+  .nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  .nav li {
+    font-size: 13px;
+    display: block;
+    float: left;
+    height: 90px;
+    width: 100px;
+    /*new*/
+    text-align: center;
+    /*new*/
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .nav .Home {
+    background: #F18701;
+  }
+  
+  
+  .nav .signOut {
+    background: #F35B04;
+  }
+  
+  .nav .graduation {
+    background: #F7B801;
+  }
+  .nav .Lock {
+    background: #35404f;
+  }
+  .nav li {
+    /* font-family: FontAwesome; */
+    color: #eee;
+    font-size: 0;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+  }
+  
+  .nav .home li i {
+    color: #fff;
+    padding: 0 10px;
+  }
+  
+  .nav li b {
+    padding: 15px 0;
+    display: none;
+  }
+  
+  .nav a:hover {
+    color: #fff;
+  }
+  
+  .nav .addHomework a:hover {
+    color: #fff;
+  }
+  .nav .Lock a:hover {
+    color: #fff;
+  }
+  .nav .graduation a:hover {
+    color: #fff;
+  }
+  .nav .signOut:hover {
+    color: #fff;
+  }
+  .nav .Lock:hover {
+    color: #fff;
+  }
+  .nav .graduation:hover {
+    color: #fff;
+  }
+  
+  .nav .Home a:hover i {
+    display: none;
+  }
+  .nav .Lock a:hover i {
+    display: none;
+  }
+  
+  .nav .addHomework a:hover i {
+    display: none;
+  }
+  
+  .nav .signOut a:hover i {
+    display: none;
+  }
+  
+  .nav .addHomework:hover b {
+    display: block;
+  }
+  .nav .graduation:hover b {
+    display: block;
+  }
+  .nav .signOut:hover b {
+    display: block;
+  }
+  .nav .Lock:hover b {
+    display: block;
+  }
+  
+  .nav .Home:hover b {
+    display: block;
+  }
+  #successText{
+    text-align: center;
+    font-size: 30px;
   }

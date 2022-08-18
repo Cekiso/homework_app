@@ -22,15 +22,12 @@ const db = pgp(config);
 
 API(app, db);
 
-
 let PORT = process.env.PORT;
 // console.log(PORT);
 
 app.listen(PORT, function() {
     console.log('App starting on port', PORT);
 })
-
-
 
 // const supertest = require('supertest');
 // const PgPromise = require("pg-promise");
@@ -67,3 +64,8 @@ app.listen(PORT, function() {
 // app.listen(PORT, function() {
 //     console.log(`App started on port ${PORT}`)
 // });
+
+
+
+
+

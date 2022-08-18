@@ -1,0 +1,11 @@
+  language: node_js
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/homework_app;
+
+node_js:
+  - 12
+before_script:
+  - psql -c 'create database homework_app' -U postgres
+  - psql -U postgres -d homework_app -a -f ./server/sql/homework.sql
+services:
+  - postgresql
