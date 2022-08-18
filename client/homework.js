@@ -1,7 +1,13 @@
 import axios from "axios";
-
 export default function homeworkApp() {
     const URL_BASE = import.meta.env.VITE_SERVER_URL
+
+    function updateAxiosJWToken() {
+        const token = localStorage.getItem('token')
+        axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
+    }
+
+    updateAxiosJWToken();
 
     return {
         firstname: null,
@@ -69,6 +75,23 @@ export default function homeworkApp() {
             role: null,
         },
 
+        // init() {
+        //     this.tryLogin()
+        // },
+        // tryLogin() {
+        //     if (localStorage.getItem('token')) {
+        //         console.log('token', localStorage.getItem('token'))
+        //         this
+        //             .displaySubjects()
+        //             console.log(this.subjectsList + ' subject')
+        //                 if (Object.keys(this.subjectsList).length > 0) {
+        //                     this.logUser = true;
+        //                 } else {
+        //                     this.logUser = false;
+        //                 }
+        //     }
+        // },
+
         register() {
             const url = `${URL_BASE}/api/signUp`
             const { firstname, lastname, username, password, role } = this.signUp
@@ -111,6 +134,14 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
+                    console.log(users)
+                    const { userInfo } = users.data
+                    console.log(userInfo.token)
+
+                    if (userInfo && userInfo.token) {
+                        localStorage.setItem('token', userInfo.token);
+                        updateAxiosJWToken();
+                    }
                     console.log(users.data.role)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
@@ -164,12 +195,14 @@ export default function homeworkApp() {
 
         displaySubjects() {
             const url = `${URL_BASE}/api/subjects`
+            console.log(url)
             axios.get(url)
                 .then((result) => {
                     console.log(result.data.data)
                     console.log('jjj' + JSON.stringify(result.data.data))
 
                     this.subjectsList = result.data.data
+                    this.subjectsList = {...result.data.data}
                 })
         },
 
@@ -344,7 +377,7 @@ export default function homeworkApp() {
                             console.log('beyonce')
                         }
 
-                        if (this.clickedAnswer == true ) {
+                        if (this.clickedAnswer == true) {
                             if (this.i == result.data.data.length - 1) {
                                 this.kidQuestion = 'Homework finished!'
                                 this.kidAnswers = null
