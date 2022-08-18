@@ -60,7 +60,16 @@ export default function homeworkApp() {
         studentId: 0,
         status: null,
         privacy: false,
-        date: null,
+        getDate: null,
+        progressReport: false,
+        good: false,
+        concern: false,
+        name: null,
+        goodTopic: [],
+        concernTopic: [],
+        failed: null,
+        url:null,
+        link:null,
 
         signIn: {
             username: null,
@@ -91,6 +100,7 @@ export default function homeworkApp() {
         //                 }
         //     }
         // },
+
 
         register() {
             const url = `${URL_BASE}/api/signUp`
@@ -156,6 +166,9 @@ export default function homeworkApp() {
                         this.gameSection = true
                         this.logUser = false;
                         this.studentId = users.data.userid
+                        this.name = users.data.name
+
+                        console.log('fff' + this.name);
                     }
                 })
                 .catch(e => {
@@ -470,16 +483,73 @@ export default function homeworkApp() {
 
         checkProgressByDate() {
             $(function () {
-                $('#datepicker').datepicker();
+                $('#datepicker').datepicker({
+                    format: "yyyy-mm-dd",
+                });
             });
 
-            $('.datepicker').on('change', function () {
-                let date = $('#example').val()
-                console.log('ggggg' + date)
+            $('.datepicker').on('change', () => {
+                this.getDate = $('#example').datepicker({ format: "yyyy-mm-dd", }).val();
+                console.log('date' + this.getDate)
             })
-
-
         },
 
+        displayProgress() {
+            const url = `${URL_BASE}/api/getProgress`
+
+            console.log(`Whats the ${this.studentId} ${this.getDate}`);
+
+            const studentId = this.studentId
+            const date = this.getDate
+
+            axios.post(url, {
+                studentId,
+                date
+            })
+                .then((result) => {
+                    console.log(result.data)
+                    if (result.data.status == 'failed') {
+                        this.failed = 'No recorded homework for this day'
+                        this.good = false
+                        this.concern = false
+                        this.goodTopic = []
+                        this.concernTopic = []
+                    }
+                    else if (result.data.status == 'success') {
+                        this.progressReport = true
+                        this.getDate = date
+                        console.log('3 more days' + this.getDate)
+
+                        result.data.data.forEach(element => {
+                            if (element.avgOfAttempt3 <= 50) {
+                                this.good = true
+                                this.goodTopic.push(element.topic);
+                                this.failed = null
+                                // this.concern = false
+                            }
+
+                            else if (element.avgOfAttempt3 > 50) {
+                                this.concern = true
+                                this.concernTopic.push(element.topic);
+                                this.failed = null
+                                this.youTube()
+                            }
+                        })
+
+                        console.log('lists' + JSON.stringify(this.goodTopic) + JSON.stringify(this.concernTopic))
+                    }
+                })
+        },
+
+        youTube() {
+            axios
+                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic}`)
+                .then((result) => {
+                    console.log('ooooo' + JSON.stringify(result.data.items[0].id.videoId));
+                    this.link = result.data.items[0].id.videoId
+                    this.url = `https://www.youtube.com/watch?v=${result.data.items[0].id.videoId}`;
+                })
+               
+        }
     }
 }

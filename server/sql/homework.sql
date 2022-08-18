@@ -41,6 +41,7 @@ create table attempts_table(
     attempt_1 int,
     attempt_2 int,
     attempt_3 int,
+    attempt_date date,
     foreign key (student_id) references user_detail(id),
     foreign key (question_id) references questions_table(id)
 );
