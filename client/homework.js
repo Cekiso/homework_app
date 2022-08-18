@@ -154,7 +154,7 @@ export default function homeworkApp() {
 
         addSubject() {
             console.log('checking subject' + this.addedSubject)
-            const url = `${URL_BASE}/api/addedSubject`
+            const url = `${URL_BASE}/api/addSubjects`
             let subjectTitle = this.addedSubject
             const subject = subjectTitle.charAt(0).toUpperCase() + subjectTitle.slice(1).toLowerCase();
 
