@@ -1,5 +1,23 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
+<<<<<<< HEAD
+module.exports = (app, db) => {
+
+    const verification = (req, res, next) => {
+        const authHeader = req.headers['authorization']
+        const token = authHeader && authHeader.split(' ')[1]
+        console.log(token + "token");
+        if (!token)
+            return res.sendStatus(401).json()
+        console.log(token + "23232323");
+        console.log(authHeader + " 99999999");
+        jwt.verify(token, `secretKey`, (err, user) => {
+            if (err) return res.sendStatus(403)
+            req.user = user
+            next()
+        })
+    }
+=======
 module.exports = function name(app, db) {
 
     // const verification = (req, res, next) => {
@@ -11,6 +29,7 @@ module.exports = function name(app, db) {
     //     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err))
 
     // }
+>>>>>>> 4274deddef55b362a534bafab037ff5608acecfd
 
     app.post('/api/login', async (req, res) => {
         const { username,
@@ -36,7 +55,7 @@ module.exports = function name(app, db) {
             const getUserid = await db.oneOrNone('select id from user_detail where username = $1', [username]);
             const getName = await db.oneOrNone('select first_name from user_detail where username = $1', [username]);
             const getPassword = await db.one('select password from user_detail where username= $1', [username]);
-            // console.log(getPassword.password);
+            console.log(getPassword.password);
             // console.log(user);
 
             const comparePasswords = await bcrypt.compare(password, user.password);
@@ -47,13 +66,11 @@ module.exports = function name(app, db) {
 
             const token = await jwt.sign({ user }, `secretKey`, { expiresIn: `24h` });
 
-            //     console.log(decode);
-            // console.log(token);
             res.json({
                 status: 'success',
                 data: 'Successfully login',
                 user,
-                token,
+                userInfo: { token },
                 role: getRole.role,
                 userid: getUserid.id,
                 name: getName.first_name
@@ -122,11 +139,23 @@ module.exports = function name(app, db) {
         }
     })
 
+<<<<<<< HEAD
+    // app.get('/api/authorization', async function (req, res) {
+    //     const token = req.body.token;
+    // })
+
+
+
+    app.get('/api/subjects', verification, async function (req, res) {
+=======
     app.get('/api/subjects', async function (req, res) {
+>>>>>>> 4274deddef55b362a534bafab037ff5608acecfd
 
         let result = await db.manyOrNone("select add_subject from subject_table")
+
         res.json({
-            data: result
+            data: result,
+
         })
     });
 
@@ -437,11 +466,28 @@ module.exports = function name(app, db) {
 
                 console.log('the ' + JSON.stringify(list));
 
+<<<<<<< HEAD
+            for (const topic of topicsForStudent) {
+                let numberOfQuestions = await db.oneOrNone(`select count(topic_id) from questions_table where topic_id=$1`, [topic])
+                let i = 0
+                joinTables.forEach(element => {
+                    if (element.attempt3 == 1 && item.topic_id == topic) {
+                        console.log('cvb');
+                    }
+                })
+                list.push({
+                    topic: topic,
+                    numberOfQuestions: numberOfQuestions.count,
+                    numberOfAttempt3s: i
+                })
+            }
+=======
                 list.forEach(element => {
                     element.avgOfAttempt3 = element.numberOfAttempt3s / element.numberOfQuestions * 100
                 });
 
                 console.log('roof' + JSON.stringify(list));
+>>>>>>> 4274deddef55b362a534bafab037ff5608acecfd
 
                 res.json({
                     status: 'success',

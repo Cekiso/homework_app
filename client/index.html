@@ -30,10 +30,15 @@
 
 <body>
     <div id="app"></div>
-
+   
     <div x-data="homework">
+        <!-- <div x-show ="firstPage" style="background-image: url('./imgs/icons8-storytelling-48.png')">
+            <button>buuuuu</button>
+            <button>hh</button>
+        </div> -->
         <!-- background -->
         <div class="section">
+            
             <ul class="circle">
                 <li class="blue"></li>
                 <li class="red"></li>
@@ -45,7 +50,7 @@
                 <li class="yellow"></li>
             </ul>
             <!-- background -->
-
+            
             <div class="row">
                 <div class="col-12">
                     <div x-show="logUser" class="container" style="background-color: #f2d398">
@@ -77,7 +82,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button class="btn btn-primary"
-                                    @click="logUser = true, addSubjectSection = false, login()">
+                                    @click="logUser = true, addSubjectSection = false,  login()">
                                     Login
                                 </button>
                             </div>
@@ -269,27 +274,30 @@
             <!-- <div class="row">
                     <div class="col">
                         <div id="subject"> -->
-            <div class="d-flex justify-content-center">
-                <h1 style="font-family: 'Brush Script MT', cursive">
+            <div class="col-12">
+                <h2 style="font-family: 'Brush Script MT', cursive">
                     Please Add a Subject
-                </h1>
+                </h2>
             </div>
-
+<br>
             <div x-text="successMessage" class="text-success"></div>
 
-            <div class="row">
-                <div class="col-8">
-                    <label class="form-label" style="font-size: 20px"><b>Subject</b></label>
-                    <input class="form-control" x-model="addedSubject" type="text" placeholder=" add subject " />
+            <div class="row g-3">
+           
+                <div class="col-auto">
+                    <label class="visually-hidden" style="font-size: 20px"><b>Subject</b></label>
+                    <input class="form-control" x-model="addedSubject" size="40" type="text" placeholder=" add subject " />
                 </div>
-                <div class="col-4">
-                    <button class="btn btn-primary" id="submit" @click="addSubject()">
+            
+                   <div class="col-auto">
+                    <button class="btn btn-primary mb-3" @click="addSubject()">
                         Add
                     </button>
-                </div>
-                <div></div>
+                   </div>
+                
             </div>
-            <hr />
+           
+            <hr>
             <br />
             <div>
                 <div class="wrapper">
@@ -307,41 +315,54 @@
             </div> -->
 
         <div class="container" x-show="topicSection">
-            <div class="row">
-                <div class="col">
-                    <div id="homework">
+          
+                
+                    <!-- <div id="homework"> -->
                         <!-- <h2>HomeWork</h2> -->
-                        <h2>
-                            Subject Title:
-                            <span x-text="subjectname"></span>
-                        </h2>
-
-                        <h1>Add a Topic</h1>
+                        <div class="col-12">
+                            <h4 style="text-decoration: underline;">
+                                Subject Title:
+                                <span x-text="subjectname"></span>
+                            </h4>
+                        </div>
+                        <div class="col-12">
+                            <h3 style="font-family: 'Brush Script MT', cursive; text-decoration: underline;">Please Add A Topic</h3>
+                        </div>
                         <div x-text="successMessage" class="text-success"></div>
+                        <br>
+                        <div class="row g-3">
+                        <div class="col-auto">
+                            <label class="visually-hidden" style="font-size: 20px"><b>Topic</b></label>
+                            <input class="form-control" x-model="addedTopic" type="text" size="40" name="" href="" id=""
+                            placeholder="add topic" />
+                        </div>
+                        
                         <!-- <label for="addedTopic">Topic:</label> -->
-                        <div class="content">
-                            <input class="addinput" x-model="addedTopic" type="text" name="" href="" id=""
-                                placeholder="add topic" />
-                            <button class="btn m-1" id="submit" @click="addTopics(),displayTopics()"
-                                style="background-color: blue; color: white">
+                        <div class="col-auto">
+
+                            <button class="btn btn-primary" style="margin-right: 20px;" @click="addTopics(),displayTopics()"
+                                >
                                 Add
                             </button>
                         </div>
+                    </div>
 
                         <hr />
                         <br />
-                        <div class="wrapper">
-                            <h3>Add a topic for the selected subject</h3>
-
-                            <template x-for="topic in topicsList">
-                                <button class="a" x-text="topic.topic"
-                                    @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
-                                    href=" "></button>
-                            </template>
+                        <div class="col-12">
+                            <div class="wrapper">
+                                <h3>Add a topic for the selected subject</h3>
+    
+                                <template x-for="topic in topicsList">
+                                    <button class="a" x-text="topic.topic"
+                                        @click="topicname=topic.topic,addQuestionSection=true,topicSection=false,welcomeSection=false,teachersLandingPage=false"
+                                        href=" "></button>
+                                </template>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    <!-- </div> -->
+                
+            
         </div>
 
         <div x-show="addQuestionSection" class="container" x-init="">
