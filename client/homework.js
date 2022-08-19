@@ -3,6 +3,16 @@ import axios from "axios";
 export default function homeworkApp() {
     const URL_BASE = import.meta.env.VITE_SERVER_URL
 
+<<<<<<< HEAD
+=======
+    // function updateAxiosJWToken() {
+    //     const token = localStorage.getItem('token')
+    //     axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
+    // }
+
+    // updateAxiosJWToken();
+
+>>>>>>> a10250cc0b6c2160262b4211c5297599126c4852
     return {
         firstname: null,
         lastname: null,
@@ -10,8 +20,8 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
-        teachersLandingPage: false,
+        logUser: false,
+        teachersLandingPage: true,
         addedSubject: null,
         addedTopic: null,
         showTopicHW: false,
@@ -23,7 +33,7 @@ export default function homeworkApp() {
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav: false,
+        nav: true,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -110,6 +120,17 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
+<<<<<<< HEAD
+=======
+                    console.log(users.data)
+                    // const { userInfo } = users.data
+                    // console.log(userInfo.token)
+
+                    // if (userInfo && userInfo.token) {
+                    //     localStorage.setItem('token', userInfo.token);
+                    //     updateAxiosJWToken();
+                    // }
+>>>>>>> a10250cc0b6c2160262b4211c5297599126c4852
                     console.log(users.data.role)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
@@ -118,6 +139,7 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
+                        
                     }
 
                     else if (users.data.status == 'success' && users.data.role == 'learner') {
@@ -421,6 +443,138 @@ export default function homeworkApp() {
                 })
         },
 
+<<<<<<< HEAD
+=======
+        recordAttempts() {
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let yyyy = today.getFullYear();
+
+            today = `${yyyy}-${mm}-${dd}`
+
+            const studentId = this.studentId
+            const question = this.question
+            const date = today
+            console.log('ju' + studentId + question + date);
+
+            const url = `${URL_BASE}/api/kidsAttempt`
+
+            axios.post(url, {
+                studentId,
+                question,
+                date
+            })
+                .then((result) => {
+                    console.log(result.data)
+                })
+        },
+
+        updateAttempts() {
+            const url = `${URL_BASE}/api/recordAttempts`
+
+            const studentId = this.studentId
+            const question = this.question
+
+            axios
+                .put(url, {
+                    studentId,
+                    question
+                })
+                .then((result) => {
+                    console.log(result.data)
+                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
+                        this.status = 'attempt 3'
+
+                    }
+
+                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
+                        this.status = null
+
+                    }
+
+                })
+        },
+
+        checkProgressByDate() {
+            $(function () {
+                $('#datepicker').datepicker({
+                    format: "yyyy-mm-dd",
+                });
+            });
+
+            $('.datepicker').on('change', () => {
+                this.getDate = $('#example').datepicker({ format: "yyyy-mm-dd", }).val();
+                console.log('date' + this.getDate)
+            })
+        },
+
+        displayProgress() {
+            const url = `${URL_BASE}/api/getProgress`
+
+            console.log(`Whats the ${this.studentId} ${this.getDate}`);
+
+            const studentId = this.studentId
+            const date = this.getDate
+
+            axios.post(url, {
+                studentId,
+                date
+            })
+                .then((result) => {
+                    console.log(result.data)
+                    // {topic: 'Addition', numberOfQuestions: '4', numberOfAttempt3s: 3, avgOfAttempt3: 75}
+                    if (result.data.status == 'failed') {
+                        this.progressReport = true
+                        this.failed = 'No recorded homework for this day'
+                        this.good = false
+                        this.concern = false
+                        this.goodTopic = []
+                        this.concernTopic = []
+                    }
+                    else if (result.data.status == 'success') {
+                        this.progressReport = true
+                        this.getDate = date
+                        console.log('3 more days' + this.getDate)
+
+                        result.data.data.forEach(element => {
+                            if (element.avgOfAttempt3 <= 50) {
+                                this.good = true
+                                this.goodTopic.push(element.topic);
+                                this.failed = null
+                                // this.concern = false
+                            }
+
+                            else if (element.avgOfAttempt3 > 50) {
+                                this.concern = true
+                                this.concernTopic.push(element.topic);
+                                this.failed = null
+                                this.youTube()
+                            }
+                        })
+
+                        console.log('lists' + JSON.stringify(this.goodTopic) + JSON.stringify(this.concernTopic))
+                    }
+                })
+        },
+
+        
+        youTube() {
+            axios
+                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic} for kids learning`)
+                .then((result) => {
+                    console.log('ooooo' + JSON.stringify(result.data.items[0].id.videoId));
+                    // this.link = result.data.items[0].id.videoId
+                    this.url = `https://www.youtube.com/watch?v=${result.data.items[0].id.videoId}`;
+                })
+               
+        },
+
+        // viewProgress(){
+        //     Math.floor(Math.random()*10 + 1)
+
+        // }
+>>>>>>> a10250cc0b6c2160262b4211c5297599126c4852
 
     }
 }
