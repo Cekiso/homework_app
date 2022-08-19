@@ -191,9 +191,9 @@ video {
  * Known issue: no IE 6 support.
  */
 
-/* [hidden] {
+ [hidden] {
   display: none;
-} */
+}
 
 
 /**
@@ -549,12 +549,12 @@ button {
 
 } */
 
-/* #homework {
+#homework {
   font-size: 25px;
   text-align: center;
   padding: 14px 22px;
   margin: 14px 15px;
-} */
+}
 
 .a {
   border: 2px solid rgb(0, 255, 242);
@@ -761,7 +761,7 @@ button {
 *** (C) ZACH COLE 2016
 **/
 
-/* @import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic); */
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
 
 /* UNIVERSAL */
 
@@ -789,7 +789,7 @@ body {
 
 /* TYPOGRAPHY */
 
-/* h1 {
+h1 {
   font-size: 2.5rem;
 }
 
@@ -829,7 +829,7 @@ p {
 
 .font-heavy {
   font-weight: 700;
-} */
+}
 
 /* POSITIONING */
 
@@ -853,7 +853,7 @@ p {
 
 /* ==== GRID SYSTEM ==== */
 
-/* .container {
+.container {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -946,7 +946,7 @@ p {
 @media only screen and (min-width: 33.75em) {
 
   /* 540px */
-  /* .container {
+  .container {
     width: 80%;
   }
 }
@@ -954,7 +954,7 @@ p {
 @media only screen and (min-width: 45em) {
 
   /* 720px */
-  /* .col-1 {
+  .col-1 {
     width: 4.33%;
   }
 
@@ -1005,16 +1005,16 @@ p {
   .hidden-sm {
     display: block;
   }
-}  */
+}
 
-/* @media only screen and (min-width: 60em) { */
+@media only screen and (min-width: 60em) {
 
   /* 960px */
-  /* .container {
+  .container {
     width: 75%;
     max-width: 60rem;
   }
-}  */
+}
 
 /* nav */
 /* @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"); */
@@ -1029,17 +1029,16 @@ p {
 }
 
 .nav li {
-  /* font-size: 13px; */
+  font-size: 13px;
   display: block;
   float: left;
-  height: 100px;
-  width: 100px;
+  height: 90px;
+    width: 100px;
   /*new*/
   text-align: center;
   /*new*/
   transition: all 0.2s ease-in-out;
 }
-
 
 .nav .home {
   background: #a3d39c;
