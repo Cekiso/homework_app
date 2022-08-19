@@ -16,8 +16,8 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: false,
-        teachersLandingPage: true,
+        logUser: true,
+        teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
         showTopicHW: false,
@@ -29,7 +29,7 @@ export default function homeworkApp() {
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav: true,
+        nav: false,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -162,6 +162,7 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
+                        
                     }
 
                     else if (users.data.status == 'success' && users.data.role == 'learner') {
@@ -509,7 +510,9 @@ export default function homeworkApp() {
             })
                 .then((result) => {
                     console.log(result.data)
+                    // {topic: 'Addition', numberOfQuestions: '4', numberOfAttempt3s: 3, avgOfAttempt3: 75}
                     if (result.data.status == 'failed') {
+                        this.progressReport = true
                         this.failed = 'No recorded homework for this day'
                         this.good = false
                         this.concern = false
@@ -542,9 +545,10 @@ export default function homeworkApp() {
                 })
         },
 
+        
         youTube() {
             axios
-                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic}`)
+                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic} for kids learning`)
                 .then((result) => {
                     console.log('ooooo' + JSON.stringify(result.data.items[0].id.videoId));
                     // this.link = result.data.items[0].id.videoId
@@ -553,9 +557,10 @@ export default function homeworkApp() {
                
         },
 
-        viewProgress(){
-            Math.floor(Math.random()*10 + 1)
+        // viewProgress(){
+        //     Math.floor(Math.random()*10 + 1)
 
-        }
+        // }
+
     }
 }
