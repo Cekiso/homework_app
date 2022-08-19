@@ -2,12 +2,12 @@ import axios from "axios";
 export default function homeworkApp() {
     const URL_BASE = import.meta.env.VITE_SERVER_URL
 
-    function updateAxiosJWToken() {
-        const token = localStorage.getItem('token')
-        axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
-    }
+    // function updateAxiosJWToken() {
+    //     const token = localStorage.getItem('token')
+    //     axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
+    // }
 
-    updateAxiosJWToken();
+    // updateAxiosJWToken();
 
     return {
         firstname: null,
@@ -16,8 +16,8 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
-        teachersLandingPage: false,
+        logUser: false,
+        teachersLandingPage: true,
         addedSubject: null,
         addedTopic: null,
         showTopicHW: false,
@@ -29,7 +29,7 @@ export default function homeworkApp() {
         subjectname: null,
         topicsList: [],
         topicname: null,
-        nav: false,
+        nav: true,
         addQuestionSection: false,
         question: null,
         questionId: null,
@@ -146,14 +146,14 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users)
-                    const { userInfo } = users.data
-                    console.log(userInfo.token)
+                    console.log(users.data)
+                    // const { userInfo } = users.data
+                    // console.log(userInfo.token)
 
-                    if (userInfo && userInfo.token) {
-                        localStorage.setItem('token', userInfo.token);
-                        updateAxiosJWToken();
-                    }
+                    // if (userInfo && userInfo.token) {
+                    //     localStorage.setItem('token', userInfo.token);
+                    //     updateAxiosJWToken();
+                    // }
                     console.log(users.data.role)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
@@ -162,6 +162,7 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
+                        
                     }
 
                     else if (users.data.status == 'success' && users.data.role == 'learner') {
@@ -217,7 +218,6 @@ export default function homeworkApp() {
                     console.log('jjj' + JSON.stringify(result.data.data))
 
                     this.subjectsList = result.data.data
-                    this.subjectsList = {...result.data.data}
                 })
         },
 
@@ -510,7 +510,9 @@ export default function homeworkApp() {
             })
                 .then((result) => {
                     console.log(result.data)
+                    // {topic: 'Addition', numberOfQuestions: '4', numberOfAttempt3s: 3, avgOfAttempt3: 75}
                     if (result.data.status == 'failed') {
+                        this.progressReport = true
                         this.failed = 'No recorded homework for this day'
                         this.good = false
                         this.concern = false
@@ -543,9 +545,10 @@ export default function homeworkApp() {
                 })
         },
 
+        
         youTube() {
             axios
-                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic}`)
+                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic} for kids learning`)
                 .then((result) => {
                     console.log('ooooo' + JSON.stringify(result.data.items[0].id.videoId));
                     // this.link = result.data.items[0].id.videoId
@@ -554,9 +557,10 @@ export default function homeworkApp() {
                
         },
 
-        viewProgress(){
-            Math.floor(Math.random()*10 + 1)
+        // viewProgress(){
+        //     Math.floor(Math.random()*10 + 1)
 
-        }
+        // }
+
     }
 }
