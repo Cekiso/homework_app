@@ -191,7 +191,7 @@ video {
  * Known issue: no IE 6 support.
  */
 
-[hidden] {
+ [hidden] {
   display: none;
 }
 
@@ -549,12 +549,12 @@ button {
 
 } */
 
-/* #homework {
+#homework {
   font-size: 25px;
   text-align: center;
   padding: 14px 22px;
   margin: 14px 15px;
-} */
+}
 
 .a {
   border: 2px solid rgb(0, 255, 242);
