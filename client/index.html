@@ -177,22 +177,28 @@
                 <div x-show="nav" class="nav">
                     <nav>
                         <ul>
+                              <li class="home">
+                                <i id="hide" class="fa fa-home" aria-hidden="true" href="index.html"
+                                    style="font-size: 36px"
+                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,teachersCode=true"><b
+                                        style="font-size: 20px">Add student</b></i>
+                            </li>
                             <li class="home">
                                 <i id="hide" class="fa fa-home" aria-hidden="true" href="index.html"
                                     style="font-size: 36px"
-                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false"><b
+                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=true,addQuestionSection=false,teachersCode=false"><b
                                         style="font-size: 20px">Home</b></i>
                             </li>
                             <li class="addHomework">
                                 <i id="hide1" class="fa fa-pencil-square-o" aria-hidden="true" href="index.html"
                                     style="font-size: 36px"
-                                    @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false"><b
+                                    @click="displayQuestionsSection=false,addSubjectSection=true,teachersLandingPage=false,showTopicHW=false,addQuestionSection=false,topicSection=false,teachersCode=false"><b
                                         style="font-size: 17px">HomeWork</b></i>
                             </li>
 
                             <li class="LogOut">
                                 <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html"
-                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false"><b
+                                    @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false,teachersCode=false"><b
                                         style="font-size: 20px">LogOut</b></i>
                             </li>
 
@@ -203,6 +209,14 @@
                     </nav>
                 </div>
             </header>
+        </div>
+
+        <div x-show="teachersCode">
+           Share this code with your students so they can see your homework
+
+            <div x-text="code">
+
+            </div>
         </div>
         <!-- <div x-show="addSubjectSection">
                 <button class="btn-primary btn-lg"
@@ -450,19 +464,24 @@
         </div>
 
         <section id="learnersSide">
-            <div x-show="gameSection" x-init="displaySubjects()">
+            <div x-show="gameSection">
                 <header>
                     <div class="nav">
                         <nav>
                             <ul class="m-3">
+                                <li class="home">
+                                    <i class="fa fa-lock" aria-hidden="true" style="font-size: 36px" href="index.html"
+                                        @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,addClass=true"><b
+                                            style="font-size: 20px">Join class</b></i>
+                                </li>
                                 <li class="Lock">
                                     <i class="fa fa-lock" aria-hidden="true" style="font-size: 36px" href="index.html"
-                                        @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=true,checkProgressByDate()"><b
+                                        @click="gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=true,addClass=false,checkProgressByDate()"><b
                                             style="font-size: 20px">Progress</b></i>
                                 </li>
                                 <li class="signOut">
                                     <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html"
-                                        @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,progressReport=false"><b
+                                        @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,addClass=false,progressReport=false"><b
                                             style="font-size: 20px">LogOut</b></i>
                                 </li>
                             </ul>
@@ -476,13 +495,24 @@
                     <template x-for="subject in subjectsList">
                         <ul>
                             <li class="btn-group-vertical btn-lg">
-                                <button id="optionBtn" type="button" x-text="subject.add_subject"
+                                <button id="optionBtn" type="button" x-text="subject"
                                     @click="gameSection=false,kidsQuestion=false,kidsTopic=true,subjectname=subject.add_subject,console.log('and then '+ subjectname),displayTopics()"></button>
                             </li>
                         </ul>
                     </template>
                 </div>
             </div>
+
+            
+        <div x-show="addClass">
+           <div class="container justify-content-center">
+            <div class="col-5">
+                <label class="form-label" style="font-size: 20px"><b>Please enter code to join class</b></label>
+                <input class="form-control" x-model="code" type="text"/>
+                <button class="btn btn-primary" @click="linkStudentsToTeacher()">Join</button>
+            </div>
+           </div>
+         </div>
             <!-- option page -->
             <div class="container" x-show="kidsTopic">
                 <div class="row">

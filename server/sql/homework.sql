@@ -4,7 +4,8 @@ create table user_detail(
     lastname text not null,
     username text not null,
     password text null,
-    role text not null
+    role text not null,
+    code text
 );
 
 create table subject_table(
@@ -23,6 +24,7 @@ create table questions_table(
     id serial not null primary key,
     questions text not null,
     topic_id int not null,
+    teacher text not null,
     foreign key (topic_id) references topic_table(id)
 );
 
@@ -44,6 +46,12 @@ create table attempts_table(
     attempt_date date,
     foreign key (student_id) references user_detail(id),
     foreign key (question_id) references questions_table(id)
+);
+
+create table linkstudents_table(
+    id serial not null primary key,
+    student_id int not null,
+    teacher text not null
 );
 
 

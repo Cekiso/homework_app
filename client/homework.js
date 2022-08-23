@@ -68,10 +68,13 @@ export default function homeworkApp() {
         goodTopic: [],
         concernTopic: [],
         failed: null,
-        url:null,
-        link:null,
-        number1:0,
-        number2:0,
+        url: null,
+        link: null,
+        number1: 0,
+        number2: 0,
+        teachersCode: false,
+        code: null,
+        addClass: false,
 
         signIn: {
             username: null,
@@ -162,7 +165,9 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
-                        
+
+                        this.displaySubjects()
+                        this.code = users.data.code
                     }
 
                     else if (users.data.status == 'success' && users.data.role == 'learner') {
@@ -170,7 +175,7 @@ export default function homeworkApp() {
                         this.logUser = false;
                         this.studentId = users.data.userid
                         this.name = users.data.name
-
+                        this.displaySubjectForKids()
                         console.log('fff' + this.name);
                     }
                 })
@@ -265,9 +270,11 @@ export default function homeworkApp() {
             const url = `${URL_BASE}/api/addQuestions`
             const question = this.question
             const topic = this.topicname
+            const code = this.code
             axios.post(url, {
                 question,
-                topic
+                topic,
+                code
             })
                 .then((result) => {
                     console.log(result.data)
@@ -510,7 +517,7 @@ export default function homeworkApp() {
             })
                 .then((result) => {
                     console.log(result.data)
-                    // {topic: 'Addition', numberOfQuestions: '4', numberOfAttempt3s: 3, avgOfAttempt3: 75}
+
                     if (result.data.status == 'failed') {
                         this.progressReport = true
                         this.failed = 'No recorded homework for this day'
@@ -545,7 +552,7 @@ export default function homeworkApp() {
                 })
         },
 
-        
+
         youTube() {
             axios
                 .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic} for kids learning`)
@@ -554,8 +561,38 @@ export default function homeworkApp() {
                     // this.link = result.data.items[0].id.videoId
                     this.url = `https://www.youtube.com/watch?v=${result.data.items[0].id.videoId}`;
                 })
-               
         },
+
+        linkStudentsToTeacher() {
+            const url = `${URL_BASE}/api/linkStudentToTeacher`
+
+            const studentId = this.studentId
+            const code = this.code
+
+            axios.post(url, {
+                studentId,
+                code
+            })
+                .then((result) => {
+                    console.log(result.data)
+                    // if(result.data.status == "succ"){
+                    //     this.successMessage = ''
+                    // }
+
+                })
+        },
+
+        displaySubjectForKids() {
+            console.log('oooo' + this.subjectname)
+            const studentId = this.studentId
+
+            const url = `${URL_BASE}/api/subjectsForStudent/${studentId}`
+
+            axios.get(url)
+                .then((result) => {
+                    this.subjectsList = result.data.data
+                })
+        }
 
         // viewProgress(){
         //     Math.floor(Math.random()*10 + 1)

@@ -5,6 +5,7 @@ const app = express()
 require('dotenv').config()
 
 const API = require('./api.js')
+const studentAPI = require('./student-api.js')
 app.use(express.json())
 app.use(cors())
 
@@ -21,6 +22,7 @@ const pgp = PgPromise({});
 const db = pgp(config);
 
 API(app, db);
+studentAPI(app,db);
 
 let PORT = process.env.PORT;
 // console.log(PORT);
