@@ -1,8 +1,11 @@
 import './style.css'
+import './sign.css'
 import './index.css'
-import '/learner.css'
+import './learner.css'
+
 import Alpine from 'alpinejs'
 import homeworkApp from './homework'
+
 
 // import persist from '@alpinejs/persist'
 

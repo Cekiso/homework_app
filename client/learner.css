@@ -1,66 +1,46 @@
-
-
-*{
-  padding: 0;
-  margin: 0;
-}
-
-#learnersSide{
+#learnersSide {
   font-family: 'Luckiest Guy', cursive;
 
 }
 
 
-.container{
+.container {
   width: 95%;
   margin: auto;
 }
 
-/* .nav{
-  overflow: hidden;
-  background:#FE4A49;
-  color: #fff;
-  padding: 20px 0;
-}
-
-.nav h2{
-  font-size: 2rem;
-  float: left;
-} */
-
-/* nav{
-  float: right;
-} */
-
-nav ul{
+nav ul {
   list-style-type: none;
 }
 
-nav li{
+nav li {
   font-size: 1.3rem;
   margin-top: 5px;
   /* float: left; */
   padding: 0 15px;
 }
 
-/* nav a{
-  text-decoration: none;
-  color: #fff;
-} */
 
-.current a::after{
+.current a::after {
   content: '-';
   font-size: 4px;
   background-color: white;
   display: block;
 }
 
-#wrapper{
-  /* display: grid; */
-  grid-template-columns: 82%;
+.wrapper {
+  background: #fff;
+  border: 1px solid #4A4A4A;
+
+  text-align: center;
+  padding: 1em;
+  margin: .5em 0 2em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  border-radius: 3px;
+  position: relative;
 }
 
-.equation{
+.equation {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,39 +51,29 @@ nav li{
   text-align: center;
   margin: 10px 51px 0px 51px;
 }
-.options h1{
+
+.options h1 {
   cursor: pointer;
   color: whitesmoke;
   border-radius: 3px;
   margin-top: 10px;
-  margin-right:50px ;
+  margin-right: 50px;
   text-align: center;
   width: 100%;
-}  
+}
 
-#option1{
-  background-color: orange;
+#option1 {
+  background-color: #FF9B15;
   transition: 1s;
 }
-#option1:hover{
+
+#option1:hover {
   color: #FE4A49;
   background-color: white;
 }
-.equation h1{
-  display: inline;
-  padding: 20px;
-}
 
-/* .answer-options{
-  font-size: 5.2vw;
-  display: flex;
-  margin: 85px 46px;
-  margin-right: 10px;
-  justify-content: center;
 
-} */
-
- .options{
+.options {
   display: inline-block;
   justify-content: center;
   align-items: center;
@@ -116,224 +86,187 @@ nav li{
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.9);
 }
 
-@media(max-width:768px){
-  .nav h2{
+@media(max-width:768px) {
+  .nav h2 {
     font-size: 1.5rem;
     float: none;
     text-align: center;
   }
 
-  nav{
+  nav {
     float: none;
     display: flex;
     justify-content: center;
   }
 
-  nav li{
+  nav li {
     font-size: 1rem;
   }
 }
 
-@media(max-width:480px){
-  .nav h2{
+@media(max-width:480px) {
+  .nav h2 {
     float: none;
     text-align: center;
   }
 
-  nav li{
+  nav li {
     font-size: .8rem;
   }
 
 }
 
-/* background clouds */
-/* .cloud.one {
-    top: 50%;
-    width: 300px;
-    height: 100px;
-  }
-  
-  .cloud.two {
-    top: 30%;
-    width: 60px;
-    height: 20px;
-    animation-duration: 10s;
-  }
-  
-  .cloud.three {
-    top: 20%;
-    width: 120px;
-    height: 40px;
-    animation-duration: 8s;
-  }
-  
-  .cloud {
-    position: absolute;
-    left: 0;
-    background: white;
-    border-radius: 1000px;
-    animation: zoomies 5s infinite linear;
-  }
-  
-  .cloud::before {
-    content: "";
-    position: absolute;
-    top: -80%;
-    left: 10%;
-    width: 50%;
-    height: 150%;
-    background: white;
-    border-radius: 50%;
-  }
-  
-  .cloud::after {
-    content: "";
-    position: absolute;
-    top: -40%;
-    right: 20%;
-    width: 30%;
-    height: 100%;
-    background: white;
-    border-radius: 50%;
-  }
-  
-  @keyframes zoomies {
-    from {
-      left: 0;
-      transform: translateY(0%);
-    }
-  
-    to {
-      left: 100%;
-      transform: translateY(0%);
-    }
-  } */
-  /* options */
-  #optionBtn{
-    color:#fff;
-    background-color: orange;
-  border: 2px solid rgb(0, 255, 242);
-  /* border-radius: 10px; */
+
+
+/* options */
+#optionBtn {
+  color: #fff;
+  background-color: orange;
+  /* border: 2px solid rgb(0, 255, 242); */
+  border-radius: 10px;
   padding: 6px 78px;
   margin: 11px;
-  }
-  .homework-option{
-   text-align: center;
-  
-  }
+}
 
-  /* nav */
-  .nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  
-  .nav li {
-    /* font-size: 13px; */
-    display: block;
-    float: left;
-    height: 85px;
-    width: 95px;
-    /*new*/
-    text-align: center;
-    /*new*/
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .nav .Home {
-    background: #F18701;
-  }
-  
-  
-  .nav .signOut {
-    background: #F35B04;
-  }
-  
-  .nav .graduation {
-    background: #F7B801;
-  }
-  .nav .Lock {
-    background: #35404f;
-  }
-  .nav li {
-    /* font-family: FontAwesome; */
-    color: #eee;
-    font-size: 0;
-    text-decoration: none;
-    display: block;
-    padding: 15px;
-  }
-  
-  .nav .home li i {
-    color: #fff;
-    padding: 0 10px;
-  }
-  
-  .nav li b {
-    padding: 15px 0;
-    display: none;
-  }
-  
-  .nav a:hover {
-    color: #fff;
-  }
-  
-  .nav .addHomework a:hover {
-    color: #fff;
-  }
-  .nav .Lock a:hover {
-    color: #fff;
-  }
-  .nav .graduation a:hover {
-    color: #fff;
-  }
-  .nav .signOut:hover {
-    color: #fff;
-  }
-  .nav .Lock:hover {
-    color: #fff;
-  }
-  .nav .graduation:hover {
-    color: #fff;
-  }
-  
-  .nav .Home a:hover i {
-    display: none;
-  }
-  .nav .Lock a:hover i {
-    display: none;
-  }
-  
-  .nav .addHomework a:hover i {
-    display: none;
-  }
-  
-  .nav .signOut a:hover i {
-    display: none;
-  }
-  
-  .nav .addHomework:hover b {
-    display: block;
-  }
-  .nav .graduation:hover b {
-    display: block;
-  }
-  .nav .signOut:hover b {
-    display: block;
-  }
-  .nav .Lock:hover b {
-    display: block;
-  }
-  
-  .nav .Home:hover b {
-    display: block;
-  }
-  #successText{
-    text-align: center;
-    font-size: 30px;
-  }
- 
+#optionBox {
+  color: #fff;
+  background-color: #FF9B15;
+  /* border: 2px solid rgb(0, 255, 242); */
+  border-radius: 10px;
+  padding: 6px 78px;
+  margin: 11px;
+
+}
+
+
+.homework-option {
+  text-align: center;
+
+}
+
+/* nav */
+.nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.nav li {
+  /* font-size: 13px; */
+  display: block;
+  float: left;
+  height: 85px;
+  width: 95px;
+  /*new*/
+  text-align: center;
+  /*new*/
+  transition: all 0.2s ease-in-out;
+}
+
+.nav .Home {
+  background: #6B120E;
+}
+
+
+.nav .signOut {
+  background: #FF9B15;
+}
+
+.nav .graduation {
+  background: #F95404;
+}
+
+.nav .Lock {
+  background: #1C0001;
+}
+
+.nav li {
+  /* font-family: FontAwesome; */
+  color: #eee;
+  font-size: 0;
+  text-decoration: none;
+  display: block;
+  padding: 15px;
+}
+
+.nav .home li i {
+  color: #fff;
+  padding: 0 10px;
+}
+
+.nav li b {
+  padding: 15px 0;
+  display: none;
+}
+
+.nav a:hover {
+  color: #fff;
+}
+
+.nav .addHomework a:hover {
+  color: #fff;
+}
+
+.nav .Lock a:hover {
+  color: #fff;
+}
+
+.nav .graduation a:hover {
+  color: #fff;
+}
+
+.nav .signOut:hover {
+  color: #fff;
+}
+
+.nav .Lock:hover {
+  color: #fff;
+}
+
+.nav .graduation:hover {
+  color: #fff;
+}
+
+.nav .Home a:hover i {
+  display: none;
+}
+
+.nav .Lock a:hover i {
+  display: none;
+}
+
+.nav .addHomework a:hover i {
+  display: none;
+}
+
+.nav .signOut a:hover i {
+  display: none;
+}
+
+.nav .addHomework:hover b {
+  display: block;
+}
+
+.nav .graduation:hover b {
+  display: block;
+}
+
+.nav .signOut:hover b {
+  display: block;
+}
+
+.nav .Lock:hover b {
+  display: block;
+}
+
+.nav .Home:hover b {
+  display: block;
+}
+
+#successText {
+  text-align: center;
+  font-size: 30px;
+}
