@@ -8,6 +8,7 @@ require('dotenv').config()
 // const test = require('test');
 
 const API = require('../server/api');
+const studentAPI = require('../server/student-api');
 const { default: axios } = require('axios');
 const app = express();
 
@@ -26,6 +27,7 @@ if (process.env.NODE_ENV == 'production') {
 const pgp = PgPromise({});
 const db = pgp(config);
 API(app, db);
+studentAPI(app,db);
 
 describe('The Homework API', function () {
 
