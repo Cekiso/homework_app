@@ -1,7 +1,7 @@
-import './style.css'
-import './sign.css'
-import './index.css'
-import './learner.css'
+import './src/assert/style.css'
+import './src/assert/sign.css'
+import './src/assert/index.css'
+import './src/assert/learner.css'
 
 import Alpine from 'alpinejs'
 import homeworkApp from './homework'
