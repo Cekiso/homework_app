@@ -16,7 +16,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -37,7 +37,7 @@ export default function homeworkApp() {
         answerList: [],
         list: [],
         finalList: [],
-        gameSection: false,
+        gameSection: true,
         kidsTopic: false,
         kidsQuestion: false,
         kidQuestion: false,
@@ -404,7 +404,7 @@ export default function homeworkApp() {
                                 this.i += 1
                                 this.kidQuestion = result.data.data[this.i].question
                                 this.kidAnswers = result.data.data[this.i].answers
-                                this.successMessage = 'Correct!'
+                                this.successMessage = 'Correct! 🎉🥳'
                             }
                         }
                         else if (this.clickedAnswer == false && this.status == 'attempt 3') {
@@ -415,7 +415,7 @@ export default function homeworkApp() {
                         }
 
                         else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                            this.successMessage = 'Try again'
+                            this.successMessage = 'Try again ❌'
                             this.updateAttempts()
                         }
 
