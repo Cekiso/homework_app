@@ -3,11 +3,12 @@ export default function homeworkApp() {
     const URL_BASE = import.meta.env.VITE_SERVER_URL
 
     // function updateAxiosJWToken() {
-    //     const token = localStorage.getItem('token')
+    //     const token = localStorage.getItem('(token)')
     //     axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
     // }
 
     // updateAxiosJWToken();
+
 
     return {
         firstname: null,
@@ -68,10 +69,16 @@ export default function homeworkApp() {
         goodTopic: [],
         concernTopic: [],
         failed: null,
-        url:null,
-        link:null,
-        number1:0,
-        number2:0,
+        url: null,
+        link: null,
+        number1: 0,
+        number2: 0,
+        loggeIn: true,
+        registration: false,
+        // user: {
+        //     role: ''
+        // },
+
 
         signIn: {
             username: null,
@@ -87,19 +94,17 @@ export default function homeworkApp() {
         },
 
         // init() {
-        //     this.tryLogin()
-        // },
-        // tryLogin() {
-        //     if (localStorage.getItem('token')) {
-        //         console.log('token', localStorage.getItem('token'))
-        //         this
-        //             .displaySubjects()
-        //             console.log(this.subjectsList + ' subject')
-        //                 if (Object.keys(this.subjectsList).length > 0) {
-        //                     this.logUser = true;
-        //                 } else {
-        //                     this.logUser = false;
-        //                 }
+        //     if (localStorage['user'] !== undefined) {
+        //         this.loggeIn = false
+        //         this.registration = false
+        //         this.logUser = true;
+        //         this.user = JSON.parse(localStorage.getItem('user'))
+                
+        //     } else {
+
+        //         this.loggeIn = true
+        //         this.registration = false
+        //         this.logUser = false;
         //     }
         // },
 
@@ -146,12 +151,18 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users.data)
-                    // const { userInfo } = users.data
-                    // console.log(userInfo.token)
+                    // console.log(users.data)
+                    const { userInfo} = users.data
+                    console.log(userInfo.token)
+                    // if (!userInfo) {
+                    //     return false
+                    // }localStorage.setItem('user', JSON.stringify(user));
+                    // this.token = JSON.stringify(token)
+                    // localStorage.setItem('token', this.token);
 
                     // if (userInfo && userInfo.token) {
                     //     localStorage.setItem('token', userInfo.token);
+
                     //     updateAxiosJWToken();
                     // }
                     console.log(users.data.role)
@@ -162,7 +173,7 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
-                        
+
                     }
 
                     else if (users.data.status == 'success' && users.data.role == 'learner') {
@@ -545,7 +556,7 @@ export default function homeworkApp() {
                 })
         },
 
-        
+
         youTube() {
             axios
                 .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic} for kids learning`)
@@ -554,7 +565,7 @@ export default function homeworkApp() {
                     // this.link = result.data.items[0].id.videoId
                     this.url = `https://www.youtube.com/watch?v=${result.data.items[0].id.videoId}`;
                 })
-               
+
         },
 
         // viewProgress(){
