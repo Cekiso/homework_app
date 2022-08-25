@@ -75,9 +75,9 @@ export default function homeworkApp() {
         number2: 0,
         loggeIn: true,
         registration: false,
-        // user: {
-        //     role: ''
-        // },
+        user: {
+            role: ''
+        },
 
 
         signIn: {
@@ -93,20 +93,28 @@ export default function homeworkApp() {
             role: null,
         },
 
-        // init() {
-        //     if (localStorage['user'] !== undefined) {
-        //         this.loggeIn = false
-        //         this.registration = false
-        //         this.logUser = true;
-        //         this.user = JSON.parse(localStorage.getItem('user'))
-                
-        //     } else {
+        init() {
+            console.log(localStorage['user'] !==undefined);
+            if (localStorage['user'] !== undefined) {
 
-        //         this.loggeIn = true
-        //         this.registration = false
-        //         this.logUser = false;
-        //     }
-        // },
+                this.logUser = false;
+                this.user = JSON.parse(localStorage.getItem('user'));
+                console.log("------------------")
+
+                console.log(this.user.role)
+                if (this.user.role === "teacher") {
+                    this.teachersLandingPage = true
+                    this.nav= true
+                } else if (this.user.role === "learner") {
+                    this.gameSection = true;
+                }
+            } else {
+
+                // this.loggeIn = true
+                // this.registration = false
+                this.logUser = true;
+            }
+        },
 
 
         register() {
@@ -152,13 +160,14 @@ export default function homeworkApp() {
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
                     // console.log(users.data)
-                    const { userInfo} = users.data
-                    console.log(userInfo.token)
-                    // if (!userInfo) {
-                    //     return false
-                    // }localStorage.setItem('user', JSON.stringify(user));
-                    // this.token = JSON.stringify(token)
-                    // localStorage.setItem('token', this.token);
+                    const { userInfo, user } = users.data
+                    console.log(userInfo)
+                    if (!userInfo) {
+                        return false
+                    } localStorage.setItem('user', JSON.stringify(user));
+                    this.userInfo = JSON.stringify(userInfo)
+                    localStorage.setItem('token', this.userInfo);
+                    this.clearCredentials()
 
                     // if (userInfo && userInfo.token) {
                     //     localStorage.setItem('token', userInfo.token);
@@ -218,6 +227,18 @@ export default function homeworkApp() {
                     }, 3000);
 
                 })
+        },
+
+        logOut() {
+            localStorage.clear();
+            this.logUser = true
+            this.teachersLandingPage = false
+            this.gameSection = false
+            this.user.role = false
+        },
+
+        clearCredentials(){
+                this.signIn = ''
         },
 
         displaySubjects() {
@@ -415,7 +436,7 @@ export default function homeworkApp() {
                                 this.i += 1
                                 this.kidQuestion = result.data.data[this.i].question
                                 this.kidAnswers = result.data.data[this.i].answers
-                                this.successMessage = 'Correct!'
+                                this.successMessage = 'Correct! 🎉🥳'
                             }
                         }
                         else if (this.clickedAnswer == false && this.status == 'attempt 3') {
@@ -426,7 +447,7 @@ export default function homeworkApp() {
                         }
 
                         else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                            this.successMessage = 'Try again'
+                            this.successMessage = 'Try again ❌'
                             this.updateAttempts()
                         }
 
