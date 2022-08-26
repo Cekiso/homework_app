@@ -3,7 +3,7 @@
 *** (C) ZACH COLE 2016
 **/
 
-/* @import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic); */
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
 
 /* UNIVERSAL */
 /* 
@@ -15,7 +15,7 @@ body {
   left: 0;
   top: 0;
   font-size: 100%;
-} */
+}
 .red{
   color: red;
 }
@@ -70,7 +70,7 @@ p {
 
 .font-heavy {
   font-weight: 700;
-} 
+}
 
 /* POSITIONING */
 
@@ -94,7 +94,7 @@ p {
 
 /* ==== GRID SYSTEM ==== */
 
- .container {
+.container {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -182,7 +182,7 @@ p {
 
 .hidden-sm {
   display: none;
-} 
+}
 
 @media only screen and (min-width: 33.75em) {
 
@@ -190,7 +190,7 @@ p {
   .container {
     width: 80%;
   }
-} 
+}
 
 @media only screen and (min-width: 45em) {
 
