@@ -1,0 +1,42 @@
+.wrapper {
+    height: 350px;
+    width: 700px;
+    margin: 40px auto;
+  }
+  
+  .quiz-box {
+      height: 100%;
+      font-family: 'Courier New', Courier, monospace;
+      border: 3px solid rgba(255, 255, 255, 1);
+      background-color: #FF9B15;
+      border-radius: 0px 10%;
+      box-shadow: 0px 0px 13px 2px rgb(0, 0, 0);
+  }
+ 
+  
+
+  
+  table, td, th {
+    padding:10px;
+  }
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+  table td .grey{
+    color:rgba(255, 255, 255, 0.47);
+  }
+  th {
+      text-align: left;
+    font-size:1.2em;
+  }
+  #result-stats .fa{
+    margin-right:5px;
+  }
+  
+  #result-stats .fa-check-circle{
+    color:#06ff00;
+  }
+  #result-stats .fa-times-circle{
+    color:#ff3d00;
+  }

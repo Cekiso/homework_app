@@ -10,13 +10,14 @@ export default function homeworkApp() {
     // updateAxiosJWToken();
 
     return {
+        firstPage:true,
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -72,7 +73,7 @@ export default function homeworkApp() {
         link:null,
         number1:0,
         number2:0,
-
+memo:false,
         signIn: {
             username: null,
             password: null,
@@ -385,25 +386,27 @@ export default function homeworkApp() {
                         this.question = result.data.data[this.i].question
                         this.recordAttempts()
                         if (this.i == result.data.data.length - 1) {
-                            this.kidQuestion = 'Homework finished!'
+                            this.kidQuestion = null
                             this.kidAnswers = null
+                            this.memo=true
                             // this.successMessage = 'Done!'
-                            console.log('beyonce')
+                            // console.log('beyonce')
                         }
 
                         if (this.clickedAnswer == true) {
                             if (this.i == result.data.data.length - 1) {
-                                this.kidQuestion = 'Homework finished!'
+                                this.kidQuestion = null
                                 this.kidAnswers = null
+                                this.memo=true
                                 // this.successMessage = 'Done!'
-                                console.log('beyonce')
+                                // console.log('beyonce')
                             }
 
                             else {
                                 this.i += 1
                                 this.kidQuestion = result.data.data[this.i].question
                                 this.kidAnswers = result.data.data[this.i].answers
-                                this.successMessage = 'Correct!'
+                                this.successMessage = 'Correct 🥳🎉!'
                             }
                         }
                         else if (this.clickedAnswer == false && this.status == 'attempt 3') {
@@ -414,7 +417,7 @@ export default function homeworkApp() {
                         }
 
                         else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                            this.successMessage = 'Try again'
+                            this.successMessage = 'Try again ❌'
                             this.updateAttempts()
                         }
 
