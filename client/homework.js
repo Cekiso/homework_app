@@ -11,13 +11,14 @@ export default function homeworkApp() {
 
 
     return {
+        firstPage:false,
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -75,6 +76,7 @@ export default function homeworkApp() {
         number2: 0,
         loggeIn: true,
         registration: false,
+        memo:false,
         user: {
             role: ''
         },
@@ -418,18 +420,20 @@ export default function homeworkApp() {
                         this.question = result.data.data[this.i].question
                         this.recordAttempts()
                         if (this.i == result.data.data.length - 1) {
-                            this.kidQuestion = 'Homework finished!'
+                            this.kidQuestion = null
                             this.kidAnswers = null
+                            this.memo=true
                             // this.successMessage = 'Done!'
-                            console.log('beyonce')
+                            // console.log('beyonce')
                         }
 
                         if (this.clickedAnswer == true) {
                             if (this.i == result.data.data.length - 1) {
-                                this.kidQuestion = 'Homework finished!'
+                                this.kidQuestion = null
                                 this.kidAnswers = null
+                                this.memo=true
                                 // this.successMessage = 'Done!'
-                                console.log('beyonce')
+                                // console.log('beyonce')
                             }
 
                             else {
@@ -589,10 +593,6 @@ export default function homeworkApp() {
 
         },
 
-        // viewProgress(){
-        //     Math.floor(Math.random()*10 + 1)
-
-        // }
 
     }
 }

@@ -2,6 +2,8 @@ import './src/assert/style.css'
 import './src/assert/sign.css'
 import './src/assert/index.css'
 import './src/assert/learner.css'
+import './src/assert/calendar.css'
+
 
 import Alpine from 'alpinejs'
 import homeworkApp from './homework'
