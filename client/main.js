@@ -7,10 +7,14 @@ import './src/assert/calendar.css'
 
 import Alpine from 'alpinejs'
 import homeworkApp from './homework'
-// import signLog from './signup'
-// Alpine.data ('signup',signLog)
-window.Alpine = Alpine
 
+
+// import persist from '@alpinejs/persist'
+
+window.Alpine = Alpine
+ 
+// Alpine.plugin(persist)
+ 
 Alpine.data('homework', homeworkApp)
 
 Alpine.start()

@@ -2,22 +2,15 @@ import axios from "axios";
 export default function homeworkApp() {
     const URL_BASE = import.meta.env.VITE_SERVER_URL
 
-    // function updateAxiosJWToken() {
-    //     const token = localStorage.getItem('token')
-    //     axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
-    // }
-
-    // updateAxiosJWToken();
-
     return {
-        firstPage:true,
+        firstPage:false,
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
         createAcc: false,
-        logUser: false,
+        logUser: true,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -69,11 +62,30 @@ export default function homeworkApp() {
         goodTopic: [],
         concernTopic: [],
         failed: null,
-        url:null,
-        link:null,
-        number1:0,
-        number2:0,
-memo:false,
+        url: null,
+        link: null,
+        number1: 0,
+        number2: 0,
+        memo:false,
+
+        score: 0,
+        numberOfQuestions: 0,
+        memorandum: [],
+        wrongAnswer: null,
+        correctAnswer: null,
+        //storing question and attempts
+        questionAndAttempts: [],
+        //storing just the attempts for a question
+        attemptsOnly: [],
+        //storing the latest attempts for a question
+        correctAnswers: [],
+        //another array for control
+        correct: null,
+        user: {
+            role: ''
+        },
+
+
         signIn: {
             username: null,
             password: null,
@@ -87,22 +99,28 @@ memo:false,
             role: null,
         },
 
-        // init() {
-        //     this.tryLogin()
-        // },
-        // tryLogin() {
-        //     if (localStorage.getItem('token')) {
-        //         console.log('token', localStorage.getItem('token'))
-        //         this
-        //             .displaySubjects()
-        //             console.log(this.subjectsList + ' subject')
-        //                 if (Object.keys(this.subjectsList).length > 0) {
-        //                     this.logUser = true;
-        //                 } else {
-        //                     this.logUser = false;
-        //                 }
-        //     }
-        // },
+        init() {
+            console.log(localStorage['user']);
+            if (localStorage['user'] !== undefined) {
+
+               
+                this.logUser= false
+                this.user = JSON.parse(localStorage.getItem('user'));
+                console.log("------------------", this.user)
+                console.log(this.user.role)
+                this.signIn.username = this.user.username
+                if (this.user.role === "teacher") {
+                    this.teachersLandingPage = true
+                    this.nav= true
+                } else if (this.user.role === "learner") {
+                    this.gameSection = true;
+                }
+            } else {
+
+                this.logUser = true;
+               ;
+            }
+        },
 
 
         register() {
@@ -128,10 +146,10 @@ memo:false,
                     }
 
                 })
-                .catch(e => {
-                    console.log(e)
-                    this.registerSuccessMsg = e.response.data.message
-                })
+                // .catch(e => {
+                //     console.log(e)
+                //     this.registerSuccessMsg = e.response.data.message
+                // })
             setTimeout(() => {
                 this.registerSuccessMsg = '';
             }, 3000);
@@ -145,16 +163,16 @@ memo:false,
                 username,
                 password
             })
-                // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    console.log(users.data)
-                    // const { userInfo } = users.data
-                    // console.log(userInfo.token)
-
-                    // if (userInfo && userInfo.token) {
-                    //     localStorage.setItem('token', userInfo.token);
-                    //     updateAxiosJWToken();
-                    // }
+                    console.log(username + "jjjjj")
+                    const { userInfo, user } = users.data
+                    console.log(userInfo)
+                    if (!userInfo) {
+                        return false
+                    } localStorage.setItem('user', JSON.stringify(user));
+                    this.userInfo = JSON.stringify(userInfo)
+                    localStorage.setItem('token', this.userInfo);
+                    
                     console.log(users.data.role)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
@@ -163,6 +181,8 @@ memo:false,
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
+                        // this.firstPage= false
+
                     }
 
                     else if (users.data.status == 'success' && users.data.role == 'learner') {
@@ -174,10 +194,10 @@ memo:false,
                         console.log('fff' + this.name);
                     }
                 })
-                .catch(e => {
-                    console.log(e)
-                    this.loginSuccessMsg = e.response.data.message
-                })
+                // .catch(e => {
+                //     console.log(e)
+                //     this.loginSuccessMsg = e.response.data.message
+                // })
             setTimeout(() => {
                 this.loginSuccessMsg = '';
             }, 3000);
@@ -208,6 +228,19 @@ memo:false,
 
                 })
         },
+
+        logOut() {
+            localStorage.clear();
+            
+            this.logUser = true
+            this.teachersLandingPage = false
+            this.gameSection = false
+            location.reload();
+        },
+
+        // clearCredentials(){
+        //         this.signIn = ''
+        // },
 
         displaySubjects() {
             const url = `${URL_BASE}/api/subjects`
@@ -371,67 +404,105 @@ memo:false,
         },
 
         displayHomeworkForKids() {
+            this.memorandum = []
             const topic = this.topicname
             const url = `${URL_BASE}/api/qAndA/${topic}`
-
-            console.log('eyyyyy ' + this.clickedAnswer)
             axios
                 .get(url)
                 .then((result) => {
-                    console.log('first Q&A' + JSON.stringify(result.data))
+                    console.log('p' + JSON.stringify(result.data.data));
+                    const quizQuestionAndAnswers = result.data.data;
+                    this.numberOfQuestions = quizQuestionAndAnswers.length
+                    this.gettingCorrectValues(quizQuestionAndAnswers)
                     if (result.data.status == 'successful') {
-
-                        this.kidQuestion = result.data.data[this.i].question
-                        this.kidAnswers = result.data.data[this.i].answers
-                        this.question = result.data.data[this.i].question
+                        this.kidQuestion = quizQuestionAndAnswers[this.i].question
+                        this.kidAnswers = quizQuestionAndAnswers[this.i].answers
+                        this.question = quizQuestionAndAnswers[this.i].question
+                        this.correct = this.correctAnswers[this.i]
+                        this.finalAttemptList(this.questionAndAttempts)
                         this.recordAttempts()
-                        if (this.i == result.data.data.length - 1) {
+                        if (this.i == quizQuestionAndAnswers.length - 1) {
                             this.kidQuestion = null
+                            this.displayMemo()
+                            this.memo = true
                             this.kidAnswers = null
-                            this.memo=true
-                            // this.successMessage = 'Done!'
-                            // console.log('beyonce')
+                            console.log('please' + JSON.stringify(this.memorandum))
                         }
-
                         if (this.clickedAnswer == true) {
-                            if (this.i == result.data.data.length - 1) {
+                            if (this.i == quizQuestionAndAnswers.length - 1) {
                                 this.kidQuestion = null
                                 this.kidAnswers = null
-                                this.memo=true
-                                // this.successMessage = 'Done!'
-                                // console.log('beyonce')
+                                this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
                             }
-
                             else {
                                 this.i += 1
-                                this.kidQuestion = result.data.data[this.i].question
-                                this.kidAnswers = result.data.data[this.i].answers
-                                this.successMessage = 'Correct 🥳🎉!'
+                                this.kidQuestion = quizQuestionAndAnswers[this.i].question
+                                this.kidAnswers = quizQuestionAndAnswers[this.i].answers
+                                this.successMessage = 'Correct!'
+                                this.score += 1
+                                this.attemptsOnly = []
+                                this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
                             }
                         }
-                        else if (this.clickedAnswer == false && this.status == 'attempt 3') {
-                            this.i += 1
-                            this.kidQuestion = result.data.data[this.i].question
-                            this.kidAnswers = result.data.data[this.i].answers
-                            this.status = null
+                        else if (this.clickedAnswer == false) {
+                            this.successMessage = 'Try again'
+                            this.attemptsOnly.push(this.wrongAnswer)
+                            this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
+                            this.updateAttempts(this.studentId,this.kidQuestion)
                         }
-
-                        else if (this.clickedAnswer == false && this.status != 'attempt 3') {
-                            this.successMessage = 'Try again ❌'
-                            this.updateAttempts()
-                        }
-
                     }
                     else {
                         this.kidQuestion = result.data.status
                         this.kidAnswers = null
                     }
-
                     setTimeout(() => {
                         this.successMessage = '';
                         this.errorMessage = '';
                     }, 3000);
                 })
+        },
+
+gettingCorrectValues(list) {
+            list.forEach(element => {
+                element.answers.forEach(element => {
+                    if (element.correct == true) {
+                        this.correctAnswer = element.answer
+                    }
+                })
+                this.correctAnswers.push(this.correctAnswer)
+            })
+            console.log('sdfghjk' + JSON.stringify(this.correctAnswers))
+        },
+
+        storingAttempts(list, question, attempts) {
+            list.push({
+                question: question,
+                attempts: attempts,
+            })
+            console.log('hashtag ' + JSON.stringify(list))
+        },
+        
+        finalAttemptList(list) {
+            const uniqueQuestion = [];
+            const noDuplicates = list.filter(element => {
+                const isDuplicate = uniqueQuestion.includes(element.question);
+                if (!isDuplicate) {
+                    uniqueQuestion.push(element.question);
+                    return true;
+                }
+                return false;
+            });
+            this.memorandum = noDuplicates
+            console.log('bad vibes ' + JSON.stringify(this.memorandum));
+        },
+        
+        displayMemo(){
+            this.memorandum.forEach((element, index) => {
+                const answer = this.correctAnswers[index];
+                // console.log(element, answer);
+                element.correct = answer
+              });
+            console.log('rfab' + JSON.stringify(this.memorandum))
         },
 
         recordAttempts() {
@@ -471,14 +542,11 @@ memo:false,
                     question
                 })
                 .then((result) => {
-                    console.log(result.data)
-                    if (result.data.data == 'recorded attempt 3' && this.clickedAnswer == false) {
-                        this.status = 'attempt 3'
-
-                    }
-
-                    if (result.data.data != 'recorded attempt 3' && this.clickedAnswer == false) {
-                        this.status = null
+                    console.log('ayyyy' + JSON.stringify(result.data.status))
+                    console.log(JSON.stringify(result.data) + 'not working')
+                    if (result.data.data == 'recorded attempt 3') {
+                    this.i+=1 
+                      
 
                     }
 
@@ -512,7 +580,9 @@ memo:false,
             })
                 .then((result) => {
                     console.log(result.data)
+                    // {topic: 'Addition', numberOfQuestions: '4', numberOfAttempt3s: 3, avgOfAttempt3: 75}
                     if (result.data.status == 'failed') {
+                        this.progressReport = true
                         this.failed = 'No recorded homework for this day'
                         this.good = false
                         this.concern = false
@@ -545,20 +615,18 @@ memo:false,
                 })
         },
 
+
         youTube() {
             axios
-                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic}`)
+                .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyDrS2e-yHHlnbnoDBJIY4HUYZ8b3V147h4&type=video&q=${this.concernTopic} for kids learning`)
                 .then((result) => {
                     console.log('ooooo' + JSON.stringify(result.data.items[0].id.videoId));
                     // this.link = result.data.items[0].id.videoId
                     this.url = `https://www.youtube.com/watch?v=${result.data.items[0].id.videoId}`;
                 })
-               
+
         },
 
-        viewProgress(){
-            Math.floor(Math.random()*10 + 1)
 
-        }
     }
 }
