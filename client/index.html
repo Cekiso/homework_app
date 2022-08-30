@@ -27,11 +27,9 @@
 
         <div
             x-data="homework">
-            <!-- background -->
-            <div class="section">
-     
-                    <div x-show="firstPage"> 
-                        <div class="container">
+            <section>
+                <div x-show="firstPage">
+                    <div class="container">
                         <div id="homework">
                             <div>
                                 <img src="./imgs/simba-timon-pumbaa2.png" alt="" style="height:60% ;width:30%;">
@@ -40,10 +38,11 @@
                                 <img src="./imgs/simba-timon-pumbaa2.png" alt="" style="height:60% ;width:30%;">
                             </div>
 
-
+<br><br><br>
+<br><br><br>
                             <div style="text-align:center ;">
                                 <img src="./imgs/logo.png" alt="" style="height:60% ;width:40%;"><br>
-                      
+
 
                             </div>
 
@@ -58,6 +57,11 @@
 
 
                 </div>
+            </section>
+            <!-- background -->
+            <div class="section">
+
+               
                 <div class="row">
                     <div class="col-12">
                         <div x-show="logUser" class="container" style="background-color: #f2d398">
@@ -92,7 +96,7 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    <button class="btn btn-primary" @click="logUser = true, firstPage= false, addSubjectSection = false, login()">
+                                    <button class="btn btn-primary" @click="logUser = true, firstPage= false, addSubjectSection = false, login(),firstPage = false">
                                         Login
                                     </button>
                                 </div>
@@ -101,7 +105,7 @@
                                 <p class="col-12">
                                     Don't have an account?
 
-                                    <a href="#" @click="createAcc = true, logUser = false">Create Account</a>
+                                    <a href="#" @click="createAcc = true, logUser = false, firstPage=false">Create Account</a>
                                 </p>
                             </div>
                         </div>
@@ -175,7 +179,7 @@
                         </div>
 
                         <div class="col-12">
-                            <button class="btn btn-primary" @click="logUser = false, createAcc=true, register()">
+                            <button class="btn btn-primary" @click="logUser = false, createAcc=true register()">
                                 Signup
                             </button>
                         </div>
@@ -210,7 +214,7 @@
                                     </li>
 
                                     <li class="LogOut">
-                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false, logOut(),addQuestionSection=false,logUser=true,nav=false">
+                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false, logOut(),addQuestionSection=false,nav=false">
                                             <b style="font-size: 20px">LogOut</b>
                                         </i>
                                     </li>
@@ -228,7 +232,8 @@
                                     <span x-text="signIn.username"></span>
                                 </h1>
                             </div>
-                            <br><br> <br><br>
+                            <br><br>
+                            <br><br>
                             <div class="container">
                                 <div class="row">
 
@@ -298,7 +303,7 @@
                                 <div id="homework">
                                     <div class="d-flex justify-content-center">
                                         <h1>Please add a Subject</h1>
-                        
+
                                     </div>
 
                                     <div x-text="successMessage" class="text-success"></div>
@@ -391,7 +396,7 @@
                         </div>
 
                     </div>
-                   
+
                     <div x-show="addQuestionSection" class="container" x-init="">
                         <div class="d-flex justify-content-center" style="font-size: 35px">
                             <h1>
@@ -455,9 +460,9 @@
                             </div>
 
                             <div class="wrapper-options">
-                                    <div class="row p-2"> <template x-for="(item, index) in finalList" :key="index">
-                                        <div
-                                            class="align-items-center border p-2 wrapper">
+                                <div class="row p-2">
+                                    <template x-for="(item, index) in finalList" :key="index">
+                                        <div class="align-items-center border p-2 wrapper">
                                             <span>
                                                 Question
                                             </span>
@@ -524,8 +529,7 @@
 
                                 <div class="g-col-6">
                                     <div class="h-100 d-inline-block" style="height: 100%;">
-                                        <template
-                                            x-for="subject in subjectsList">
+                                        <template x-for="subject in subjectsList">
 
 
                                             <button class="fa fa-leanpub" aria-hidden="true" style="width: 100%;height: 50px;font-size: 36px;" id="optionBtn" type="button" x-text="subject.add_subject" @click="gameSection=false,kidsQuestion=false,kidsTopic=true,subjectname=subject.add_subject,console.log('and then '+ subjectname),displayTopics()"></button>
@@ -620,7 +624,7 @@
                                         </i>
                                     </li>
                                     <li class="signOut">
-                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false, logOut(),kidsQuestion=false,qAndASection=false,kidsTopic=false">
+                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false, logOut(),kidsQuestion=false,qAndASection=false,kidsTopic=false,logUser=true">
                                             <b style="font-size: 20px">LogOut</b>
                                         </i>
                                     </li>
@@ -631,7 +635,9 @@
                     </header>
 
                     <div id="wrapper" x-show="qAndASection">
-                        <div class="m-4">Score : <span x-text="score"></span>/<span x-text="numberOfQuestions"></span></div>
+                        <div class="m-4">Score :
+                            <span x-text="score"></span>/<span x-text="numberOfQuestions"></span>
+                        </div>
                         <div x-text="successMessage" class="text-success" id="successText"></div>
                         <div class="equation">
                             <span x-text="kidQuestion"></span>
@@ -640,10 +646,7 @@
                         <div>
                             <template x-for="answer in kidAnswers">
                                 <div class="options">
-                                    <h1 id="option1" x-text="answer.answer" x-model="answer.correct"
-                                        @change="console.log('sdfgnm,' + answer.correct + answer.answer)"
-                                        @click="clickedAnswer=answer.correct, wrongAnswer= answer.answer, console.log('hp'+clickedAnswer),displayHomeworkForKids(),memo=false">
-                                    </h1>
+                                    <h1 id="option1" x-text="answer.answer" x-model="answer.correct" @change="console.log('sdfgnm,' + answer.correct + answer.answer)" @click="clickedAnswer=answer.correct, wrongAnswer= answer.answer, console.log('hp'+clickedAnswer),displayHomeworkForKids(),memo=false"></h1>
                                 </div>
                             </template>
                         </div>
@@ -667,12 +670,12 @@
                                         <template x-for="item in memorandum">
                                             <tr>
                                                 <td x-text="item.question"></td>
-                                                  <td>
+                                                <td>
                                                     <!-- <template x-for="attempt in item.attempts"> -->
-                                                        <span x-text="item.attempts"></span>
+                                                    <span x-text="item.attempts"></span>
                                                     <!-- </template> -->
-                                                  </td>
-                                                  <td x-text="item.correct"></td>
+                                                </td>
+                                                <td x-text="item.correct"></td>
                                                 <!-- <td x-text="item.attempts"></td> -->
                                                 <!-- <td x-text="item.correct"></td> -->
                                             </tr>
@@ -696,17 +699,13 @@
                                         <b style="font-size: 20px">Home</b>
                                     </i>
                                 </li>
-                                <li class="signOut">
-                                    <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false, LogOut(),progressReport=false">
-                                        <b style="font-size: 20px">LogOut</b>
-                                    </i>
-                                </li>
+
 
                             </ul>
                         </nav>
                     </div>
                 </header>
-             
+
                 <div class="container">
                     <div class="d-flex justify-content-center">
                         <h1>
@@ -752,6 +751,14 @@
                             <span x-text="name"></span>
                             is doing well in
                             <span x-text="goodTopic"></span>
+                        </p>
+                        <p>
+                            Here is a link to help
+                            <span x-text="name"></span>
+                            further with
+                            <span x-text="goodTopic"></span>
+                            <a :href="`${url}`" target="_blank" x-text="url"></a>
+
                         </p>
                     </div>
                     <div x-show="concern">

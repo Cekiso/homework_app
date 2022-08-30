@@ -3,14 +3,14 @@ export default function homeworkApp() {
     const URL_BASE = import.meta.env.VITE_SERVER_URL
 
     return {
-        firstPage:false,
+        firstPage:true,
         firstname: null,
         lastname: null,
         username: null,
         password: null,
         role: null,
         createAcc: false,
-        logUser: true,
+        logUser: false,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -110,14 +110,18 @@ export default function homeworkApp() {
                 console.log(this.user.role)
                 this.signIn.username = this.user.username
                 if (this.user.role === "teacher") {
+                    this.firstPage=false
                     this.teachersLandingPage = true
                     this.nav= true
                 } else if (this.user.role === "learner") {
+                    this.firstPage=false;
                     this.gameSection = true;
+
                 }
             } else {
 
-                this.logUser = true;
+                // this.logUser = true;
+                // this.firstPage
                ;
             }
         },
@@ -164,7 +168,7 @@ export default function homeworkApp() {
                 password
             })
                 .then((users) => {
-                    console.log(username + "jjjjj")
+                  
                     const { userInfo, user } = users.data
                     console.log(userInfo)
                     if (!userInfo) {
@@ -181,7 +185,7 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
-                        // this.firstPage= false
+                        this.firstPage= false
 
                     }
 
@@ -190,7 +194,7 @@ export default function homeworkApp() {
                         this.logUser = false;
                         this.studentId = users.data.userid
                         this.name = users.data.name
-
+                        this.firstPage= false
                         console.log('fff' + this.name);
                     }
                 })
@@ -407,48 +411,81 @@ export default function homeworkApp() {
             this.memorandum = []
             const topic = this.topicname
             const url = `${URL_BASE}/api/qAndA/${topic}`
+            this.gettingCorrectValues()
             axios
                 .get(url)
                 .then((result) => {
                     console.log('p' + JSON.stringify(result.data.data));
-                    const quizQuestionAndAnswers = result.data.data;
-                    this.numberOfQuestions = quizQuestionAndAnswers.length
-                    this.gettingCorrectValues(quizQuestionAndAnswers)
+                    this.numberOfQuestions = result.data.data.length
                     if (result.data.status == 'successful') {
-                        this.kidQuestion = quizQuestionAndAnswers[this.i].question
-                        this.kidAnswers = quizQuestionAndAnswers[this.i].answers
-                        this.question = quizQuestionAndAnswers[this.i].question
+                        // this.attemptsOnly = []
+                        this.kidQuestion = result.data.data[this.i].question
+                        this.kidAnswers = result.data.data[this.i].answers
+                        this.question = result.data.data[this.i].question
                         this.correct = this.correctAnswers[this.i]
-                        this.finalAttemptList(this.questionAndAttempts)
                         this.recordAttempts()
-                        if (this.i == quizQuestionAndAnswers.length - 1) {
-                            this.kidQuestion = null
-                            this.displayMemo()
-                            this.memo = true
-                            this.kidAnswers = null
-                            console.log('please' + JSON.stringify(this.memorandum))
-                        }
                         if (this.clickedAnswer == true) {
-                            if (this.i == quizQuestionAndAnswers.length - 1) {
-                                this.kidQuestion = null
-                                this.kidAnswers = null
-                                this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
-                            }
-                            else {
-                                this.i += 1
-                                this.kidQuestion = quizQuestionAndAnswers[this.i].question
-                                this.kidAnswers = quizQuestionAndAnswers[this.i].answers
-                                this.successMessage = 'Correct!'
+                            if (this.i == result.data.data.length - 1) {
                                 this.score += 1
                                 this.attemptsOnly = []
+                                this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly,this.correct)
+                                console.log('stubborn q' + JSON.stringify(this.questionAndAttempts));
+                                this.finalAttemptList(this.questionAndAttempts)
+                                this.kidQuestion = null
+                                this.kidAnswers = null
+                                // this.displayMemo(this.questionAndAttempts)
+                                this.memo = true
+                            }
+                            else {
+                                this.attemptsOnly = []
                                 this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
+                                console.log('stubborn q' + JSON.stringify(this.questionAndAttempts));
+                                this.i += 1
+                                this.successMessage = 'Correct!'
+                                this.score += 1
+                                this.kidQuestion = result.data.data[this.i].question
+                                this.kidAnswers = result.data.data[this.i].answers
                             }
                         }
-                        else if (this.clickedAnswer == false) {
+                        else if (this.i == result.data.data.length - 1 && this.clickedAnswer == false && this.status == 'attempt 3') {
+                            this.kidQuestion = null
+                            this.kidAnswers = null
+                            this.status = null
+                            this.attemptsOnly.push(this.wrongAnswer)
+                            this.updateAttempts(this.i, this.studentId, this.kidQuestion)
+                            this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
+                        }
+                        else if (this.clickedAnswer == false && this.status == 'attempt 3') {
+                            console.log('stubborn q' + JSON.stringify(this.questionAndAttempts));
+                            console.log('status' + this.status);
+                            this.status = null
+                            this.attemptsOnly = []
+                            this.i += 1
+                            this.successMessage = 'Try again'
+                            this.attemptsOnly.push(this.wrongAnswer)
+                            this.updateAttempts(this.i, this.studentId, this.kidQuestion)
+                            this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
+                            this.finalAttemptList(this.questionAndAttempts)
+                            this.kidQuestion = result.data.data[this.i].question
+                            this.kidAnswers = result.data.data[this.i].answers
+                        }
+                        else if (this.i == result.data.data.length - 1 && this.clickedAnswer == false) {
                             this.successMessage = 'Try again'
                             this.attemptsOnly.push(this.wrongAnswer)
                             this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
-                            this.updateAttempts(this.studentId,this.kidQuestion)
+                            this.updateAttempts(this.i, this.studentId, this.kidQuestion)
+                            this.kidQuestion = result.data.data[this.i].question
+                            this.kidAnswers = result.data.data[this.i].answers
+                        }
+                        else if (this.clickedAnswer == false) {
+                            console.log('stubborn q' + JSON.stringify(this.questionAndAttempts));
+                            console.log('status' + this.status);
+                            this.successMessage = 'Try again'
+                            this.attemptsOnly.push(this.wrongAnswer)
+                            this.storingAttempts(this.questionAndAttempts, this.kidQuestion, this.attemptsOnly, this.correct)
+                            this.updateAttempts(this.i, this.studentId, this.kidQuestion)
+                            this.kidQuestion = result.data.data[this.i].question
+                            this.kidAnswers = result.data.data[this.i].answers
                         }
                     }
                     else {
@@ -462,22 +499,32 @@ export default function homeworkApp() {
                 })
         },
 
-gettingCorrectValues(list) {
-            list.forEach(element => {
-                element.answers.forEach(element => {
-                    if (element.correct == true) {
-                        this.correctAnswer = element.answer
-                    }
+        gettingCorrectValues() {
+            const topic = this.topicname
+            const url = `${URL_BASE}/api/qAndA/${topic}`
+            axios
+                .get(url)
+                .then((result) => {
+                    console.log('yoh' + result.data.data);
+                    result.data.data.forEach(element => {
+                        element.answers.forEach(answer => {
+                            console.log('answer' + JSON.stringify(answer))
+                        if (!this.correctAnswers.includes(answer.answer) && answer.correct == true) {
+                            // this.correctAnswer = element.answers.correct
+                            // // console.log('answer' + element.answers.correct)
+                            this.correctAnswers.push(answer.answer)
+                        }
+                        })
+                    })
+                    console.log('correct answers' + JSON.stringify(this.correctAnswers))
                 })
-                this.correctAnswers.push(this.correctAnswer)
-            })
-            console.log('sdfghjk' + JSON.stringify(this.correctAnswers))
         },
 
-        storingAttempts(list, question, attempts) {
+        storingAttempts(list, question, attempts,correct) {
             list.push({
                 question: question,
                 attempts: attempts,
+                correct : correct
             })
             console.log('hashtag ' + JSON.stringify(list))
         },
@@ -496,13 +543,14 @@ gettingCorrectValues(list) {
             console.log('bad vibes ' + JSON.stringify(this.memorandum));
         },
         
-        displayMemo(){
-            this.memorandum.forEach((element, index) => {
+        displayMemo(list) {
+            list.forEach((element, index) => {
                 const answer = this.correctAnswers[index];
                 // console.log(element, answer);
                 element.correct = answer
-              });
-            console.log('rfab' + JSON.stringify(this.memorandum))
+            });
+            this.memorandum = list
+            console.log('rfab' + JSON.stringify(list))
         },
 
         recordAttempts() {
@@ -530,28 +578,27 @@ gettingCorrectValues(list) {
                 })
         },
 
-        updateAttempts() {
+        updateAttempts(index, student, currentQuestion) {
             const url = `${URL_BASE}/api/recordAttempts`
-
-            const studentId = this.studentId
-            const question = this.question
-
+            const studentId = student
+            const question = currentQuestion
             axios
                 .put(url, {
                     studentId,
                     question
                 })
                 .then((result) => {
-                    console.log('ayyyy' + JSON.stringify(result.data.status))
-                    console.log(JSON.stringify(result.data) + 'not working')
+                    console.log('recorded attempts' + JSON.stringify(result.data.data))
+                    console.log('first index' + index)
                     if (result.data.data == 'recorded attempt 3') {
-                    this.i+=1 
-                      
-
+                        index += 1
+                        this.status = 'attempt 3'
                     }
-
+                    console.log('second index' + index)
                 })
         },
+
+
 
         checkProgressByDate() {
             $(function () {
@@ -599,6 +646,7 @@ gettingCorrectValues(list) {
                                 this.good = true
                                 this.goodTopic.push(element.topic);
                                 this.failed = null
+                                  this.youTube()
                                 // this.concern = false
                             }
 
