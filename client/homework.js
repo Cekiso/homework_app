@@ -161,7 +161,7 @@ export default function homeworkApp() {
             })
                 // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    // console.log(users.data)
+                    console.log(username + "jjjjj")
                     const { userInfo, user } = users.data
                     console.log(userInfo)
                     if (!userInfo) {
@@ -169,7 +169,7 @@ export default function homeworkApp() {
                     } localStorage.setItem('user', JSON.stringify(user));
                     this.userInfo = JSON.stringify(userInfo)
                     localStorage.setItem('token', this.userInfo);
-                    this.clearCredentials()
+                    // this.clearCredentials()
 
                     // if (userInfo && userInfo.token) {
                     //     localStorage.setItem('token', userInfo.token);
@@ -236,12 +236,12 @@ export default function homeworkApp() {
             this.logUser = true
             this.teachersLandingPage = false
             this.gameSection = false
-            this.user.role = false
+            location.reload();
         },
 
-        clearCredentials(){
-                this.signIn = ''
-        },
+        // clearCredentials(){
+        //         this.signIn = ''
+        // },
 
         displaySubjects() {
             const url = `${URL_BASE}/api/subjects`
