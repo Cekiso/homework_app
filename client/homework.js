@@ -107,8 +107,8 @@ export default function homeworkApp() {
                 this.logUser= false
                 this.user = JSON.parse(localStorage.getItem('user'));
                 console.log("------------------", this.user)
-                    this.signIn.username = this.user.username
                 console.log(this.user.role)
+                this.signIn.username = this.user.username
                 if (this.user.role === "teacher") {
                     this.teachersLandingPage = true
                     this.nav= true

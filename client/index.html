@@ -92,7 +92,7 @@
 
                             <div class="row">
                                 <div class="col-12">
-                                    <button class="btn btn-primary" @click="logUser = true, addSubjectSection = false, login()">
+                                    <button class="btn btn-primary" @click="logUser = true, firstPage= false, addSubjectSection = false, login()">
                                         Login
                                     </button>
                                 </div>
@@ -210,7 +210,7 @@
                                     </li>
 
                                     <li class="LogOut">
-                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false,addQuestionSection=false,logUser=true,nav=false">
+                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="addSubjectSection=false,displayQuestionsSection=false,topicSection=false,showTopicHW=false,teachersLandingPage=false, logOut(),addQuestionSection=false,logUser=true,nav=false">
                                             <b style="font-size: 20px">LogOut</b>
                                         </i>
                                     </li>
@@ -507,7 +507,7 @@
                                         </i>
                                     </li>
                                     <li class="signOut">
-                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,progressReport=false,memo=false">
+                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false, logOut(),qAndASection=false,kidsTopic=false,privacy=false,progressReport=false">
                                             <b style="font-size: 20px">LogOut</b>
                                         </i>
                                     </li>
@@ -620,7 +620,7 @@
                                         </i>
                                     </li>
                                     <li class="signOut">
-                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,memo=false">
+                                        <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false, logOut(),kidsQuestion=false,qAndASection=false,kidsTopic=false">
                                             <b style="font-size: 20px">LogOut</b>
                                         </i>
                                     </li>
@@ -697,7 +697,7 @@
                                     </i>
                                 </li>
                                 <li class="signOut">
-                                    <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false,progressReport=false,memo=false">
+                                    <i class="fa fa-sign-out" aria-hidden="true" style="font-size: 36px" href="index.html" @click="logUser=true,gameSection=false,kidsQuestion=false,qAndASection=false,kidsTopic=false,privacy=false, LogOut(),progressReport=false">
                                         <b style="font-size: 20px">LogOut</b>
                                     </i>
                                 </li>
