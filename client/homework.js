@@ -2,14 +2,6 @@ import axios from "axios";
 export default function homeworkApp() {
     const URL_BASE = import.meta.env.VITE_SERVER_URL
 
-    // function updateAxiosJWToken() {
-    //     const token = localStorage.getItem('(token)')
-    //     axios.defaults.headers.common = { 'Authorization': `bearer ${token}` }
-    // }
-
-    // updateAxiosJWToken();
-
-
     return {
         firstPage:false,
         firstname: null,
@@ -18,7 +10,7 @@ export default function homeworkApp() {
         password: null,
         role: null,
         createAcc: false,
-        logUser: false,
+        logUser: true,
         teachersLandingPage: false,
         addedSubject: null,
         addedTopic: null,
@@ -74,8 +66,6 @@ export default function homeworkApp() {
         link: null,
         number1: 0,
         number2: 0,
-        loggeIn: true,
-        registration: false,
         memo:false,
 
         score: 0,
@@ -110,14 +100,14 @@ export default function homeworkApp() {
         },
 
         init() {
-            console.log(localStorage['user'] !==undefined);
+            console.log(localStorage['user']);
             if (localStorage['user'] !== undefined) {
 
-                this.firstPage=false;
-                // this.logUser = false;
+               
+                this.logUser= false
                 this.user = JSON.parse(localStorage.getItem('user'));
-                console.log("------------------")
-
+                console.log("------------------", this.user)
+                    this.signIn.username = this.user.username
                 console.log(this.user.role)
                 if (this.user.role === "teacher") {
                     this.teachersLandingPage = true
@@ -127,10 +117,8 @@ export default function homeworkApp() {
                 }
             } else {
 
-                // this.loggeIn = true
-                // this.registration = false
-                this.firstPage=true;
-                // this.logUser = false;
+                this.logUser = true;
+               ;
             }
         },
 
@@ -175,9 +163,8 @@ export default function homeworkApp() {
                 username,
                 password
             })
-                // let username = /^[0-9a-zA-Z_.-]+$/.test(username)
                 .then((users) => {
-                    // console.log(users.data)
+                    console.log(username + "jjjjj")
                     const { userInfo, user } = users.data
                     console.log(userInfo)
                     if (!userInfo) {
@@ -185,13 +172,7 @@ export default function homeworkApp() {
                     } localStorage.setItem('user', JSON.stringify(user));
                     this.userInfo = JSON.stringify(userInfo)
                     localStorage.setItem('token', this.userInfo);
-                    // this.clearCredentials()
-
-                    // if (userInfo && userInfo.token) {
-                    //     localStorage.setItem('token', userInfo.token);
-
-                    //     updateAxiosJWToken();
-                    // }
+                    
                     console.log(users.data.role)
                     console.log('user ' + this.loginSuccessMsg);
                     if (users.data.status == 'success' && users.data.role == 'teacher') {
@@ -200,6 +181,7 @@ export default function homeworkApp() {
                         this.nav = true;
                         this.teachersLandingPage = true;
                         this.logUser = false;
+                        // this.firstPage= false
 
                     }
 
@@ -253,8 +235,7 @@ export default function homeworkApp() {
             this.logUser = true
             this.teachersLandingPage = false
             this.gameSection = false
-            this.user.role = false
-            // location.reload
+            location.reload();
         },
 
         // clearCredentials(){
